@@ -1,92 +1,700 @@
-from pathlib import Path
-
-# Save the cleaned HTML code to a file
-cleaned_html_code = """
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"/>
-  <title>로컬잇파주 - 커뮤니티 & 직거래 장터</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    body { font-family: 'Apple SD Gothic Neo', sans-serif; margin: 0; background-color: #fefefe; color: #333; }
-    nav { background-color: #212121; padding: 20px; position: sticky; top: 0; z-index: 1000; }
-    nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin: 0; padding: 0; }
-    nav ul li a { color: white; text-decoration: none; font-weight: bold; cursor: pointer; }
-    .section-title { font-size: 2em; text-align: center; margin: 60px 0 40px; }
-    .card, .form-box, .comment-box {
-      background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px;
-    }
-    .home-posts { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 0 20px; }
-    .form-box input, .form-box textarea {
-      width: 100%; padding: 10px; margin-top: 10px; margin-bottom: 20px;
-      border: 1px solid #ccc; border-radius: 6px;
-    }
-    .form-box button {
-      background-color: #2E7D32; color: white; border: none;
-      padding: 10px 20px; border-radius: 6px; cursor: pointer;
-    }
-    #login-section { padding: 40px; }
-  </style>
-  <script>
-    function translateWeather(desc) {
-      const dict = {
-        "Overcast": "흐림", "Partly Cloudy": "구름 조금", "Cloudy": "흐림",
-        "Sunny": "맑음", "Clear": "맑음", "Rain": "비", "Light rain": "약한 비",
-        "Showers": "소나기", "Thunderstorm": "천둥번개", "Snow": "눈"
-      };
-      return dict[desc] || desc;
-    }
+    <meta charset="utf-8"/>
+    <title>로컬잇파주 - 커뮤니티 & 직거래 장터</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <style>
+        /* Basic Reset & Font */
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: #f8f9fa; /* Lighter background */
+            color: #343a40; /* Darker text */
+            line-height: 1.6;
+        }
 
-    async function fetchWeather() {
-      try {
-        const res = await fetch('https://wttr.in/파주?format=j1');
-        const data = await res.json();
-        const now = data.current_condition[0];
-        const tomorrow = data.weather[1];
-        document.getElementById('weather-now').innerText =
-          `현재 기온: ${now.temp_C}°C, 상태: ` + translateWeather(now.weatherDesc[0].value);
-        document.getElementById('weather-tomorrow').innerText =
-          `내일 기온: ${tomorrow.avgtempC}°C, 상태: ` + translateWeather(tomorrow.hourly[4].weatherDesc[0].value);
-      } catch {
-        document.getElementById('weather-now').innerText = '날씨 정보를 불러올 수 없습니다.';
-        document.getElementById('weather-tomorrow').innerText = '';
-      }
-    }
+        /* Header */
+        header.main-header { /* Renamed for clarity */
+            background-color: #007bff; /* Primary color */
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        header.main-header h1 {
+            margin: 0;
+            font-size: 2.5em; /* Larger title */
+        }
+        header.main-header .subtitle { /* Added class */
+             margin-top: 8px;
+             font-size: 1.1em;
+             opacity: 0.9;
+        }
 
-    window.onload = () => {
-      fetchWeather();
-      setInterval(fetchWeather, 60 * 60 * 1000);
-    };
-  </script>
+        /* Navigation */
+        nav {
+            background-color: #343a40; /* Darker nav */
+            padding: 15px 20px; /* Adjusted padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px; /* Row and column gap */
+            margin: 0;
+            padding: 0;
+            align-items: center; /* Vertically align items */
+        }
+        nav ul li a {
+            color: #f8f9fa; /* Lighter link color */
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95em; /* Slightly smaller font */
+            padding: 5px 0;
+            transition: color 0.2s ease;
+        }
+        nav ul li a:hover, nav ul li a:focus {
+            color: #007bff; /* Highlight color on hover */
+        }
+        .nav-weather, .nav-login { /* Added classes for specific nav items */
+            margin-left: auto; /* Push weather/login to the right */
+            color: #adb5bd; /* Grey color */
+            font-size: 0.9em;
+            display: flex; /* Align items nicely */
+            gap: 15px; /* Space between weather and login */
+        }
+        .nav-login a { /* Style login link specifically */
+             color: #f8f9fa;
+             font-weight: bold;
+             cursor: pointer;
+        }
+         .nav-login a:hover {
+             color: #007bff;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.2em; /* Larger title */
+            text-align: center;
+            margin: 70px 0 40px; /* More vertical space */
+            color: #0056b3; /* Darker blue */
+            font-weight: 600;
+        }
+
+        /* Cards (General) */
+        .card, .form-box, .comment-box, .post {
+            background: white;
+            border-radius: 12px; /* More rounded */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
+            padding: 25px; /* More padding */
+            margin-bottom: 20px; /* Consistent bottom margin */
+            overflow: hidden; /* Ensure content fits */
+        }
+        .card h3, .form-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px; /* Space below title */
+            color: #007bff;
+            font-size: 1.3em;
+        }
+        .card p {
+            margin-bottom: 5px;
+            color: #495057; /* Slightly lighter text */
+        }
+
+        /* Containers for Cards/Posts */
+        .card-container, .home-posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 20px; /* Padding on sides */
+        }
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly larger min width */
+            gap: 30px; /* More gap */
+            padding: 30px 20px; /* Consistent padding */
+        }
+
+        /* Marketplace Specific */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px; /* More gap */
+            justify-content: center;
+            padding: 25px 20px;
+            background: #e9ecef; /* Light grey background for filters */
+            border-radius: 8px;
+            margin: 0 20px 30px; /* Spacing */
+        }
+        .filters select, .filters input[type='text'] {
+            padding: 12px 15px; /* Better padding */
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .post img {
+            width: 100%;
+            height: 200px; /* Larger image */
+            object-fit: cover;
+            border-radius: 8px; /* Rounded images */
+            margin-bottom: 15px; /* Space below image */
+        }
+        .post-content { padding: 0; } /* Remove padding here, use card padding */
+        .post-content h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+        }
+        .post-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #495057;
+        }
+        .post-meta {
+            font-size: 0.85em;
+            color: #6c757d; /* Grey meta text */
+            margin-top: 10px;
+            display: block; /* Ensure it takes full width */
+        }
+
+        /* Comments */
+        .comment-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa; /* Slightly different background */
+        }
+        .comment-box textarea {
+            width: calc(100% - 24px); /* Adjust width for padding */
+            height: 70px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-family: inherit; /* Use body font */
+            font-size: 0.95em;
+        }
+        .comment-box button {
+            background-color: #6c757d; /* Grey button */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .comment-box button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Login/Signup Form */
+        #login-section {
+            display: none; /* Hidden by default */
+            padding: 50px 20px;
+            background-color: #e9ecef; /* Light background for focus */
+        }
+        .form-box {
+            max-width: 450px; /* Slightly wider */
+            margin: auto;
+            text-align: center; /* Center form elements */
+        }
+        .form-box input[type="email"],
+        .form-box input[type="password"],
+        .form-box input[type="text"],
+        .form-box textarea {
+            box-sizing: border-box; /* Include padding in width */
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        .form-box .gender-options { /* Class for gender radios */
+             margin-bottom: 25px;
+             text-align: left; /* Align radio labels left */
+             padding-left: 10px; /* Indent slightly */
+        }
+        .form-box label { margin-right: 15px; cursor: pointer; }
+        .form-box button {
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            padding: 12px 25px; /* Bigger button */
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+        .form-box button:hover {
+            background-color: #218838;
+        }
+
+        /* User Badges/Levels */
+         .badge {
+            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 15px; /* Pill shape */
+            font-weight: 600;
+            margin-left: 8px; /* Space from nickname */
+            vertical-align: middle; /* Align nicely with text */
+        }
+        .badge.lv1 { background: #e9ecef; color: #495057; } /* Level 1 */
+        .badge.lv3 { background: #d1ecf1; color: #0c5460; } /* Level 3 */
+        .badge.lv7 { background: #fff3cd; color: #856404; } /* Level 7 */
+
+        /* Weather Section */
+        #weather-section { /* Renamed ID */
+            padding: 40px 20px;
+            background-color: #e9ecef;
+            text-align: center;
+        }
+        #weather-section h2 { margin-top: 0; }
+        #weather-now-detail, #weather-tomorrow-detail {
+             color: #343a40;
+             font-size: 1.1em;
+             margin-bottom: 10px;
+        }
+
+        /* Blog/News Results */
+        #blog-results, #news-list, #cafe-list, #job-list {
+            padding: 30px 20px;
+            background-color: #f8f9f9;
+        }
+        .list-item { /* Style for list items in news/cafe/job */
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item h3 { margin: 0 0 8px 0; font-size: 1.1em; color: #007bff; }
+        .list-item p { margin: 0; color: #495057; }
+        .list-item a { text-decoration: none; color: inherit; }
+        .list-item a:hover h3 { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: #adb5bd;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px; /* Space before footer */
+            font-size: 0.9em;
+        }
+    </style>
+    <script>
+        // Function to toggle the login/signup section visibility
+        function toggleLogin() {
+            const loginSection = document.getElementById("login-section");
+            const isHidden = loginSection.style.display === "none" || loginSection.style.display === "";
+            loginSection.style.display = isHidden ? "block" : "none";
+            if (isHidden) {
+                // Scroll smoothly to the login section, accounting for the sticky nav height
+                const navHeight = document.querySelector('nav')?.offsetHeight || 60; // Get nav height or fallback
+                window.scrollTo({
+                    top: loginSection.offsetTop - navHeight - 20, // Adjust scroll position
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Function to translate English weather descriptions to Korean
+        function translateWeather(desc) {
+          const dict = {
+            "Overcast": "흐림",
+            "Partly Cloudy": "구름 조금", // Changed translation
+            "Cloudy": "흐림",
+            "Sunny": "맑음",
+            "Clear": "맑음",
+            "Rain": "비",
+            "Light rain": "약한 비",
+            "Heavy rain": "강한 비",
+            "Showers": "소나기",
+            "Light rain shower": "약한 소나기",
+            "Thunderstorm": "천둥번개",
+            "Snow": "눈",
+            "Light snow": "약한 눈",
+            "Heavy snow": "강한 눈",
+            "Sleet": "진눈깨비",
+            "Mist": "옅은 안개",
+            "Fog": "안개",
+            "Haze": "연무",
+            // Add more translations as needed
+          };
+          // Handle cases like "Light rain shower" - find the best match
+          for (const key in dict) {
+              // Check if the description *starts with* or *exactly matches* the key
+              if (desc.toLowerCase().startsWith(key.toLowerCase()) || desc.toLowerCase() === key.toLowerCase()) {
+                  return dict[key];
+              }
+          }
+           // Fallback for partial match if no exact/start match found
+           for (const key in dict) {
+              if (desc.toLowerCase().includes(key.toLowerCase())) {
+                    return dict[key];
+              }
+           }
+          return desc; // Return original if no translation found
+        }
+
+        // Function to fetch and display weather information
+        async function fetchWeather() {
+          const weatherNavElement = document.getElementById("weather-nav-display");
+          const weatherNowElement = document.getElementById("weather-now-detail");
+          const weatherTomorrowElement = document.getElementById("weather-tomorrow-detail");
+
+          // Set initial loading state
+          if (weatherNavElement) weatherNavElement.innerText = "날씨 로딩 중...";
+          if (weatherNowElement) weatherNowElement.innerText = "현재 날씨: 로딩 중...";
+          if (weatherTomorrowElement) weatherTomorrowElement.innerText = "내일 날씨: 로딩 중...";
+
+          try {
+            // Fetch weather data from wttr.in (JSON format)
+            const res = await fetch('https://wttr.in/파주?format=j1');
+            if (!res.ok) throw new Error(`API 오류: ${res.status}`);
+            const data = await res.json();
+
+            // Process current conditions
+            const now = data.current_condition[0];
+            const currentTemp = now.temp_C;
+            const currentDesc = translateWeather(now.weatherDesc[0].value);
+            const feelsLike = now.FeelsLikeC;
+            const weatherNavText = `🌤️ 파주: ${currentTemp}°C, ${currentDesc}`;
+
+            // Process tomorrow's forecast (using the main forecast array)
+            const tomorrow = data.weather[1]; // Index 1 is usually tomorrow
+            const tomorrowAvgTemp = tomorrow.avgtempC;
+            // Find a representative description (e.g., mid-day)
+            const tomorrowDesc = translateWeather(tomorrow.hourly.find(h => h.time === "1200")?.weatherDesc[0].value || tomorrow.hourly[4].weatherDesc[0].value); // Noon or fallback
+            const tomorrowMin = tomorrow.mintempC;
+            const tomorrowMax = tomorrow.maxtempC;
+            const weatherTomorrowText = `내일: 최저 ${tomorrowMin}°C / 최고 ${tomorrowMax}°C (${tomorrowDesc})`;
+
+            // Update the DOM elements
+            if (weatherNavElement) weatherNavElement.innerText = weatherNavText;
+            if (weatherNowElement) weatherNowElement.innerText = `현재 날씨: ${currentTemp}°C (${currentDesc}), 체감온도: ${feelsLike}°C`;
+            if (weatherTomorrowElement) weatherTomorrowElement.innerText = weatherTomorrowText;
+
+          } catch (e) {
+            console.error("날씨 정보 로딩 실패:", e);
+            const errorMsg = "날씨 정보 로딩 실패";
+            if (weatherNavElement) weatherNavElement.innerText = "날씨 로딩 실패";
+            if (weatherNowElement) weatherNowElement.innerText = `현재 날씨: ${errorMsg}`;
+            if (weatherTomorrowElement) weatherTomorrowElement.innerText = `내일 날씨: ${errorMsg}`;
+          }
+        }
+
+        // --- Naver Blog API ---
+        // 경고: 여기에 클라이언트 ID와 시크릿을 노출하는 것은 심각한 보안 위험입니다.
+        // 실제 애플리케이션에서는 이 API 호출을 반드시 자체 서버를 통해 프록시 처리해야 합니다.
+        const clientId = "sRWrVGzhjlf_XQin0piV"; // 실제 ID로 교체 (서버 측에 보관!)
+        const clientSecret = "dzYflaHzKM"; // 실제 Secret으로 교체 (서버 측에 보관!)
+
+        async function fetchNaverBlogs() {
+          const query = "파주 맛집"; // 예시 검색어
+          const displayCount = 5;
+          // 중요: 실제 서비스에서는 서버 측 프록시 URL을 사용해야 합니다.
+          // 예시 (클라이언트 측 직접 호출 - 보안 취약):
+          const url = `/v1/search/blog?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`; // 프록시 경로 사용 가정
+
+          // 실제 앱에서는 서버 엔드포인트에서 가져옵니다:
+          // const url = `/api/naver-search?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`;
+
+          const container = document.getElementById("naver-blog-results");
+          if (!container) return;
+          container.innerHTML = '<p>블로그 글 로딩 중...</p>'; // 로딩 표시
+
+          try {
+                // 참고: 직접 호출은 CORS 문제로 인해 브라우저에서 작동하지 않을 수 있습니다 (프록시 필요).
+                // 이 fetch는 Naver 헤더를 추가하는 프록시 서버로 보내져야 합니다.
+                // 데모 목적상 /v1/search/blog에 프록시가 설정되었다고 가정합니다.
+                // 프록시 없이 실행하면 실패할 가능성이 높습니다.
+             /*
+                // *서버 측 프록시*를 사용할 경우의 코드 모습:
+                const response = await fetch(`/api/naver-search?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`);
+                if (!response.ok) throw new Error(`네이버 API 오류: ${response.status}`);
+                const data = await response.json();
+             */
+
+             // 직접 호출 시뮬레이션 (브라우저에서 CORS 및 보안 문제로 실패할 가능성 높음)
+              const response = await fetch(url, {
+                  method: "GET",
+                  headers: {
+                      // 이 헤더들은 브라우저에서 직접 보내면 안 됩니다.
+                      // 원본 스니펫에 있었기 때문에 여기에 표시되었을 뿐입니다.
+                      "X-Naver-Client-Id": clientId,
+                      "X-Naver-Client-Secret": clientSecret,
+                  }
+               });
+
+              if (!response.ok) {
+                  // CORS 오류 또는 기타 네트워크 문제 처리
+                  if (response.status === 0 || response.type === 'opaque' || response.type === 'cors') {
+                       throw new Error("네트워크 오류 또는 CORS 문제 발생. 서버 측 프록시 설정이 필요합니다.");
+                  } else {
+                       throw new Error(`네이버 API 오류: ${response.status}`);
+                  }
+              }
+
+              const data = await response.json();
+
+              container.innerHTML = ''; // 로딩 표시 제거
+              if (data.items && data.items.length > 0) {
+                  data.items.forEach(item => {
+                      const div = document.createElement("div");
+                      div.classList.add('list-item'); // list-item 스타일 사용
+                      // 제목과 설명에서 HTML 태그 제거 (기본)
+                      const title = item.title.replace(/<[^>]*>/g, "");
+                      const description = item.description.replace(/<[^>]*>/g, "");
+                      // 날짜 형식 변환 (YYYYMMDD -> YYYY.MM.DD)
+                      const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3');
+                      div.innerHTML = `
+                          <a href="${item.link}" target="_blank" rel="noopener noreferrer">
+                              <h3>${title}</h3>
+                              <p>${description}</p>
+                              <small style="color: #6c757d;">${item.bloggername} (${postDate})</small>
+                          </a>
+                      `;
+                      container.appendChild(div);
+                  });
+              } else {
+                  container.innerHTML = '<p>관련 블로그 글을 찾을 수 없습니다.</p>';
+              }
+          } catch (error) {
+              console.error("네이버 블로그 로딩 실패:", error);
+              container.innerHTML = `<p style="color: red;">블로그 글 로딩 중 오류 발생: ${error.message}</p><p>참고: 보안 및 CORS 정책으로 인해 브라우저에서 직접 네이버 API를 호출하는 것은 권장되지 않으며, 서버 프록시가 필요합니다.</p>`;
+          }
+        }
+
+        // --- 페이지 콘텐츠 로드 시 함수 실행 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchWeather(); // 초기 날씨 정보 가져오기
+            setInterval(fetchWeather, 60 * 60 * 1000); // 1시간마다 날씨 업데이트
+
+            fetchNaverBlogs(); // 네이버 블로그 게시물 가져오기
+        });
+
+    </script>
 </head>
 <body>
-  <header style="background-color:#0074D9; padding: 40px 20px; text-align:center; color: white;">
-    <h1 style="margin:0; font-size: 32px;">로컬잇파주 <span style="font-size:18px;">: 파주를 잇다</span></h1>
-    <p style="margin-top:10px; font-size:16px;">파주시민을 위한 지역 커뮤니티</p>
-  </header>
-  <nav>
-    <ul>
-      <li><a href="#">홈</a></li>
-      <li><a href="#">최신글</a></li>
-      <li><a href="#">인기글</a></li>
-      <li><a href="#">직거래 장터</a></li>
-      <li><a href="#">익명 게시판</a></li>
-      <li><a href="#">카페/맛집 소개</a></li>
-      <li><a href="#">채용 정보</a></li>
-      <li><a href="#">파주 뉴스</a></li>
-    </ul>
-  </nav>
-  <section id="weather" style="padding: 40px;">
-    <h2>🌦 파주 날씨 정보</h2>
-    <div id="weather-now" style="color:#333;">현재 날씨: 로딩 중...</div>
-    <div id="weather-tomorrow" style="color:#333;">내일 날씨: 로딩 중...</div>
-  </section>
+
+    <!-- Header Section -->
+    <header class="main-header">
+        <h1>로컬잇파주 <span style="font-size:0.6em; vertical-align: middle;">: 파주를 잇다</span></h1>
+        <p class="subtitle">파주시민을 위한 지역 커뮤니티 및 정보 공유</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#latest-posts">최신글</a></li>
+            <li><a href="#popular-posts">인기글</a></li>
+            <li><a href="#market">직거래 장터</a></li>
+            <li><a href="#cafe-list">카페/맛집</a></li>
+            <li><a href="#job-list">채용 정보</a></li>
+            <li><a href="#news-list">파주 소식</a></li>
+            <li><a href="#anon-board">익명 게시판</a></li>
+            <!-- Weather and Login moved to the right -->
+            <li class="nav-weather"><span id="weather-nav-display">날씨 로딩 중...</span></li>
+            <li class="nav-login"><a onclick="toggleLogin()" role="button">로그인/가입</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Latest Posts Section -->
+        <section id="latest-posts">
+            <h2 class="section-title">🆕 최신 게시물</h2>
+            <div class="home-posts">
+                <!-- Example Cards (Repeat as needed) -->
+                <div class="card"><h3>📌 운정호수공원 산책 후기</h3><p>날씨가 좋아서 다녀왔는데 꽃이 예쁘게 피었네요! 🌸</p></div>
+                <div class="card"><h3>📌 금촌 로타리 근처 질문</h3><p>혹시 이 근처에 24시간 하는 약국 있을까요?</p></div>
+                <div class="card"><h3>📌 파주 맛집 추천 받아요!</h3><p>주말에 가족 외식 하려는데 괜찮은 곳 있으면 알려주세요~</p></div>
+                <div class="card"><h3>📌 문산 자유시장 장날 정보</h3><p>이번 주 장날 가시는 분 계신가요? 같이 가실 분~</p></div>
+                 <div class="card"><h3>📌 아이랑 갈만한 곳</h3><p>주말에 5살 아이 데리고 갈만한 키즈카페나 체험 장소 추천 부탁드립니다.</p></div>
+                <div class="card"><h3>📌 이사왔어요!</h3><p>최근에 파주로 이사왔는데 잘 부탁드려요!</p></div>
+                <!-- Add more cards -->
+            </div>
+        </section>
+
+        <!-- Popular Posts Section -->
+        <section id="popular-posts">
+            <h2 class="section-title">🔥 인기 게시물</h2>
+            <div class="home-posts">
+                 <!-- Example Cards (Repeat as needed) -->
+                <div class="card"><h3>🔥 [HOT] 파주페이 사용처 꿀팁 공유</h3><p>이런 곳에서도 파주페이가 되더라구요! 정보 공유합니다.</p></div>
+                <div class="card"><h3>🔥 심학산 둘레길 코스 추천</h3><p>등산 초보도 가기 좋은 코스 알려드릴게요!</p></div>
+                <div class="card"><h3>🔥 헤이리마을 주말 주차 팁</h3><p>주말에 헤이리 갔다가 주차 때문에 고생했는데... 다음엔 여기 세우세요!</p></div>
+                <div class="card"><h3>🔥 [정보] 파주시 육아지원 정책 변경 안내</h3><p>최근에 바뀐 내용이 있어서 공유해요. 확인해보세요!</p></div>
+                <!-- Add more cards -->
+            </div>
+        </section>
+
+        <!-- Marketplace Section -->
+        <section id="market">
+            <h2 class="section-title">🔁 직거래 장터</h2>
+            <div class="filters">
+                <select><option selected>전체 카테고리</option><option>디지털기기</option><option>가구/인테리어</option><option>유아동</option><option>생활가전</option><option>의류/잡화</option><option>기타</option></select>
+                <select><option selected>모든 지역</option><option>운정</option><option>금촌</option><option>문산</option><option>교하</option><option>법원</option><option>조리</option><option>파주읍</option></select>
+                <input placeholder="검색어를 입력하세요..." type="text"/>
+                 <button style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">검색</button>
+            </div>
+            <div class="post-list">
+                <!-- Example Posts (Repeat as needed) -->
+                <div class="post card"> <!-- Added card class for consistent styling -->
+                    <img alt="중고 물품 이미지 1" src="https://source.unsplash.com/400x300/?livingroom,item"/>
+                    <div class="post-content">
+                        <h3>아기 장난감 정리합니다</h3>
+                        <p><strong>15,000원</strong> · 운정</p>
+                        <p class="post-meta">방금 전 | 조회수 12</p>
+                        <div class="comment-box">
+                            <textarea placeholder="댓글을 입력하세요..."></textarea>
+                            <button>댓글 달기</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="post card">
+                    <img alt="중고 물품 이미지 2" src="https://source.unsplash.com/400x300/?desk,lamp"/>
+                    <div class="post-content">
+                        <h3>이케아 스탠드 조명 팔아요</h3>
+                        <p><strong>10,000원</strong> · 금촌</p>
+                        <p class="post-meta">1시간 전 | 조회수 35</p>
+                         <div class="comment-box">
+                            <textarea placeholder="댓글을 입력하세요..."></textarea>
+                            <button>댓글 달기</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="post card">
+                    <img alt="중고 물품 이미지 3" src="https://source.unsplash.com/400x300/?bicycle"/>
+                    <div class="post-content">
+                        <h3>자전거 급처분 (상태 좋음)</h3>
+                        <p><strong>50,000원</strong> · 교하</p>
+                        <p class="post-meta">3시간 전 | 조회수 58</p>
+                         <div class="comment-box">
+                            <textarea placeholder="댓글을 입력하세요..."></textarea>
+                            <button>댓글 달기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more posts -->
+            </div>
+        </section>
+
+        <!-- Cafe/Restaurant Section -->
+        <section id="cafe-list">
+            <h2 class="section-title">☕ 카페 & 맛집 탐방</h2>
+             <div class="list-container" style="max-width: 800px; margin: auto;">
+                 <!-- Example List Items -->
+                 <div class="list-item"><h3>[운정] 분위기 좋은 브런치 카페 '카페 델 솔'</h3><p>주말 오전에 가기 딱 좋은 곳! 파스타랑 샐러드 맛있어요.</p></div>
+                 <div class="list-item"><h3>[금촌] 숨겨진 로컬 맛집 '할매 순대국'</h3><p>진한 국물이 일품! 점심 시간에 가면 항상 사람이 많아요.</p></div>
+                 <div class="list-item"><h3>[헤이리] '프로방스 베이커리' 빵 추천</h3><p>마늘빵은 꼭 드셔보세요! 종류도 다양하고 맛있습니다.</p></div>
+                 <!-- Add more items -->
+            </div>
+        </section>
+
+        <!-- Job Listings Section -->
+        <section id="job-list">
+            <h2 class="section-title">💼 채용 정보</h2>
+            <div class="list-container" style="max-width: 800px; margin: auto;">
+                <!-- Example List Items -->
+                <div class="list-item"><h3>[운정] 카페 주말 아르바이트 모집 (오후)</h3><p>성실하고 밝은 분 찾습니다. 시급 협의 가능.</p></div>
+                <div class="list-item"><h3>[문산] 물류센터 단기 알바 구함 (주간/야간)</h3><p>초보 가능, 동반 지원 환영. 통근 버스 운행.</p></div>
+                <div class="list-item"><h3>[금촌] 초등학교 방과 후 강사 모집 (영어)</h3><p>관련 자격증 소지자 우대. 주 2회 출근.</p></div>
+                <!-- Add more items -->
+            </div>
+        </section>
+
+        <!-- Paju News / Blog Section -->
+        <section id="news-list">
+            <h2 class="section-title">📰 파주 소식 & 블로그</h2>
+             <!-- Naver Blog results will be loaded here by JS -->
+            <div id="naver-blog-results">
+                <p>네이버 블로그 '파주 맛집' 검색 결과 로딩 중...</p>
+                 <!-- Security Warning for Demo -->
+                <p style="color: #dc3545; font-size: 0.9em; margin-top: 15px;">
+                    <strong>참고:</strong> 현재 데모에서는 네이버 API 키가 코드에 포함되어 있어 보안상 위험합니다.
+                    실제 서비스에서는 반드시 서버를 통해 API를 호출해야 합니다. CORS 문제로 인해 브라우저에서 직접 호출 시 실패할 수 있습니다.
+                </p>
+            </div>
+            <hr style="margin: 40px 0;">
+             <!-- Placeholder for other news -->
+            <div class="list-container" style="max-width: 800px; margin: auto;">
+                <div class="list-item"><h3>파주시, 2024년 하반기 문화 행사 일정 발표</h3><p>다양한 공연과 전시가 준비되어 있으니 많은 참여 바랍니다.</p></div>
+                 <div class="list-item"><h3>경의중앙선 운행 시간 일부 조정 안내</h3><p>자세한 시간표는 코레일 홈페이지를 참고하세요.</p></div>
+                <!-- Add more news items -->
+            </div>
+        </section>
+
+        <!-- Anonymous Board Section -->
+        <section id="anon-board">
+            <h2 class="section-title">🕶️ 익명 게시판</h2>
+            <div class="home-posts">
+                <div class="card"><h3>(익명)</h3><p>요즘 층간 소음 때문에 너무 힘든데 어떻게 대처하는게 좋을까요?</p></div>
+                <div class="card"><h3>(익명)</h3><p>회사 동료 때문에 스트레스 받는데... 그냥 참아야겠죠? ㅠㅠ</p></div>
+                <div class="card"><h3>(익명)</h3><p>파주에 괜찮은 병원 추천 좀 해주세요. (내과)</p></div>
+            </div>
+        </section>
+
+         <!-- Weather Details Section -->
+        <section id="weather-section">
+            <h2 class="section-title" style="margin-top:0; margin-bottom: 20px;">🌦️ 파주 상세 날씨</h2>
+            <div id="weather-now-detail" style="font-weight: bold;">현재 날씨: 로딩 중...</div>
+            <div id="weather-tomorrow-detail">내일 날씨: 로딩 중...</div>
+        </section>
+
+        <!-- User Badge Examples Section -->
+        <section id="badge-preview">
+            <h2 class="section-title">🎖️ 유저 레벨 칭호 예시</h2>
+            <div class="home-posts">
+                <div class="card">
+                    <h3>홍길동 <span class="badge lv1">Lv.1 새싹 주민 🌱</span></h3>
+                    <p>가입한 지 얼마 안 된 풋풋한 새싹이에요.</p>
+                </div>
+                <div class="card">
+                    <h3>🔵 김반장 <span class="badge lv3">Lv.3 동네 이장 🎤</span></h3>
+                    <p>자주 활동하며 동네 정보를 나눠요.</p>
+                </div>
+                <div class="card">
+                    <h3>🔴 박파주 <span class="badge lv7">Lv.7 파주 지킴이 🏛️</span></h3>
+                    <p>로컬잇파주의 터줏대감! 모르는 게 없어요.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login/Signup Section (Initially Hidden) -->
+        <section id="login-section">
+            <div class="form-box">
+                <h3>🔐 로그인 또는 회원가입</h3>
+                <input placeholder="이메일 주소 입력" type="email" required/>
+                <input placeholder="비밀번호 (8자 이상)" type="password" required/>
+                <input placeholder="닉네임 (가입 시 필수)" type="text"/>
+                <div class="gender-options">
+                    <strong>성별 (선택)</strong><br>
+                    <label><input name="gender" type="radio" value="male"/> 남성 🔵</label>
+                    <label><input name="gender" type="radio" value="female"/> 여성 🔴</label>
+                    <label><input name="gender" type="radio" value="none" checked/> 선택 안함 ⚪</label>
+                </div>
+                <button type="submit">로그인 또는 가입 완료</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 로컬잇파주 (Localit Paju). 모든 권리 보유.</p>
+        <p>파주 시민들의 즐거운 소통 공간입니다.</p>
+        <!-- Optional: Add links to privacy policy, terms of service -->
+    </footer>
+
 </body>
 </html>
-"""
-
-output_path = Path("/mnt/data/localitpaju_cleaned.html")
-output_path.write_text(cleaned_html_code, encoding="utf-8")
-
-output_path.name
