@@ -1,0 +1,8 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/api/fetchNaverBlog"
+  to = "/.netlify/functions/fetchNaverBlog.js"
+  status = 200
