@@ -1,6 +1,4 @@
-/* ... (이전 CSS 코드 생략) ... */
-
-/* ----- Navigation - 드롭다운 메뉴 ----- */
+/* ----- Navigation - 드롭다운 메뉴 (검증 완료) ----- */
 nav {
     background-color: #343a40;
     padding: 0 20px;
@@ -9,7 +7,8 @@ nav {
     z-index: 1000;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
-nav ul { /* 기본 메뉴 리스트 */
+
+nav ul { /* 1단계 메뉴 리스트 */
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -17,16 +16,17 @@ nav ul { /* 기본 메뉴 리스트 */
     gap: 5px;
     margin: 0;
     padding: 0;
-    align-items: stretch;
-    height: 55px;
+    align-items: stretch; /* li 높이 통일 */
+    height: 55px; /* 네비게이션 바 높이 고정 */
 }
-nav ul li { /* 기본 메뉴 아이템 */
-    position: relative;
-    display: flex;
+
+nav ul li { /* 1단계 메뉴 아이템 */
+    position: relative; /* 하위 메뉴 위치 기준 */
+    display: flex; /* 내부 요소 정렬 */
     align-items: center;
 }
-nav ul li a { /* 기본 메뉴 링크 */
-    /* ... (기존 스타일 유지: color, padding, transition 등) ... */
+
+nav ul li a { /* 1단계 메뉴 링크 */
     color: #f8f9fa;
     text-decoration: none;
     font-weight: 500;
@@ -37,74 +37,87 @@ nav ul li a { /* 기본 메뉴 링크 */
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 100%;
+    height: 100%; /* 부모 li 높이 채움 */
     border-radius: 4px;
 }
-/* 메뉴 호버 애니메이션 & 스타일 */
+
+/* 1단계 메뉴 호버 효과 */
 nav ul li a:hover,
-nav ul li:hover > a {
+nav ul li:hover > a { /* li에 호버해도 직계 a 스타일 변경 */
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
     transform: scale(1.05);
 }
 
-/* --- ▼▼▼ 드롭다운 메뉴 핵심 스타일 ▼▼▼ --- */
-nav ul ul { /* 하위 메뉴 리스트 (매우 중요: 기본 숨김) */
-    display: none; /* ★★★ 이 부분이 핵심! 기본적으로 하위 메뉴를 숨깁니다 ★★★ */
-    position: absolute;
-    top: 100%; /* 부모 li 바로 아래에 위치 */
+/* --- ▼▼▼ 드롭다운 하위 메뉴 스타일 ▼▼▼ --- */
+
+/* 2단계 메뉴 리스트 (ul) - 기본 상태: 숨김 */
+nav ul ul {
+    /* ★★★ 핵심: 기본적으로 숨겨진 상태 ★★★ */
+    display: none;
+    position: absolute; /* 부모 li 기준으로 위치 결정 */
+    top: 100%; /* 부모 li 바로 아래 */
     left: 0;
-    background-color: #495057; /* 드롭다운 배경 */
+    background-color: #495057; /* 배경색 */
     list-style: none;
-    padding: 8px 0; /* 상하 패딩 약간 추가 */
-    margin: 0;
-    min-width: 200px;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    height: auto; /* 높이는 내용에 맞게 자동 조절 */
-    z-index: 1001; /* 다른 요소들 위에 표시 */
-    border-top: 1px solid #6c757d; /* 상단 구분선 (선택사항) */
+    padding: 8px 0; /* 내부 상하 여백 */
+    margin: 0; /* 기본 마진 제거 */
+    min-width: 200px; /* 최소 너비 */
+    border-radius: 0 0 5px 5px; /* 아래쪽 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 그림자 효과 */
+    height: auto; /* 내용에 따라 높이 자동 조절 */
+    z-index: 1001; /* 다른 요소 위에 오도록 */
+    border-top: 1px solid #6c757d; /* 구분선 (선택사항) */
 }
 
-nav ul li:hover > ul { /* 상위 li에 마우스를 올렸을 때, 그 '직계 자식'인 ul을 보이게 함 */
-    display: block; /* ★★★ 호버 시 하위 메뉴를 보여줍니다 ★★★ */
+/* 1단계 메뉴(li)에 마우스를 올렸을 때 -> 그 '직계 자식'인 2단계 메뉴(ul)를 보이게 함 */
+nav ul li:hover > ul {
+    /* ★★★ 핵심: 호버 시 보이도록 변경 ★★★ */
+    display: block;
 }
-/* --- ▲▲▲ 드롭다운 메뉴 핵심 스타일 ▲▲▲ --- */
 
-nav ul ul li { /* 하위 메뉴 아이템 */
+/* 2단계 메뉴 아이템 (li) */
+nav ul ul li {
     width: 100%;
-    display: block; /* 세로로 쌓이도록 */
-    position: relative; /* 필요시 내부 요소 배치 기준 */
+    display: block; /* 세로로 하나씩 표시 */
+    position: relative;
 }
-nav ul ul li a { /* 하위 메뉴 링크 */
-    padding: 10px 20px;
-    width: 100%;
-    height: auto;
-    display: flex;
+
+/* 2단계 메뉴 링크 (a) */
+nav ul ul li a {
+    padding: 10px 20px; /* 내부 여백 */
+    width: 100%; /* 너비 꽉 채움 */
+    height: auto; /* 높이 자동 */
+    display: flex; /* 아이콘 등 내부 요소 정렬 */
     align-items: center;
-    gap: 10px;
-    color: #f8f9fa;
-    font-size: 0.95em;
-    border-radius: 0;
-    /* 하위 메뉴 호버 시에는 확대 효과 제거 (선택사항) */
-    transition: background-color 0.2s ease; /* transform transition 제거 */
+    gap: 10px; /* 아이콘과 텍스트 간격 */
+    color: #f8f9fa; /* 글자색 */
+    font-size: 0.95em; /* 글자 크기 약간 작게 */
+    border-radius: 0; /* 각진 모서리 */
+    transition: background-color 0.2s ease; /* 배경색 변경 애니메이션 */
+    transform: none !important; /* 하위 메뉴는 확대되지 않도록 강제 (필요시) */
 }
+
+/* 2단계 메뉴 링크 호버 효과 */
 nav ul ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    transform: none; /* 확대 안 함 */
-    color: white;
+    background-color: rgba(255, 255, 255, 0.15); /* 배경 약간 밝게 */
+    color: white; /* 글자색 강조 */
+    /* transform: none; 이미 위에서 설정됨 */
 }
-/* 드롭다운 화살표 아이콘 */
+
+/* 드롭다운 화살표 아이콘 스타일 */
 .menu-arrow {
     font-size: 0.7em;
     margin-left: 4px;
     transition: transform 0.2s ease;
 }
+/* 상위 li 호버 시 화살표 회전 */
 nav ul li:hover .menu-arrow {
      transform: rotate(180deg);
 }
 
-/* 네비게이션 우측 요소 (날씨, 로그인) */
-/* ... (이전과 동일) ... */
+/* ----- 네비게이션 우측 요소 (날씨, 로그인) ----- */
+/* ... (변경 없음) ... */
 
-/* ... (나머지 CSS 코드는 이전과 동일) ... */
+/* ----- 나머지 페이지 스타일 ----- */
+/* ... (변경 없음) ... */
