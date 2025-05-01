@@ -12,9 +12,8 @@ export default async function handler(event) {
 
   const data = await res.json();
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' }
-  };
-}
+ return {
+  statusCode: 200,
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data),
+};
