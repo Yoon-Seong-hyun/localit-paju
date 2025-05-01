@@ -9,28 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- :root 변수 및 기본 스타일 (이전과 동일) --- */
         :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --accent-color: #198754;
-            --point-color-gold: #FFD700;
-            --dark-bg-start: #495057;
-            --dark-bg-end: #343a40;
-            --text-dark-on-light: #212529;
-            --text-light-on-light: #6c757d;
-            --text-light-on-dark: #f8f9fa;
-            --text-muted-on-dark: #adb5bd;
-            --card-bg: #ffffff;
-            --list-item-bg-dark: #4f565e;
-            --border-color: #dee2e6;
+            --primary-color: #0d6efd; --secondary-color: #6c757d; --accent-color: #198754;
+            --point-color-gold: #FFD700; --dark-bg-start: #495057; --dark-bg-end: #343a40;
+            --text-dark-on-light: #212529; --text-light-on-light: #6c757d;
+            --text-light-on-dark: #f8f9fa; --text-muted-on-dark: #adb5bd;
+            --card-bg: #ffffff; --list-item-bg-dark: #4f565e; --border-color: #dee2e6;
             --border-color-dark: #5a6268;
             --gradient-primary: linear-gradient(135deg, #0d6efd, #0a58ca);
             --gradient-accent: linear-gradient(135deg, #198754, #1a7443);
             --gradient-header: linear-gradient(135deg, #0d6efd 20%, #074e9e 80%);
             --gradient-body-bg: linear-gradient(180deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100vh);
-            --base-font-size: 14.5px;
-            --main-font: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+            --base-font-size: 14.5px; --main-font: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
         }
         *, *::before, *::after { box-sizing: border-box; }
         body { font-family: var(--main-font); margin: 0; background: var(--gradient-body-bg); color: var(--text-light-on-dark); line-height: 1.7; font-size: var(--base-font-size); min-height: 100vh; overflow-x: hidden; }
@@ -40,72 +30,30 @@
         header.main-header .main-logo-text { /* 로고 텍스트 */ }
         header.main-header .sub-logo-text { font-size: 0.4em; font-weight: 400; opacity: 0.85; display: inline-block; margin-left: 6px; vertical-align: middle; letter-spacing: normal; }
         header.main-header .subtitle { margin-top: 15px; font-size: calc(var(--base-font-size) * 1.15); opacity: 0.9; font-weight: 300; }
-
-        /* ▼▼▼ Navigation (간격 축소, 3단계 드롭다운 수정) ▼▼▼ */
-        nav { background-color: #212529; padding: 0 8px; /* 좌우 패딩 더 줄임 */ position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 1px solid #495057; }
-        nav ul { list-style: none; display: flex; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; gap: 2px; /* 메뉴 간격 최소화 */ margin: 0; padding: 0 5px; align-items: stretch; height: 55px; }
+        nav { background-color: #212529; padding: 0 8px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 1px solid #495057; }
+        nav ul { list-style: none; display: flex; flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; gap: 2px; margin: 0; padding: 0 5px; align-items: stretch; height: 55px; }
         nav ul::-webkit-scrollbar { display: none; }
         nav ul li { position: relative; display: flex; align-items: center; flex-shrink: 0; }
-        nav ul li a { color: #ced4da; text-decoration: none; font-weight: 500; cursor: pointer; font-size: calc(var(--base-font-size) * 0.95); /* 폰트 크기 최종 조정 */ padding: 0 10px; /* 좌우 패딩 최소화 */ transition: background-color 0.25s ease, transform 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 5px; /* 아이콘 간격 조정 */ height: 55px; border-radius: 4px; /* 모서리 약간 각지게 */ white-space: nowrap; }
+        nav ul li a { color: #ced4da; text-decoration: none; font-weight: 500; cursor: pointer; font-size: calc(var(--base-font-size) * 0.95); padding: 0 10px; /* 패딩 더 줄임 */ transition: background-color 0.25s ease, transform 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 5px; /* 아이콘 간격 조정 */ height: 55px; border-radius: 4px; white-space: nowrap; }
         nav ul li a:hover, nav ul li:hover > a { background-color: rgba(255, 255, 255, 0.1); color: white; transform: scale(1.05); }
-
-        /* --- 2단계 드롭다운 --- */
-        nav ul ul { display: none; position: absolute; top: 100%; left: 0; background-color: #343a40; list-style: none; padding: 8px 0; margin: 1px 0 0 0; /* 상단 간격 미세 조정 */ min-width: 190px; border-radius: 0 0 6px 6px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); height: auto; z-index: 1001; border-top: 2px solid var(--primary-color); }
+        nav ul ul { display: none; position: absolute; top: 100%; left: 0; background-color: #343a40; list-style: none; padding: 8px 0; margin: 1px 0 0 0; min-width: 180px; border-radius: 0 0 6px 6px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); height: auto; z-index: 1001; border-top: 2px solid var(--primary-color); }
         nav ul li:hover > ul { display: block; }
-        nav ul ul li { width: 100%; display: block; position: relative; } /* 3단계 기준점 */
+        nav ul ul li { width: 100%; display: block; position: relative; }
         nav ul ul li a { padding: 9px 18px; width: 100%; height: auto; display: flex; align-items: center; gap: 8px; color: #ced4da; font-size: calc(var(--base-font-size) * 0.9); border-radius: 0; transition: background-color 0.2s ease; transform: none !important; }
         nav ul ul li a:hover { background-color: rgba(255, 255, 255, 0.15); color: white; }
         .menu-arrow { font-size: 0.7em; margin-left: 4px; transition: transform 0.2s ease; }
-        nav ul li:hover > a > .menu-arrow { transform: rotate(180deg); } /* 1단계 호버 시 아래 화살표 회전 */
-
-        /* --- ▼▼▼ 3단계 드롭다운 스타일 수정 ▼▼▼ --- */
-        nav ul ul ul { /* 3단계 메뉴 기본 스타일 */
-            display: none; /* 기본 숨김 */
-            position: absolute;
-            top: 0; /* 2단계 li 상단에 맞춤 */
-            left: 100%; /* 2단계 li 오른쪽에 표시 */
-            margin-left: 1px; /* 약간의 간격 */
-            background-color: #495057; /* 배경색 약간 다르게 */
-            list-style: none;
-            padding: 8px 0;
-            margin-top: -1px; /* 2단계 메뉴 테두리와 겹치도록 조정 */
-            min-width: 160px;
-            border-radius: 0 6px 6px 0; /* 오른쪽 모서리만 둥글게 */
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.25); /* 그림자 방향 조정 */
-            z-index: 1002; /* 2단계보다 위에 오도록 */
-            border-left: 1px solid #6c757d; /* 왼쪽 구분선 */
-        }
-        /* 2단계 메뉴(li)에 호버했을 때 직계 자식인 3단계 메뉴(ul) 표시 */
-        nav ul ul li:hover > ul {
-            display: block; /* 보이게 함 */
-        }
-        /* 3단계 메뉴 링크 스타일 */
-        nav ul ul ul li a {
-             padding: 8px 15px;
-             gap: 6px;
-             font-size: calc(var(--base-font-size) * 0.88);
-        }
-        /* 3단계 메뉴를 가진 2단계 링크의 오른쪽 화살표 */
-        nav ul ul li > a .fa-caret-right {
-             margin-left: auto; /* 화살표를 오른쪽으로 밀기 */
-             transition: transform 0.2s ease;
-        }
-        /* 2단계 li 호버 시 오른쪽 화살표 효과 (선택사항) */
-        /*
-        nav ul ul li:hover > a .fa-caret-right {
-             transform: scale(1.2);
-        }
-        */
-        /* --- ▲▲▲ 3단계 드롭다운 스타일 수정 ▲▲▲ --- */
-
+        nav ul li:hover > a > .menu-arrow { transform: rotate(180deg); }
+        /* 3단계 드롭다운 스타일 */
+        nav ul ul ul { display: none; position: absolute; top: 0; left: 100%; margin-left: 1px; background-color: #495057; list-style: none; padding: 8px 0; margin-top: -1px; min-width: 160px; border-radius: 0 6px 6px 0; box-shadow: 4px 4px 10px rgba(0,0,0,0.25); z-index: 1002; border-left: 1px solid #6c757d; }
+        nav ul ul li:hover > ul { display: block; }
+        nav ul ul ul li a { padding: 8px 15px; gap: 6px; font-size: calc(var(--base-font-size) * 0.88); }
+        nav ul ul li > a .fa-caret-right { margin-left: auto; }
         /* 네비 우측 날씨/로그인 */
         .nav-weather { color: #e9ecef; font-size: calc(var(--base-font-size) * 0.88); padding: 0 8px; background-color: rgba(255,255,255,0.05); border-radius: 15px; margin: 0 4px; height: 38px; display: flex; align-items: center; flex-shrink: 0; }
         .nav-weather i { margin-right: 4px; font-size: 1em; color: #f8f9fa; }
         .nav-login { display: flex; align-items: center; height: 55px; margin-left: 4px; flex-shrink: 0; }
         .nav-login a { padding: 6px 12px; background: var(--gradient-accent); color: white; font-weight: bold; cursor: pointer; border-radius: 15px; transition: filter 0.2s ease, transform 0.2s ease; display: flex; align-items: center; gap: 4px; height: auto; font-size: calc(var(--base-font-size) * 0.88); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .nav-login a:hover { filter: brightness(1.15); transform: scale(1.05); background: var(--gradient-accent); color: white; }
-
-        /* --- 나머지 CSS (Section Titles, Cards, Containers, Marketplace 등 이전과 동일) --- */
         .section-title { font-size: calc(var(--base-font-size) * 2.1); text-align: center; margin: 80px 0 50px; color: var(--text-light-on-dark); font-weight: 700; display: flex; justify-content: center; align-items: center; gap: 15px; position: relative; padding-bottom: 15px; }
         .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 3px; }
         .section-title i { font-size: 0.95em; color: var(--primary-color); }
@@ -116,6 +64,19 @@
         .card small { font-size: calc(var(--base-font-size) * 0.8); color: var(--text-light-on-light); }
         .card-container, .home-posts, .post-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 25px; }
         .list-container { display: flex; flex-direction: column; gap: 15px; }
+        /* 게시글 5개 숨기기 기본 스타일 */
+        .list-container .list-item:nth-child(n+6):not(#naver-blog-results .list-item), /* 네이버 블로그 제외 */
+        .card-container .card:nth-child(n+6),
+        .home-posts .card:nth-child(n+6),
+        .post-list .post:nth-child(n+6) {
+             display: none;
+        }
+        /* 더보기 버튼 */
+        .more-button { display: block; margin: 20px auto 10px auto; padding: 8px 18px; background-color: var(--secondary-color); color: white; border: none; border-radius: 15px; cursor: pointer; font-size: calc(var(--base-font-size) * 0.9); transition: background-color 0.2s ease; font-family: var(--main-font); }
+        .more-button:hover { background-color: #5a6268; }
+        .more-button i { margin-right: 5px; }
+        .more-button.hidden { display: none; }
+        /* Marketplace */
         .filters { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 30px 25px; background: #5c636a; border-radius: 10px; margin: 0 25px 40px; border-top: 4px solid var(--primary-color); }
         .filters select, .filters input[type='text'], .filters button { padding: 11px 14px; border: 1px solid #6c757d; border-radius: 8px; font-size: calc(var(--base-font-size) * 0.95); height: 45px; background-color: #f8f9fa; color: #343a40; font-family: var(--main-font); }
         .filters input[type='text']::placeholder { color: #6c757d; }
@@ -130,7 +91,7 @@
         .comment-box { margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-top: 1px solid var(--border-color); }
         .comment-box textarea { width: 100%; height: 75px; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--main-font); font-size: calc(var(--base-font-size) * 0.95); background-color: white; color: #343a40; }
         .comment-box button { background-color: var(--primary-color); color: white; border: none; padding: 9px 18px; border-radius: 15px; cursor: pointer; font-weight: bold; transition: background-color 0.2s ease; float: right; font-size: calc(var(--base-font-size) * 0.9); }
-        .comment-box button:hover { background-color: #6495ED; }
+        .comment-box button:hover { background-color: #0a58ca; /* 호버 색상 조정 */ }
         .comment-box::after { content: ""; display: table; clear: both; }
         #login-section { display: none; padding: 70px 20px; background: rgba(0,0,0,0.1); }
         .form-box { max-width: 480px; margin: auto; text-align: center; border-top: 6px solid var(--accent-color); background: #42484f; padding: 30px; border-radius: 12px; color: var(--text-light-on-dark); }
@@ -142,8 +103,7 @@
         .form-box label { margin-right: 18px; cursor: pointer; font-size: calc(var(--base-font-size) * 1); }
         .form-box button { background: var(--gradient-accent); color: white; border: none; padding: 14px 28px; border-radius: 15px; cursor: pointer; font-size: calc(var(--base-font-size) * 1.15); font-weight: bold; transition: filter 0.2s ease, transform 0.1s ease; width: 100%; }
         .form-box button:hover { filter: brightness(1.1); transform: scale(1.02); }
-
-        /* 파주 명예 시민 (작은 박스, 크기 70% 수준으로 축소) */
+        /* 파주 명예 시민 (작게, 좌측 상단) */
         .ranking-box { background: rgba(255, 255, 255, 0.07); border: 1px solid var(--border-color-dark); border-radius: 8px; padding: 10px 15px; margin: 20px 25px 30px 25px; max-width: 260px; float: left; margin-right: 25px; clear: both; transform: scale(0.9); transform-origin: top left; }
         .ranking-box h3 { font-size: calc(var(--base-font-size) * 0.9); color: var(--point-color-gold); margin: 0 0 10px 0; text-align: center; border-bottom: 1px dashed #6c757d; padding-bottom: 7px; }
         .ranking-box ol { list-style: none; padding: 0; margin: 0; }
@@ -154,10 +114,9 @@
         .ranking-box .rank-user-name { font-weight: 500; color: var(--text-light-on-dark); flex-grow: 1; margin-right: 6px; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ranking-box .rank-user-title { font-size: 0.9em; color: var(--text-muted-on-dark); font-style: italic; }
         .ranking-box .rank-icon { margin-right: 4px; opacity: 0.7; font-size: 0.9em; }
-
         /* List Item Styles */
         .list-item { padding: 18px; border-bottom: 1px solid var(--border-color-dark); background: var(--list-item-bg-dark); color: var(--text-light-on-dark); border-radius: 10px; margin-bottom: 0; box-shadow: 0 3px 8px rgba(0,0,0,0.15); transition: border-left 0.3s ease, background-color 0.2s ease, transform 0.2s ease; border-left: 6px solid transparent; }
-        .items-container > .list-item:last-child { border-bottom: none; } /* 리스트 마지막 아이템 구분선 제거 */
+        .items-container > .list-item:last-child { border-bottom: none; }
         .list-item:hover { border-left-color: var(--accent-color); background-color: #5c636a; transform: translateX(5px); }
         .list-item h3 { margin: 0 0 10px 0; font-size: calc(var(--base-font-size) * 1.1); color: var(--primary-color); font-weight: 600; }
         .list-item p { margin: 0 0 8px 0; color: var(--text-light-on-dark); font-size: calc(var(--base-font-size) * 0.95); }
@@ -168,7 +127,6 @@
         #naver-blog-results .list-item:hover { background-color: #e6fcee; }
         #naver-blog-results .list-item h3 { color: var(--accent-color); }
         #naver-blog-results .list-item a:hover h3 { color: #1a7443; }
-
         /* Footer */
         footer { background: #1c1f23; color: #adb5bd; text-align: center; padding: 40px 20px; margin-top: 80px; font-size: calc(var(--base-font-size) * 0.95); border-top: 6px solid var(--primary-color); clear: both; }
         footer p { margin: 7px 0; }
@@ -176,7 +134,6 @@
         footer a:hover { color: white; }
         #naver-blog-results h4 { text-align: center; margin-bottom: 20px; color: var(--accent-color); font-size: calc(var(--base-font-size) * 1.2); font-weight: 600; border-bottom: 2px dashed var(--accent-color); padding-bottom: 8px; display: inline-block; }
         #naver-blog-results-container { text-align: center; }
-
     </style>
     <script>
         // --- JavaScript (더보기 기능 포함) ---
@@ -229,16 +186,12 @@
                  const loadingPara = resultsContainer.querySelector('p:not([style*="color"])');
                  if (loadingPara) resultsContainer.removeChild(loadingPara);
                  if (data.items && data.items.length > 0) {
-                     data.items.forEach((item, index) => { // index 추가
+                     data.items.forEach((item, index) => {
                          const div = document.createElement("div"); div.classList.add('list-item');
-                         // 네이버 블로그 결과는 기본적으로 보이도록 함 (숨김 처리 안함)
-                         // if (index >= 5) { div.style.display = 'none'; } // 더보기 필요시 주석 해제
                          const title = item.title.replace(/<[^>]*>/g, ""); const description = item.description.replace(/<[^>]*>/g, ""); const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3');
                          div.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer"><h3><i class="fab fa-blogger-b"></i> ${title}</h3><p>${description}</p><small>${item.bloggername} (${postDate})</small></a>`;
                          resultsContainer.appendChild(div);
                      });
-                     // 네이버 블로그 섹션에도 더보기 버튼 추가 (선택사항)
-                     // if(data.items.length > 5) { addMoreButton(resultsContainer.parentNode); }
                  } else { resultsContainer.innerHTML += '<p>관련 블로그 글을 찾을 수 없습니다.</p>'; }
              } catch (error) {
                  console.error("네이버 블로그 로딩 실패:", error);
@@ -251,47 +204,46 @@
              }
          }
 
-        // ▼▼▼ 더보기 기능 JavaScript ▼▼▼
+         // ▼▼▼ 더보기 기능 JavaScript ▼▼▼
         function setupMoreButtons() {
-            // '.items-container' 클래스가 있는 컨테이너만 선택 (랭킹 박스 등 제외)
             const containers = document.querySelectorAll('.items-container');
             containers.forEach(container => {
+                // 네이버 블로그 결과 컨테이너는 제외
+                if (container.id === 'naver-blog-results-container' || (container.closest('#naver-blog-results'))) {
+                    return;
+                }
+
                 const items = Array.from(container.children).filter(el => el.classList.contains('list-item') || el.classList.contains('card') || el.classList.contains('post'));
                 const totalItems = items.length;
                 const showInitial = 5;
 
-                // 기존 더보기 버튼 제거
-                const existingButton = container.parentNode.querySelector('.more-button');
+                const existingButton = container.parentNode.querySelector(`.more-button[data-target="${container.id}"]`);
                 if (existingButton) existingButton.remove();
 
                 if (totalItems > showInitial) {
-                    // 5개 초과 항목 숨기기
                     items.forEach((item, index) => {
-                        if (index >= showInitial) {
-                            item.style.display = 'none';
-                        } else {
-                            item.style.display = ''; // 처음 5개는 보이도록 명시
-                        }
+                        item.style.display = (index < showInitial) ? '' : 'none';
                     });
 
-                    // 더보기 버튼 생성
                     const moreButton = document.createElement('button');
                     moreButton.classList.add('more-button');
                     moreButton.innerHTML = `<i class="fas fa-chevron-down"></i> 더보기 (${showInitial}/${totalItems})`;
+                    moreButton.dataset.target = container.id || `container-${Math.random().toString(36).substring(7)}`; // 대상 컨테이너 식별자
                     container.parentNode.insertBefore(moreButton, container.nextSibling);
 
-                    let isExpanded = false; // 확장 상태 추적
+                    let isExpanded = false;
 
                     moreButton.addEventListener('click', () => {
-                        isExpanded = !isExpanded; // 상태 토글
+                        isExpanded = !isExpanded;
+                        const targetContainer = document.getElementById(moreButton.dataset.target) || container; // 대상 컨테이너 다시 찾기
+                        const targetItems = Array.from(targetContainer.children).filter(el => el.classList.contains('list-item') || el.classList.contains('card') || el.classList.contains('post'));
+
 
                         if (isExpanded) {
-                            // 펼치기: 모든 항목 표시
-                            items.forEach(item => item.style.display = '');
+                            targetItems.forEach(item => item.style.display = '');
                             moreButton.innerHTML = `<i class="fas fa-chevron-up"></i> 접기`;
                         } else {
-                            // 접기: 5개 초과 항목 숨김
-                            items.forEach((item, index) => {
+                            targetItems.forEach((item, index) => {
                                 if (index >= showInitial) item.style.display = 'none';
                             });
                             moreButton.innerHTML = `<i class="fas fa-chevron-down"></i> 더보기 (${showInitial}/${totalItems})`;
@@ -305,7 +257,7 @@
             fetchWeather();
             setInterval(fetchWeather, 3600000);
             fetchNaverBlogs();
-            setupMoreButtons(); // 더보기 버튼 설정 함수 호출
+            setupMoreButtons();
         });
     </script>
 </head>
@@ -330,13 +282,8 @@
                 <ul>
                     <li><a href="#free-board"><i class="fas fa-pencil-alt"></i> 자유 수다방</a></li>
                     <li><a href="#qna-board"><i class="fas fa-question-circle"></i> 궁금해요 Q&A</a></li>
-                    <li> <!-- 소모임 (3단계 드롭다운) -->
-                        <a href="#"><i class="fas fa-users"></i> 소모임 <i class="fas fa-caret-right menu-arrow" style="margin-left: auto;"></i></a>
-                        <ul>
-                            <li><a href="#sports-groups"><i class="fas fa-futbol"></i> 스포츠</a></li>
-                            <li><a href="#hobby-groups"><i class="fas fa-palette"></i> 취미</a></li>
-                            <li><a href="#study-groups"><i class="fas fa-book"></i> 스터디</a></li>
-                        </ul>
+                    <li> <a href="#"><i class="fas fa-users"></i> 소모임 <i class="fas fa-caret-right menu-arrow" style="margin-left: auto;"></i></a>
+                        <ul> <li><a href="#sports-groups"><i class="fas fa-futbol"></i> 스포츠</a></li> <li><a href="#hobby-groups"><i class="fas fa-palette"></i> 취미</a></li> <li><a href="#study-groups"><i class="fas fa-book"></i> 스터디</a></li> </ul>
                     </li>
                     <li><a href="#pet-life"><i class="fas fa-dog"></i> 댕댕이 라이프</a></li>
                     <li><a href="#photo-gallery"><i class="fas fa-camera"></i> 사진전</a></li>
@@ -345,15 +292,14 @@
                 </ul>
             </li>
             <li><a href="#alumni-network"><i class="fas fa-school"></i> 오마이스쿨</a></li>
-            <li> <!-- 파주장터 -->
-                <a href="#"><i class="fas fa-store"></i> 파주장터 <i class="fas fa-caret-down menu-arrow"></i></a>
+            <li> <a href="#"><i class="fas fa-store"></i> 파주장터 <i class="fas fa-caret-down menu-arrow"></i></a>
                 <ul>
                      <li><a href="#market"><i class="fas fa-exchange-alt"></i> 직거래</a></li>
                      <li><a href="#free-sharing"><i class="fas fa-gift"></i> 무료 나눔</a></li>
                      <li><a href="#talent-market"><i class="fas fa-paint-brush"></i> 재능마켓</a></li>
                 </ul>
             </li>
-            <li><a href="#paju-jobs"><i class="fas fa-briefcase"></i> 파주 채용</a></li> <!-- 파주 채용 메뉴 -->
+            <li><a href="#paju-jobs"><i class="fas fa-briefcase"></i> 파주 채용</a></li>
             <li><a href="#paju-sinmungo"><i class="fas fa-drum"></i> 파주 신문고</a></li>
             <li><a href="#anon-board"><i class="fas fa-user-secret"></i> 익명공간</a></li>
             <li><span class="nav-weather" id="weather-nav-display"><i class="fas fa-spinner fa-spin"></i> 날씨</span></li>
@@ -379,68 +325,34 @@
              </ol>
         </div>
 
-        <!-- ▼▼▼ 모든 섹션에 가상 게시글 10개 이상 복구 및 items-container 클래스 추가 ▼▼▼ -->
-        <section id="paju-now"> <h2 class="section-title"><i class="fas fa-bolt"></i> 파주 NOW</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="hot-issue"> <h2 class="section-title"><i class="fas fa-building"></i> 핫이슈/개발</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="events"> <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 행사/축제</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="traffic-info"> <h2 class="section-title"><i class="fas fa-bus"></i> 교통 정보</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="smart-consume"> <h2 class="section-title"><i class="fas fa-shopping-cart"></i> 똑똑한 소비</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="parenting-edu"> <h2 class="section-title"><i class="fas fa-child"></i> 육아/교육</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="real-estate"> <h2 class="section-title"><i class="fas fa-house-user"></i> 부동산 이야기</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="cafe-restaurant"> <h2 class="section-title"><i class="fas fa-utensils"></i> 맛집 / 카페 탐방</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div id="naver-blog-results"></div> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="attractions-travel"> <h2 class="section-title"><i class="fas fa-mountain"></i> 명소 / 여행 후기</h2> <div class="home-posts card-container items-container"> <!-- 가상 글 11개 --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
-        <section id="free-board"> <h2 class="section-title"><i class="fas fa-pencil-alt"></i> 자유 수다방</h2> <div class="home-posts card-container items-container"> <!-- 가상 글 12개 --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
-        <section id="qna-board"> <h2 class="section-title"><i class="fas fa-question-circle"></i> 궁금해요 Q&A</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="sports-groups"> <h2 class="section-title"><i class="fas fa-futbol"></i> 스포츠 소모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="hobby-groups"> <h2 class="section-title"><i class="fas fa-palette"></i> 취미 소모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="study-groups"> <h2 class="section-title"><i class="fas fa-book"></i> 스터디 모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <!-- ▼▼▼ 반려견 게시판 섹션 추가 ▼▼▼ -->
-        <section id="pet-life">
-            <h2 class="section-title"><i class="fas fa-dog"></i> 댕댕이 라이프</h2>
-            <div class="home-posts card-container items-container">
-                <!-- 가상 글 11개 -->
-                <div class="card"><h3><i class="fas fa-map-marker-alt"></i> 파주 애견 동반 카페 추천!</h3><p>주말에 강아지랑 갈만한 운정 카페 있나요?</p><small>by 멍뭉맘</small></div>
-                <div class="card"><h3><i class="fas fa-bone"></i> 사료 안 먹는 강아지 팁좀 ㅠㅠ</h3><p>갑자기 입맛이 없는 건지.. 조언 부탁드려요.</p><small>by 걱정집사</small></div>
-                <div class="card"><h3><i class="fas fa-camera"></i> 심학산 댕댕이 친구들!</h3><p>오늘 만난 귀여운 친구들 사진입니다!</p><small>by 산책대장</small></div>
-                <div class="card"><h3><i class="fas fa-clinic-medical"></i> 파주 동물병원 추천 (중성화)</h3><p>중성화 수술 잘하고 비용 합리적인 곳?</p><small>by 초보집사</small></div>
-                <div class="card"><h3><i class="fas fa-cut"></i> 강아지 미용 잘하는 곳 (금촌/운정)</h3><p>스트레스 안 받고 잘하는 곳 추천 부탁드려요.</p><small>by 미용고민</small></div>
-                <div class="card"><h3><i class="fas fa-shower"></i> 강아지 목욕 꿀팁 공유!</h3><p>목욕 싫어하는 댕댕이, 이렇게 해보세요~</p><small>by 목욕달인</small></div>
-                <div class="card"><h3><i class="fas fa-paw"></i> 유기견 보호소 봉사 후기</h3><p>주말에 다녀왔어요. 많은 관심 필요해요.</p><small>by 봉사천사</small></div>
-                <div class="card"><h3><i class="fas fa-heartbeat"></i> 노견 케어 정보 교환해요</h3><p>영양제나 관리 팁 공유해주세요.</p><small>by 노견사랑</small></div>
-                <div class="card"><h3><i class="fas fa-car-side"></i> 강아지랑 차박/캠핑 (파주 근교)</h3><p>애견 동반 가능한 곳 추천해주세요!</p><small>by 캠핑족</small></div>
-                <div class="card"><h3><i class="fas fa-user-friends"></i> 운정 푸들 친구들 모여라!</h3><p>주말에 같이 산책할 푸들 친구들 구해요~</p><small>by 푸들맘</small></div>
-                <div class="card"><h3><i class="fas fa-shopping-bag"></i> 댕댕이 간식/용품 추천템!</h3><p>이거 써보니 좋더라! 꿀템 공유해요!</p><small>by 득템러</small></div>
-            </div>
-             <!-- 더보기 버튼은 JS에서 생성 -->
-        </section>
-        <section id="photo-gallery"> <h2 class="section-title"><i class="fas fa-camera"></i> 우리동네 사진전</h2> <div class="home-posts card-container items-container"> <!-- 가상 글 11개 --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
-        <section id="praise-relay"> <h2 class="section-title"><i class="fas fa-heart"></i> 칭찬/감사 릴레이</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="volunteer"> <h2 class="section-title"><i class="fas fa-hands-helping"></i> 자원봉사 / 재능기부</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="alumni-network"> <h2 class="section-title"><i class="fas fa-school"></i> 오마이스쿨 (동문회)</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <p>...</p> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> <div style="text-align: center; margin-top: 20px;"> <button>...</button> </div> </div> </section>
-        <section id="market"> <h2 class="section-title"><i class="fas fa-exchange-alt"></i> 직거래 장터</h2> <div class="filters"> <!-- ... --> </div> <div class="post-list items-container"> <!-- 가상 글 11개 --> <div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div> </div> </section>
-        <section id="free-sharing"> <h2 class="section-title"><i class="fas fa-gift"></i> 무료 나눔</h2> <div class="post-list items-container"> <!-- 가상 글 11개 --> <div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div> </div> </section>
-        <!-- ▼▼▼ 파주 채용 섹션 추가 ▼▼▼ -->
-        <section id="paju-jobs">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> 파주 채용</h2>
-            <div class="list-container items-container" style="max-width: 900px; margin: auto;">
-                <!-- 가상 채용 공고 11개 -->
-                 <div class="list-item"><h3><i class="fas fa-building"></i> (주)파주디스플레이 생산직 신입/경력 사원 모집</h3><p>LG디스플레이 협력사 / 주야 교대 근무 / 기숙사 제공</p><small>마감일: 상시채용</small></div>
-                <div class="list-item"><h3><i class="fas fa-utensils"></i> 운정 레스토랑 홀서빙 및 주방보조 구함</h3><p>주 5일 근무 / 시급 협의 / 경력자 우대, 초보 가능</p><small>문의: 031-XXX-XXXX</small></div>
-                <div class="list-item"><h3><i class="fas fa-truck-loading"></i> 문산 물류센터 야간 상하차 아르바이트</h3><p>일급 12만원 / 저녁 8시 ~ 새벽 5시 / 동반 지원 가능</p><small>지원: 문자 지원 OOOO</small></div>
-                <div class="list-item"><h3><i class="fas fa-user-md"></i> 파주 OOO 병원 간호조무사(주간) 모집</h3><p>정규직 / 연봉 협의 / 관련 자격증 필수</p><small>온라인 입사 지원</small></div>
-                <div class="list-item"><h3><i class="fas fa-laptop-code"></i> 파주 출판단지 웹디자이너 채용 (경력 2년 이상)</h3><p>쇼핑몰 상세페이지 및 웹사이트 디자인 / 포토샵, 일러스트 능숙자</p><small>포트폴리오 제출 필수</small></div>
-                <div class="list-item"><h3><i class="fas fa-chalkboard-teacher"></i> 금촌 중등 수학 학원 강사 모집</h3><p>주 3일 근무 / 근무 시간 협의 / 전공자 및 경력자 우대</p><small>이메일 지원: academy@...</small></div>
-                <div class="list-item"><h3><i class="fas fa-cash-register"></i> 편의점 주말 야간 알바 구함 (교하)</h3><p>토, 일 밤 10시 ~ 오전 8시 / 시급 법정 최저 이상 / 성실한 분</p><small>점주 연락처: ...</small></div>
-                <div class="list-item"><h3><i class="fas fa-car"></i> 운전기사 모집 (파주 관내 운행)</h3><p>1종 보통 면허 소지자 / 운전 경력 3년 이상 / 급여 협의</p><small>문의: OOO운수</small></div>
-                <div class="list-item"><h3><i class="fas fa-tshirt"></i> 의류 매장 판매 직원 채용 (롯데아울렛 파주점)</h3><p>주 5일 스케줄 근무 / 패션에 관심 많은 분 / 경력 무관</p><small>매장 방문 접수</small></div>
-                <div class="list-item"><h3><i class="fas fa-tools"></i> 파주 산업단지 설비 보전 기술자 모집</h3><p>기계/전기 관련 경력자 우대 / 4조 3교대 근무</p><small>문의: OOO엔지니어링</small></div>
-                <div class="list-item"><h3><i class="fas fa-seedling"></i> 주말농장 관리 및 체험 보조 아르바이트</h3><p>토/일 근무 (오전) / 식물 키우기 좋아하시는 분 / 시급 10,000원</p><small>문의: 파주희망농장</small></div>
-            </div>
-             <!-- 더보기 버튼은 JS에서 생성 -->
-        </section>
-        <section id="talent-market"> <h2 class="section-title"><i class="fas fa-paint-brush"></i> 재능 마켓</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="paju-sinmungo"> <h2 class="section-title"><i class="fas fa-drum"></i> 파주 신문고</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <p>...</p> <!-- 가상 글 11개 --> <div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div><div class="list-item">...</div> </div> </section>
-        <section id="anon-board"> <h2 class="section-title"><i class="fas fa-user-secret"></i> 익명 공간</h2> <div class="home-posts card-container items-container"> <!-- 가상 글 11개 --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
+        <!-- ========================= -->
+        <!-- ==   메인 콘텐츠 영역    == -->
+        <!-- ========================= -->
+        <section id="paju-now"> <h2 class="section-title"><i class="fas fa-bolt"></i> 파주 NOW</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3><i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i> [긴급] 금촌역 인근 도로 침수</h3><p>...</p><small>파주시 재난안전과</small></div> <div class="list-item"><h3><i class="fas fa-newspaper"></i> 파주시 생활임금 결정</h3><p>...</p><small>파주타임즈</small></div> <div class="list-item"><h3><i class="fas fa-traffic-light"></i> 문산 자유로 정체</h3><p>...</p><small>교통정보센터</small></div> <div class="list-item"><h3><i class="fas fa-water"></i> 교하동 단수 안내</h3><p>...</p><small>파주수도사업소</small></div> <div class="list-item"><h3><i class="fas fa-calendar-day"></i> 운정호수공원 음악분수</h3><p>...</p><small>공원관리사무소</small></div> <div class="list-item"><h3><i class="fas fa-store"></i> 농특산물 특가 판매</h3><p>...</p><small>파주시 농업기술센터</small></div> <div class="list-item"><h3><i class="fas fa-tree"></i> 심학산 산불 조심</h3><p>...</p><small>파주소방서</small></div> <div class="list-item"><h3><i class="fas fa-users"></i> 청소년 문화의 집 신청</h3><p>...</p><small>청소년문화의집</small></div> <div class="list-item"><h3><i class="fas fa-bus"></i> 2200번 버스 정상 운행</h3><p>...</p><small>운수회사 공지</small></div> <div class="list-item"><h3><i class="fas fa-lightbulb"></i> 냉방비 지원 신청</h3><p>...</p><small>파주시 복지정책과</small></div> <div class="list-item"><h3><i class="fas fa-dog"></i> 운정 유기견 발견</h3><p>...</p><small>동물보호센터</small></div> </div> </section>
+        <section id="hot-issue"> <h2 class="section-title"><i class="fas fa-building"></i> 핫이슈/개발</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>GTX-A 운정 상업지구</h3><p>...</p></div> <div class="list-item"><h3>운정 3지구 입주</h3><p>...</p></div> <div class="list-item"><h3>출산 장려금 확대</h3><p>...</p></div> <div class="list-item"><h3>메디컬 클러스터</h3><p>...</p></div> <div class="list-item"><h3>제2자유로 문산 연결</h3><p>...</p></div> <div class="list-item"><h3>탄소중립 시민 참여</h3><p>...</p></div> <div class="list-item"><h3>파주페이 1조 돌파</h3><p>...</p></div> <div class="list-item"><h3>AI 미래 교육 도입</h3><p>...</p></div> <div class="list-item"><h3>똑버스 운행 확대</h3><p>...</p></div> <div class="list-item"><h3>캠프하우즈 개발</h3><p>...</p></div> <div class="list-item"><h3>운정 중앙공원 리모델링</h3><p>...</p></div> </div> </section>
+        <section id="events"> <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 행사/축제</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>파주 포크 페스티벌</h3><p>...</p></div> <div class="list-item"><h3>운정 플리마켓 소소마켓</h3><p>...</p></div> <div class="list-item"><h3>헤이리 가을 예술 산책</h3><p>...</p></div> <div class="list-item"><h3>어린이 책잔치</h3><p>...</p></div> <div class="list-item"><h3>장단콩 축제</h3><p>...</p></div> <div class="list-item"><h3>감악산 머루 축제</h3><p>...</p></div> <div class="list-item"><h3>파주 가을 음악회</h3><p>...</p></div> <div class="list-item"><h3>DMZ 다큐 영화제</h3><p>...</p></div> <div class="list-item"><h3>파주 평화 마라톤</h3><p>...</p></div> <div class="list-item"><h3>율곡수목원 국화 전시</h3><p>...</p></div> <div class="list-item"><h3>프로방스 빛 축제</h3><p>...</p></div> </div> </section>
+        <section id="traffic-info"> <h2 class="section-title"><i class="fas fa-bus"></i> 교통 정보</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>헤이리 주차 팁</h3><p>...</p></div> <div class="list-item"><h3>금촌-서울 카풀</h3><p>...</p></div> <div class="list-item"><h3>경의중앙선 막차</h3><p>...</p></div> <div class="list-item"><h3>운정 자전거도로</h3><p>...</p></div> <div class="list-item"><h3>파주 콜택시 번호</h3><p>...</p></div> <div class="list-item"><h3>금촌 로타리 우회로</h3><p>...</p></div> <div class="list-item"><h3>마을버스 077번 노선</h3><p>...</p></div> <div class="list-item"><h3>파주 주유소 가격</h3><p>...</p></div> <div class="list-item"><h3>전기차 충전소</h3><p>...</p></div> <div class="list-item"><h3>심학산 대중교통</h3><p>...</p></div> <div class="list-item"><h3>교하 신호등 고장 제보</h3><p>...</p></div> </div> </section>
+        <section id="smart-consume"> <h2 class="section-title"><i class="fas fa-shopping-cart"></i> 똑똑한 소비</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>파주페이 10% 연장</h3><p>...</p></div> <div class="list-item"><h3>운정 행복빵집 할인</h3><p>...</p></div> <div class="list-item"><h3>문산 백반 맛집</h3><p>...</p></div> <div class="list-item"><h3>파주 농산물 직거래</h3><p>...</p></div> <div class="list-item"><h3>가성비 좋은 카페(교하)</h3><p>...</p></div> <div class="list-item"><h3>전통시장 장보기 팁</h3><p>...</p></div> <div class="list-item"><h3>알뜰 주유 노하우</h3><p>...</p></div> <div class="list-item"><h3>중고거래 시 주의사항</h3><p>...</p></div> <div class="list-item"><h3>공공요금 할인 방법</h3><p>...</p></div> <div class="list-item"><h3>착한가격업소 리스트</h3><p>...</p></div> <div class="list-item"><h3>파주 아울렛 쇼핑 정보</h3><p>...</p></div> </div> </section>
+        <section id="parenting-edu"> <h2 class="section-title"><i class="fas fa-child"></i> 육아 / 교육</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>운정 돌봄 교실 후기</h3><p>...</p></div> <div class="list-item"><h3>아이랑 가기 좋은 공원</h3><p>...</p></div> <div class="list-item"><h3>파주 키즈카페 추천</h3><p>...</p></div> <div class="list-item"><h3>초등학생 학습지 비교</h3><p>...</p></div> <div class="list-item"><h3>어린이 도서관 이용 팁</h3><p>...</p></div> <div class="list-item"><h3>유아 체험 프로그램</h3><p>...</p></div> <div class="list-item"><h3>금촌 소아과 추천</h3><p>...</p></div> <div class="list-item"><h3>중학생 학원 정보(운정)</h3><p>...</p></div> <div class="list-item"><h3>아이 예방접종 정보</h3><p>...</p></div> <div class="list-item"><h3>정부 육아 지원금</h3><p>...</p></div> <div class="list-item"><h3>장난감 도서관 위치</h3><p>...</p></div> </div> </section>
+        <section id="real-estate"> <h2 class="section-title"><i class="fas fa-house-user"></i> 부동산 이야기</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <!-- 글 11개 --> <div class="list-item"><h3>운정신도시 전세 분위기</h3><p>...</p></div> <div class="list-item"><h3>금촌 인테리어 후기</h3><p>...</p></div> <div class="list-item"><h3>파주 아파트 실거래가</h3><p>...</p></div> <div class="list-item"><h3>내 집 마련 상담 후기</h3><p>...</p></div> <div class="list-item"><h3>교하 빌라 매매 정보</h3><p>...</p></div> <div class="list-item"><h3>문산 전원주택 문의</h3><p>...</p></div> <div class="list-item"><h3>부동산 중개 수수료</h3><p>...</p></div> <div class="list-item"><h3>LH/SH 임대 정보</h3><p>...</p></div> <div class="list-item"><h3>이사 업체 비교</h3><p>...</p></div> <div class="list-item"><h3>신혼부부 전세 대출</h3><p>...</p></div> <div class="list-item"><h3>파주 부동산 전망</h3><p>...</p></div> </div> </section>
+        <section id="cafe-restaurant"> <h2 class="section-title"><i class="fas fa-utensils"></i> 맛집 / 카페 탐방</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div id="naver-blog-results"></div> <div class="list-item"><h3>운정 브런치 카페</h3><p>...</p></div> <div class="list-item"><h3>금촌 순대국 맛집</h3><p>...</p></div> <div class="list-item"><h3>헤이리 베이커리</h3><p>...</p></div> <div class="list-item"><h3>파주 로컬 칼국수</h3><p>...</p></div> <div class="list-item"><h3>분위기 좋은 문산 카페</h3><p>...</p></div> <div class="list-item"><h3>교하 숨은 밥집</h3><p>...</p></div> <div class="list-item"><h3>심학산 근처 파스타</h3><p>...</p></div> <div class="list-item"><h3>아이랑 가기 좋은 식당</h3><p>...</p></div> <div class="list-item"><h3>애견 동반 레스토랑</h3><p>...</p></div> <div class="list-item"><h3>파주 데이트 코스 맛집</h3><p>...</p></div> </div> </section>
+        <section id="attractions-travel"> <h2 class="section-title"><i class="fas fa-mountain"></i> 명소 / 여행 후기</h2> <div class="home-posts card-container items-container"> <div class="card"><h3>임진각 평화누리</h3><p>...</p></div><div class="card"><h3>감악산 출렁다리</h3><p>...</p></div><div class="card"><h3>벽초지 수목원</h3><p>...</p></div><div class="card"><h3>마장호수 흔들다리</h3><p>...</p></div><div class="card"><h3>헤이리 예술마을</h3><p>...</p></div><div class="card"><h3>파주 프로방스 마을</h3><p>...</p></div><div class="card"><h3>율곡 이이 유적지</h3><p>...</p></div><div class="card"><h3>퍼스트가든 야경</h3><p>...</p></div><div class="card"><h3>오두산 통일전망대</h3><p>...</p></div><div class="card"><h3>용미리 마애이불입상</h3><p>...</p></div><div class="card"><h3>파주 영어마을</h3><p>...</p></div> </div> </section>
+        <section id="free-board"> <h2 class="section-title"><i class="fas fa-pencil-alt"></i> 자유 수다방</h2> <div class="home-posts card-container items-container"> <div class="card"><h3>운정호수공원 후기</h3><p>...</p></div><div class="card"><h3>금촌 약국 질문</h3><p>...</p></div><div class="card"><h3>파주 맛집 추천</h3><p>...</p></div><div class="card"><h3>문산 시장 정보</h3><p>...</p></div><div class="card"><h3>아이랑 갈만한 곳</h3><p>...</p></div><div class="card"><h3>이사왔어요!</h3><p>...</p></div><div class="card"><h3>강아지 자랑</h3><p>...</p></div><div class="card"><h3>주말 농장 문의</h3><p>...</p></div><div class="card"><h3>오늘 날씨</h3><p>...</p></div><div class="card"><h3>넷플릭스 추천</h3><p>...</p></div><div class="card"><h3>책 추천(소설)</h3><p>...</p></div><div class="card"><h3>출퇴근 교통</h3><p>...</p></div> </div> </section>
+        <section id="qna-board"> <h2 class="section-title"><i class="fas fa-question-circle"></i> 궁금해요 Q&A</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>자동차 공업사 추천</h3><p>...</p></div> <div class="list-item"><h3>운정 야간 소아과</h3><p>...</p></div> <div class="list-item"><h3>세탁소 추천(교하)</h3><p>...</p></div> <div class="list-item"><h3>파주페이 사용처 문의</h3><p>...</p></div> <div class="list-item"><h3>컴퓨터 수리점</h3><p>...</p></div> <div class="list-item"><h3>헬스장 PT 가격</h3><p>...</p></div> <div class="list-item"><h3>아이돌봄 서비스</h3><p>...</p></div> <div class="list-item"><h3>가구 버리는 법</h3><p>...</p></div> <div class="list-item"><h3>심학산 등산 코스</h3><p>...</p></div> <div class="list-item"><h3>운전면허 학원</h3><p>...</p></div> <div class="list-item"><h3>인감증명서 발급</h3><p>...</p></div> </div> </section>
+        <section id="sports-groups"> <h2 class="section-title"><i class="fas fa-futbol"></i> 스포츠 소모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>운정 조기축구</h3><p>...</p></div> <div class="list-item"><h3>금촌 탁구 동호회</h3><p>...</p></div> <div class="list-item"><h3>파주 등산 동호회</h3><p>...</p></div> <div class="list-item"><h3>문산 배드민턴 클럽</h3><p>...</p></div> <div class="list-item"><h3>교하 주말 농구</h3><p>...</p></div> <div class="list-item"><h3>운정 여성 풋살팀</h3><p>...</p></div> <div class="list-item"><h3>파주 자전거 라이딩</h3><p>...</p></div> <div class="list-item"><h3>볼링 동호회 모집</h3><p>...</p></div> <div class="list-item"><h3>테니스 파트너 구함</h3><p>...</p></div> <div class="list-item"><h3>주말 족구팀원</h3><p>...</p></div> <div class="list-item"><h3>골프 스크린 모임</h3><p>...</p></div> </div> </section>
+        <section id="hobby-groups"> <h2 class="section-title"><i class="fas fa-palette"></i> 취미 소모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>사진 동호회 출사</h3><p>...</p></div> <div class="list-item"><h3>독서 모임</h3><p>...</p></div> <div class="list-item"><h3>보드게임 모임(운정)</h3><p>...</p></div> <div class="list-item"><h3>뜨개질/자수 모임</h3><p>...</p></div> <div class="list-item"><h3>영화 감상 동호회</h3><p>...</p></div> <div class="list-item"><h3>맛집 탐방 모임</h3><p>...</p></div> <div class="list-item"><h3>캘리그라피 배우기</h3><p>...</p></div> <div class="list-item"><h3>우쿨렐레 동호회</h3><p>...</p></div> <div class="list-item"><h3>프라모델/피규어</h3><p>...</p></div> <div class="list-item"><h3>가죽 공예 원데이</h3><p>...</p></div> <div class="list-item"><h3>식물 키우기 모임</h3><p>...</p></div> </div> </section>
+        <section id="study-groups"> <h2 class="section-title"><i class="fas fa-book"></i> 스터디 모임</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>영어 회화 스터디</h3><p>...</p></div> <div class="list-item"><h3>코딩 스터디(파이썬)</h3><p>...</p></div> <div class="list-item"><h3>중국어 스터디(HSK)</h3><p>...</p></div> <div class="list-item"><h3>공인중개사 스터디</h3><p>...</p></div> <div class="list-item"><h3>일본어 기초 스터디</h3><p>...</p></div> <div class="list-item"><h3>주식/투자 스터디</h3><p>...</p></div> <div class="list-item"><h3>NCS 스터디 그룹</h3><p>...</p></div> <div class="list-item"><h3>임용고시 스터디</h3><p>...</p></div> <div class="list-item"><h3>자격증 스터디(컴활)</h3><p>...</p></div> <div class="list-item"><h3>대학생 전공 스터디</h3><p>...</p></div> <div class="list-item"><h3>글쓰기 스터디 모임</h3><p>...</p></div> </div> </section>
+        <section id="pet-life"> <h2 class="section-title"><i class="fas fa-dog"></i> 댕댕이 라이프</h2> <div class="home-posts card-container items-container"> <div class="card"><h3>애견 동반 카페</h3><p>...</p></div><div class="card"><h3>사료 안 먹는 강아지</h3><p>...</p></div><div class="card"><h3>심학산 댕댕이</h3><p>...</p></div><div class="card"><h3>동물병원 추천</h3><p>...</p></div><div class="card"><h3>강아지 미용</h3><p>...</p></div><div class="card"><h3>강아지 목욕 팁</h3><p>...</p></div><div class="card"><h3>유기견 보호소 봉사</h3><p>...</p></div><div class="card"><h3>노견 케어 정보</h3><p>...</p></div><div class="card"><h3>애견 동반 캠핑</h3><p>...</p></div><div class="card"><h3>운정 푸들 모임</h3><p>...</p></div><div class="card"><h3>강아지 간식 추천</h3><p>...</p></div> </div> </section>
+        <section id="photo-gallery"> <h2 class="section-title"><i class="fas fa-camera"></i> 우리동네 사진전</h2> <div class="home-posts card-container items-container"> <div class="card"><img src="https://source.unsplash.com/400x300/?paju,sunset" alt="파주 노을"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?heyri,art" alt="헤이리"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,river" alt="임진강"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,flower" alt="파주 꽃"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,cafe" alt="파주 카페"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,road" alt="파주 길"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,winter" alt="파주 겨울"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,farm" alt="파주 농장"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,bridge" alt="파주 다리"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,cat" alt="파주 고양이"><p>...</p></div><div class="card"><img src="https://source.unsplash.com/400x300/?paju,sign" alt="파주 간판"><p>...</p></div> </div> </section>
+        <section id="praise-relay"> <h2 class="section-title"><i class="fas fa-heart"></i> 칭찬/감사 릴레이</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>카페 사장님 감사</h3><p>...</p></div> <div class="list-item"><h3>버스 기사님 친절</h3><p>...</p></div> <div class="list-item"><h3>택배 기사님 고생</h3><p>...</p></div> <div class="list-item"><h3>이웃 주민 도움</h3><p>...</p></div> <div class="list-item"><h3>경비 아저씨 감사</h3><p>...</p></div> <div class="list-item"><h3>친절한 가게 직원</h3><p>...</p></div> <div class="list-item"><h3>소방관/경찰관 노고</h3><p>...</p></div> <div class="list-item"><h3>선생님께 감사</h3><p>...</p></div> <div class="list-item"><h3>환경미화원 분들</h3><p>...</p></div> <div class="list-item"><h3>먼저 인사해준 분</h3><p>...</p></div> <div class="list-item"><h3>분실물 찾아주신 분</h3><p>...</p></div> </div> </section>
+        <section id="volunteer"> <h2 class="section-title"><i class="fas fa-hands-helping"></i> 자원봉사 / 재능기부</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>유기견 보호소 봉사</h3><p>...</p></div> <div class="list-item"><h3>어르신 스마트폰 교육</h3><p>...</p></div> <div class="list-item"><h3>독거노인 반찬 배달</h3><p>...</p></div> <div class="list-item"><h3>청소년 멘토링</h3><p>...</p></div> <div class="list-item"><h3>환경 정화 활동</h3><p>...</p></div> <div class="list-item"><h3>벽화 그리기 봉사</h3><p>...</p></div> <div class="list-item"><h3>무료 법률 상담</h3><p>...</p></div> <div class="list-item"><h3>외국어 번역 재능기부</h3><p>...</p></div> <div class="list-item"><h3>행사 진행 보조</h3><p>...</p></div> <div class="list-item"><h3>취약계층 집수리</h3><p>...</p></div> <div class="list-item"><h3>농촌 일손돕기</h3><p>...</p></div> </div> </section>
+        <section id="alumni-network"> <h2 class="section-title"><i class="fas fa-school"></i> 오마이스쿨 (동문회)</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <p>...</p> <div class="list-item"><h3>문산고 동문회</h3><p>...</p></div> <div class="list-item"><h3>봉일천고 동문회</h3><p>...</p></div> <div class="list-item"><h3>금촌고 동문회</h3><p>...</p></div> <div class="list-item"><h3>교하고 동문회</h3><p>...</p></div> <div class="list-item"><h3>운정고 동문회</h3><p>...</p></div> <div class="list-item"><h3>파주고 동문회</h3><p>...</p></div> <div class="list-item"><h3>세경고 동문회</h3><p>...</p></div> <div class="list-item"><h3>한민고 동문회</h3><p>...</p></div> <div class="list-item"><h3>동패고 동문회</h3><p>...</p></div> <div class="list-item"><h3>지산고 동문회</h3><p>...</p></div> <div class="list-item"><h3>기타 학교...</h3><p>...</p></div> <div style="text-align: center; margin-top: 20px;"> <button class="filters button" style="width: auto;"><i class="fas fa-plus-circle"></i> 우리 학교 동문회 만들기</button> </div> </div> </section>
+        <section id="market"> <h2 class="section-title"><i class="fas fa-exchange-alt"></i> 직거래 장터</h2> <div class="filters"> <!-- ... --> </div> <div class="post-list items-container"> <div class="post card"><h3>아기 장난감</h3><p>...</p></div><div class="post card"><h3>스탠드 조명</h3><p>...</p></div><div class="post card"><h3>자전거</h3><p>...</p></div><div class="post card"><h3>책</h3><p>...</p></div><div class="post card"><h3>의류</h3><p>...</p></div><div class="post card"><h3>가구</h3><p>...</p></div><div class="post card"><h3>노트북</h3><p>...</p></div><div class="post card"><h3>주방용품</h3><p>...</p></div><div class="post card"><h3>스포츠용품</h3><p>...</p></div><div class="post card"><h3>식물/화분</h3><p>...</p></div><div class="post card"><h3>캠핑용품</h3><p>...</p></div> </div> </section>
+        <section id="free-sharing"> <h2 class="section-title"><i class="fas fa-gift"></i> 무료 나눔</h2> <div class="post-list items-container"> <div class="post card"><h3>아기 옷</h3><p>...</p></div><div class="post card"><h3>책장</h3><p>...</p></div><div class="post card"><h3>다육이 화분</h3><p>...</p></div><div class="post card"><h3>텀블러</h3><p>...</p></div><div class="post card"><h3>유모차</h3><p>...</p></div><div class="post card"><h3>커피머신</h3><p>...</p></div><div class="post card"><h3>고양이 사료</h3><p>...</p></div><div class="post card"><h3>여성 옷</h3><p>...</p></div><div class="post card"><h3>액자</h3><p>...</p></div><div class="post card"><h3>철봉</h3><p>...</p></div><div class="post card"><h3>인형</h3><p>...</p></div> </div> </section>
+        <section id="paju-jobs"> <h2 class="section-title"><i class="fas fa-briefcase"></i> 파주 채용</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>파주디스플레이 생산직</h3><p>...</p></div> <div class="list-item"><h3>운정 레스토랑 서빙</h3><p>...</p></div> <div class="list-item"><h3>문산 물류센터 알바</h3><p>...</p></div> <div class="list-item"><h3>병원 간호조무사</h3><p>...</p></div> <div class="list-item"><h3>출판단지 웹디자이너</h3><p>...</p></div> <div class="list-item"><h3>금촌 수학 학원 강사</h3><p>...</p></div> <div class="list-item"><h3>편의점 야간 알바</h3><p>...</p></div> <div class="list-item"><h3>운전기사 모집</h3><p>...</p></div> <div class="list-item"><h3>아울렛 판매 직원</h3><p>...</p></div> <div class="list-item"><h3>산업단지 기술자</h3><p>...</p></div> <div class="list-item"><h3>주말농장 알바</h3><p>...</p></div> </div> </section>
+        <section id="talent-market"> <h2 class="section-title"><i class="fas fa-paint-brush"></i> 재능 마켓</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <div class="list-item"><h3>로고/명함 디자인</h3><p>...</p></div> <div class="list-item"><h3>초등 영어 과외</h3><p>...</p></div> <div class="list-item"><h3>사진 촬영(프로필)</h3><p>...</p></div> <div class="list-item"><h3>엑셀/PPT 작업</h3><p>...</p></div> <div class="list-item"><h3>캘리그라피 제작</h3><p>...</p></div> <div class="list-item"><h3>반려동물 산책 대행</h3><p>...</p></div> <div class="list-item"><h3>간단한 집수리</h3><p>...</p></div> <div class="list-item"><h3>번역(영/중/일)</h3><p>...</p></div> <div class="list-item"><h3>피아노 레슨</h3><p>...</p></div> <div class="list-item"><h3>맞춤법/글쓰기 교정</h3><p>...</p></div> <div class="list-item"><h3>타로/사주 상담</h3><p>...</p></div> </div> </section>
+        <section id="paju-sinmungo"> <h2 class="section-title"><i class="fas fa-drum"></i> 파주 신문고</h2> <div class="list-container items-container" style="max-width: 900px; margin: auto;"> <p>...</p> <div class="list-item"><h3>공원 가로등 설치 건의</h3><p>...</p></div> <div class="list-item"><h3>마을버스 배차 개선</h3><p>...</p></div> <div class="list-item"><h3>분리수거함 확충</h3><p>...</p></div> <div class="list-item"><h3>도로 포트홀 보수</h3><p>...</p></div> <div class="list-item"><h3>놀이터 시설 점검</h3><p>...</p></div> <div class="list-item"><h3>금연 구역 단속 강화</h3><p>...</p></div> <div class="list-item"><h3>반려견 펫티켓 단속</h3><p>...</p></div> <div class="list-item"><h3>골목길 보안등 설치</h3><p>...</p></div> <div class="list-item"><h3>불법 주정차 단속</h3><p>...</p></div> <div class="list-item"><h3>쓰레기 무단 투기</h3><p>...</p></div> <div class="list-item"><h3>자전거 도로 정비</h3><p>...</p></div> </div> </section>
+        <section id="anon-board"> <h2 class="section-title"><i class="fas fa-user-secret"></i> 익명 공간</h2> <div class="home-posts card-container items-container"> <div class="card"><h3>층간소음</h3><p>...</p></div><div class="card"><h3>회사 스트레스</h3><p>...</p></div><div class="card"><h3>병원 추천</h3><p>...</p></div><div class="card"><h3>동네 친구</h3><p>...</p></div><div class="card"><h3>연애 고민</h3><p>...</p></div><div class="card"><h3>취업 걱정</h3><p>...</p></div><div class="card"><h3>MBTI 궁금증</h3><p>...</p></div><div class="card"><h3>결혼 준비</h3><p>...</p></div><div class="card"><h3>다이어트 팁</h3><p>...</p></div><div class="card"><h3>나만 아는 꿀팁</h3><p>...</p></div><div class="card"><h3>오늘 TMI</h3><p>...</p></div> </div> </section>
 
         <section id="login-section">
             <div class="form-box">
