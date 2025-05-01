@@ -5,17 +5,16 @@
     <title>로컬잇파주 - 파주를 잇는 우리동네 이야기</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts (굴림체 대체용) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"> {/* 가독성 좋은 Noto Sans KR 유지 */
     <style>
-        /* CSS 변수 정의 (다크모드 + 여성 감성 유지, 폰트 패밀리 변경) */
         :root {
-            --primary-color: #87CEEB; /* 스카이 블루 */
-            --secondary-color: #b0b0b0; /* 밝은 회색 */
-            --accent-color: #FFB6C1; /* 라이트 핑크/코랄 */
+            --primary-color: #0d6efd; /* 기본 파랑으로 복귀 (선호도 따라 조정 가능) */
+            --secondary-color: #6c757d;
+            --accent-color: #198754; /* 기본 녹색 */
             --point-color-gold: #FFD700;
+            /* ▼▼▼ 배경색 변경: 다크 그레이 그라데이션 ▼▼▼ */
             --dark-bg-start: #495057;
             --dark-bg-end: #343a40;
             --text-dark-on-light: #212529;
@@ -26,19 +25,17 @@
             --list-item-bg-dark: #4f565e;
             --border-color: #dee2e6;
             --border-color-dark: #5a6268;
-            --gradient-primary: linear-gradient(135deg, #87CEEB, #6495ED);
-            --gradient-accent: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            --gradient-header: linear-gradient(135deg, #4682B4 20%, #2c3e50 80%);
+            --gradient-primary: linear-gradient(135deg, #0d6efd, #0a58ca);
+            --gradient-accent: linear-gradient(135deg, #198754, #1a7443);
+            --gradient-header: linear-gradient(135deg, #0d6efd 20%, #074e9e 80%); /* 헤더 색상 조정 */
             --gradient-body-bg: linear-gradient(180deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100vh);
             --base-font-size: 14.5px;
-            /* ▼▼▼ 폰트 패밀리 변경 (굴림체 우선, 대체 폰트 지정) ▼▼▼ */
-            --main-font: 'Gulim', '굴림', '돋움', Dotum, 'Noto Sans KR', sans-serif;
+            --main-font: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif; /* 가독성 좋은 폰트 지정 */
         }
 
-        /* Basic Reset & Font */
         *, *::before, *::after { box-sizing: border-box; }
         body {
-            font-family: var(--main-font); /* 변경된 폰트 적용 */
+            font-family: var(--main-font); /* 기본 폰트 적용 */
             margin: 0;
             background: var(--gradient-body-bg);
             color: var(--text-light-on-dark);
@@ -50,18 +47,32 @@
 
         /* Header */
         header.main-header { background: var(--gradient-header); padding: 45px 20px; text-align: center; color: white; border-bottom: 6px solid var(--accent-color); }
-        header.main-header .logo-title { font-size: calc(var(--base-font-size) * 2.8); font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.35); margin: 0; line-height: 1.2; font-family: 'Noto Sans KR', sans-serif; /* 로고는 가독성 좋은 폰트 유지 */ letter-spacing: -1px; display: inline-flex; align-items: baseline; }
+        header.main-header .logo-title { font-size: calc(var(--base-font-size) * 2.8); font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.35); margin: 0; line-height: 1.2; font-family: 'Noto Sans KR', sans-serif; letter-spacing: -1px; display: inline-flex; align-items: baseline; }
         header.main-header .logo-icon { margin-right: 8px; font-size: 0.95em; vertical-align: baseline; color: var(--point-color-gold); }
         header.main-header .main-logo-text { /* 로고 텍스트 */ }
         header.main-header .sub-logo-text { font-size: 0.4em; font-weight: 400; opacity: 0.85; display: inline-block; margin-left: 6px; vertical-align: middle; letter-spacing: normal; }
         header.main-header .subtitle { margin-top: 15px; font-size: calc(var(--base-font-size) * 1.15); opacity: 0.9; font-weight: 300; }
 
-        /* Navigation */
+        /* Navigation (1줄 유지 시도) */
         nav { background-color: #212529; padding: 0 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 1px solid #495057; }
-        nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 0; padding: 0; align-items: stretch; min-height: 55px; }
-        nav ul li { position: relative; display: flex; align-items: center; }
-        nav ul li a { color: #ced4da; text-decoration: none; font-weight: 500; cursor: pointer; font-size: calc(var(--base-font-size) * 0.98); padding: 0 16px; transition: background-color 0.25s ease, transform 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 7px; height: 55px; border-radius: 6px; }
+        nav ul {
+            list-style: none; display: flex;
+            /* ▼▼▼ 1줄 유지 및 스크롤 처리 ▼▼▼ */
+            flex-wrap: nowrap; /* 줄바꿈 방지 */
+            overflow-x: auto; /* 내용 넘치면 가로 스크롤 */
+            justify-content: flex-start; /* 왼쪽 정렬 시작 (가운데 정렬 대신) */
+            -webkit-overflow-scrolling: touch; /* 모바일 터치 스크롤 */
+            scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+            -ms-overflow-style: none;  /* IE/Edge 스크롤바 숨김 */
+            gap: 5px; margin: 0; padding: 0 5px; /* 좌우 약간의 패딩 */ align-items: stretch; height: 55px;
+        }
+        /* 스크롤바 숨김 (Chrome, Safari) */
+        nav ul::-webkit-scrollbar { display: none; }
+
+        nav ul li { position: relative; display: flex; align-items: center; flex-shrink: 0; /* 메뉴 아이템 줄어들지 않게 */ }
+        nav ul li a { color: #ced4da; text-decoration: none; font-weight: 500; cursor: pointer; font-size: calc(var(--base-font-size) * 0.98); padding: 0 16px; transition: background-color 0.25s ease, transform 0.2s ease, color 0.2s ease; display: flex; align-items: center; gap: 7px; height: 55px; border-radius: 6px; white-space: nowrap; /* 메뉴 텍스트 줄바꿈 방지 */ }
         nav ul li a:hover, nav ul li:hover > a { background-color: rgba(255, 255, 255, 0.1); color: white; transform: scale(1.08); }
+        /* 드롭다운 메뉴 스타일 유지 */
         nav ul ul { display: none; position: absolute; top: 100%; left: 0; background-color: #343a40; list-style: none; padding: 8px 0; margin: 2px 0 0 0; min-width: 200px; border-radius: 0 0 6px 6px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); height: auto; z-index: 1001; border-top: 2px solid var(--primary-color); }
         nav ul li:hover > ul { display: block; }
         nav ul ul li { width: 100%; display: block; position: relative; }
@@ -72,10 +83,10 @@
         nav ul ul ul { top: -2px; left: 100%; margin-left: 1px; border-top: 1px solid #6c757d; border-radius: 0 6px 6px 6px; background-color: #495057; }
         nav ul ul li:hover > ul { display: block; }
 
-        /* 네비 우측 (날씨/로그인) */
-        .nav-weather { color: #e9ecef; font-size: calc(var(--base-font-size) * 0.9); padding: 0 10px; background-color: rgba(255,255,255,0.05); border-radius: 15px; margin: 0 5px; height: 40px; display: flex; align-items: center; }
+        /* 네비 우측 날씨/로그인 (고정 해제됨 - li 태그로 일반 메뉴처럼 배치) */
+        .nav-weather { color: #e9ecef; font-size: calc(var(--base-font-size) * 0.9); padding: 0 10px; background-color: rgba(255,255,255,0.05); border-radius: 15px; margin: 0 5px; height: 40px; display: flex; align-items: center; flex-shrink: 0; /* 줄어들지 않게 */ }
         .nav-weather i { margin-right: 5px; font-size: 1.1em; color: #f8f9fa; }
-        .nav-login { display: flex; align-items: center; height: 55px; margin-left: 5px;}
+        .nav-login { display: flex; align-items: center; height: 55px; margin-left: 5px; flex-shrink: 0; }
         .nav-login a { padding: 7px 15px; background: var(--gradient-accent); color: white; font-weight: bold; cursor: pointer; border-radius: 15px; transition: filter 0.2s ease, transform 0.2s ease; display: flex; align-items: center; gap: 5px; height: auto; font-size: calc(var(--base-font-size) * 0.9); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .nav-login a:hover { filter: brightness(1.15); transform: scale(1.05); background: var(--gradient-accent); color: white; }
 
@@ -97,7 +108,7 @@
 
         /* Marketplace */
         .filters { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 30px 25px; background: #5c636a; border-radius: 10px; margin: 0 25px 40px; border-top: 4px solid var(--primary-color); }
-        .filters select, .filters input[type='text'], .filters button { padding: 11px 14px; border: 1px solid #6c757d; border-radius: 8px; font-size: calc(var(--base-font-size) * 0.95); height: 45px; background-color: #f8f9fa; color: #343a40; }
+        .filters select, .filters input[type='text'], .filters button { padding: 11px 14px; border: 1px solid #6c757d; border-radius: 8px; font-size: calc(var(--base-font-size) * 0.95); height: 45px; background-color: #f8f9fa; color: #343a40; font-family: var(--main-font); }
         .filters input[type='text']::placeholder { color: #6c757d; }
         .filters button { background: var(--gradient-accent); color: white; border: none; cursor: pointer; font-weight: bold; transition: filter 0.2s ease, transform 0.2s ease; border-radius: 15px; }
         .filters button:hover { filter: brightness(1.1); transform: scale(1.03); }
@@ -106,11 +117,11 @@
         .post-content h3 { margin: 0 0 12px; font-size: calc(var(--base-font-size) * 1.15); }
         .post-content p { margin: 6px 0; font-size: calc(var(--base-font-size) * 0.95); }
         .post-content p strong { color: var(--primary-color); font-size: 1.15em; }
-        .post-meta { font-size: calc(var(--base-font-size) * 0.85); color: var(--text-light-on-light); /* 밝은 배경 위 텍스트 */ margin-top: 15px; display: block; text-align: right; }
+        .post-meta { font-size: calc(var(--base-font-size) * 0.85); color: var(--text-light-on-light); margin-top: 15px; display: block; text-align: right; }
 
         /* Comments Box */
         .comment-box { margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-top: 1px solid var(--border-color); }
-        .comment-box textarea { width: 100%; height: 75px; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: calc(var(--base-font-size) * 0.95); background-color: white; color: #343a40; }
+        .comment-box textarea { width: 100%; height: 75px; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: var(--main-font); font-size: calc(var(--base-font-size) * 0.95); background-color: white; color: #343a40; }
         .comment-box button { background-color: var(--primary-color); color: white; border: none; padding: 9px 18px; border-radius: 15px; cursor: pointer; font-weight: bold; transition: background-color 0.2s ease; float: right; font-size: calc(var(--base-font-size) * 0.9); }
         .comment-box button:hover { background-color: #6495ED; }
         .comment-box::after { content: ""; display: table; clear: both; }
@@ -119,7 +130,7 @@
         #login-section { display: none; padding: 70px 20px; background: rgba(0,0,0,0.1); }
         .form-box { max-width: 480px; margin: auto; text-align: center; border-top: 6px solid var(--accent-color); background: #42484f; padding: 30px; border-radius: 12px; color: var(--text-light-on-dark); }
         .form-box h3 { color: white; font-size: calc(var(--base-font-size) * 1.5); margin-bottom: 22px; }
-        .form-box input[type="email"], .form-box input[type="password"], .form-box input[type="text"] { width: 100%; padding: 13px; margin-top: 12px; margin-bottom: 22px; border: 1px solid #6c757d; border-radius: 8px; font-size: calc(var(--base-font-size) * 1.02); background-color: #ced4da; color: #343a40; }
+        .form-box input[type="email"], .form-box input[type="password"], .form-box input[type="text"] { width: 100%; padding: 13px; margin-top: 12px; margin-bottom: 22px; border: 1px solid #6c757d; border-radius: 8px; font-size: calc(var(--base-font-size) * 1.02); background-color: #ced4da; color: #343a40; font-family: var(--main-font); }
         .form-box input::placeholder { color: #6c757d; }
         .form-box .gender-options { margin-bottom: 30px; text-align: left; padding-left: 10px; color: var(--text-light-on-dark); }
         .form-box .gender-options strong { display: block; margin-bottom: 10px; font-size: calc(var(--base-font-size) * 1); }
@@ -127,42 +138,42 @@
         .form-box button { background: var(--gradient-accent); color: white; border: none; padding: 14px 28px; border-radius: 15px; cursor: pointer; font-size: calc(var(--base-font-size) * 1.15); font-weight: bold; transition: filter 0.2s ease, transform 0.1s ease; width: 100%; }
         .form-box button:hover { filter: brightness(1.1); transform: scale(1.02); }
 
-        /* ▼▼▼ 명예의 전당 (작은 박스 형태 - 위치는 예시) ▼▼▼ */
+        /* ▼▼▼ 명예의 전당 (작은 박스, 크기 70% 수준으로 축소) ▼▼▼ */
         .ranking-box {
-            background: rgba(255, 255, 255, 0.05); /* 배경 약간 투명 */
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color-dark);
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin: 20px 25px; /* 상단 여백 */
-            max-width: 350px; /* 너비 제한 */
-            /* float: left; */ /* 왼쪽 정렬 (레이아웃에 따라 조절) */
-            /* position: absolute; top: 100px; left: 20px; */ /* 절대 위치 (다른 요소와 겹칠 수 있음) */
+            border-radius: 8px; /* 모서리 약간 줄임 */
+            padding: 10px 15px; /* 내부 패딩 줄임 */
+            margin: 15px 20px; /* 여백 줄임 */
+            max-width: 280px; /* 너비 더 줄임 */
+            float: left; /* 왼쪽으로 플로팅 (예시) */
+            margin-right: 20px; /* 오른쪽 여백 */
+            clear: both; /* 이전 float 해제 */
         }
         .ranking-box h3 {
-            font-size: calc(var(--base-font-size) * 1.1);
+            font-size: calc(var(--base-font-size) * 0.9); /* 제목 폰트 축소 */
             color: var(--point-color-gold);
-            margin: 0 0 15px 0;
+            margin: 0 0 10px 0; /* 여백 줄임 */
             text-align: center;
             border-bottom: 1px dashed #6c757d;
-            padding-bottom: 10px;
+            padding-bottom: 7px; /* 패딩 줄임 */
         }
         .ranking-box ol { list-style: none; padding: 0; margin: 0; }
         .ranking-box li {
-            display: flex; align-items: baseline; /* baseline 정렬 */
-            margin-bottom: 8px;
-            font-size: calc(var(--base-font-size) * 0.9);
-            border-bottom: 1px dotted #5a6268; /* 구분선 */
-            padding-bottom: 8px;
+            display: flex; align-items: baseline;
+            margin-bottom: 6px; /* 간격 줄임 */
+            font-size: calc(var(--base-font-size) * 0.8); /* 리스트 폰트 축소 */
+            border-bottom: 1px dotted #5a6268;
+            padding-bottom: 6px; /* 패딩 줄임 */
         }
         .ranking-box li:last-child { margin-bottom: 0; border-bottom: none; }
-        .ranking-box .rank { font-weight: bold; min-width: 25px; color: var(--text-muted-on-dark); text-align: right; margin-right: 8px; }
-        .ranking-box .rank-1 { color: gold; }
-        .ranking-box .rank-user-name { font-weight: 500; color: var(--text-light-on-dark); flex-grow: 1; margin-right: 8px; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ranking-box .rank { font-weight: bold; min-width: 20px; /* 너비 줄임 */ color: var(--text-muted-on-dark); text-align: right; margin-right: 6px; /* 간격 줄임 */ }
+        .ranking-box .rank-1 { color: gold; font-size: 1.1em; } /* 1위만 약간 크게 */
+        .ranking-box .rank-user-name { font-weight: 500; color: var(--text-light-on-dark); flex-grow: 1; margin-right: 6px; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ranking-box .rank-user-title { font-size: 0.9em; color: var(--text-muted-on-dark); font-style: italic; }
-        /* 등급 아이콘 간소화 */
-        .ranking-box .rank-icon { margin-right: 4px; opacity: 0.7; }
+        .ranking-box .rank-icon { margin-right: 4px; opacity: 0.7; font-size: 0.9em; }
 
-        /* List Item Styles (다크 배경) */
+        /* List Item Styles */
         .list-item { padding: 18px; border-bottom: 1px solid var(--border-color-dark); background: var(--list-item-bg-dark); color: var(--text-light-on-dark); border-radius: 10px; margin-bottom: 0; box-shadow: 0 3px 8px rgba(0,0,0,0.15); transition: border-left 0.3s ease, background-color 0.2s ease, transform 0.2s ease; border-left: 6px solid transparent; }
         .list-container > .list-item:last-child { border-bottom: none; }
         .list-item:hover { border-left-color: var(--accent-color); background-color: #5c636a; transform: translateX(5px); }
@@ -184,26 +195,44 @@
         #naver-blog-results h4 { text-align: center; margin-bottom: 20px; color: var(--accent-color); font-size: calc(var(--base-font-size) * 1.2); font-weight: 600; border-bottom: 2px dashed var(--accent-color); padding-bottom: 8px; display: inline-block; }
         #naver-blog-results-container { text-align: center; }
 
+         /* 가상 글 숨기기 (5개만 보이도록) - JavaScript 제어 필요 */
+        /*
+        .list-container .list-item:nth-child(n+6),
+        .card-container .card:nth-child(n+6),
+        .post-list .post:nth-child(n+6) {
+             display: none;
+        }
+        .more-button {
+             display: block;
+             margin: 20px auto;
+             padding: 10px 20px;
+             background-color: var(--primary-color);
+             color: white;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+        }
+        */
+
     </style>
     <script>
-        // --- JavaScript (이전과 동일, 날씨 표시 함수만 확인) ---
+        // --- JavaScript (날씨 함수, 네이버 블로그 함수 수정) ---
          function toggleLogin() { const loginSection = document.getElementById("login-section"); const isHidden = loginSection.style.display === "none" || loginSection.style.display === ""; loginSection.style.display = isHidden ? "block" : "none"; if (isHidden) { const navHeight = document.querySelector('nav')?.offsetHeight || 58; window.scrollTo({ top: loginSection.offsetTop - navHeight - 30, behavior: 'smooth' }); } }
          function translateWeather(desc) { const dict = { "Overcast": "흐림", "Partly Cloudy": "구름 조금", "Cloudy": "흐림", "Sunny": "맑음", "Clear": "맑음", "Rain": "비", "Light rain": "약한 비", "Heavy rain": "강한 비", "Showers": "소나기", "Light rain shower": "약한 소나기", "Thunderstorm": "천둥번개", "Snow": "눈", "Light snow": "약한 눈", "Heavy snow": "강한 눈", "Sleet": "진눈깨비", "Mist": "옅은 안개", "Fog": "안개", "Haze": "연무",}; for (const key in dict) { if (desc.toLowerCase().startsWith(key.toLowerCase()) || desc.toLowerCase() === key.toLowerCase()) { return dict[key]; } } for (const key in dict) { if (desc.toLowerCase().includes(key.toLowerCase())) { return dict[key]; } } return desc; }
          async function fetchWeather() {
              const weatherNavElement = document.getElementById("weather-nav-display");
-             // 하단 날씨 섹션 관련 코드는 제거됨
              if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-spinner fa-spin"></i> 날씨`;
              try {
                  const res = await fetch('https://wttr.in/파주?format=j1');
-                 if (!res.ok) throw new Error(`API 오류: ${res.status}`);
+                 if (!res.ok) throw new Error(`날씨 API 호출 실패 (${res.status})`);
                  const data = await res.json();
                  const now = data.current_condition[0];
                  const currentTemp = now.temp_C;
                  const currentDesc = translateWeather(now.weatherDesc[0].value);
-                 let weatherIcon = 'fa-question-circle';
+                 let weatherIcon = 'fa-thermometer-half'; // 기본 아이콘 변경
                  if (currentDesc.includes('맑음')) weatherIcon = 'fa-sun';
                  else if (currentDesc.includes('구름') || currentDesc.includes('흐림')) weatherIcon = 'fa-cloud';
-                 else if (currentDesc.includes('비') || currentDesc.includes('소나기')) weatherIcon = 'fa-cloud-showers-heavy';
+                 else if (currentDesc.includes('비') || currentDesc.includes('소나기')) weatherIcon = 'fa-cloud-rain';
                  else if (currentDesc.includes('눈')) weatherIcon = 'fa-snowflake';
                  else if (currentDesc.includes('안개')) weatherIcon = 'fa-smog';
                  // ▼▼▼ 날씨 표시에 '파주:' 추가 ▼▼▼
@@ -211,17 +240,56 @@
                  if (weatherNavElement) weatherNavElement.innerHTML = weatherNavText;
              } catch (e) {
                  console.error("날씨 정보 로딩 실패:", e);
-                 if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> 날씨 실패`;
+                 if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> 날씨 로딩 실패`;
              }
          }
          const clientId = "sRWrVGzhjlf_XQin0piV"; const clientSecret = "dzYflaHzKM";
-         async function fetchNaverBlogs() { const query = "파주 맛집"; const displayCount = 5; const apiURL = `https://openapi.naver.com/v1/search/blog?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`; const container = document.getElementById("naver-blog-results"); if (!container) return; container.innerHTML = `<div id="naver-blog-results-container"><h4 style="color: var(--accent-color); border-color: var(--accent-color);"><i class="fab fa-naver"></i> 네이버 '파주 맛집' 탐방</h4></div>`; const resultsContainer = document.getElementById("naver-blog-results-container"); resultsContainer.innerHTML += `<p><i class="fas fa-spinner fa-spin"></i> 블로그 글 로딩 중...</p>`; const securityWarning = document.createElement('p'); securityWarning.style.cssText = `color:#ff6b6b;font-size:0.9em;margin-top:15px;border:1px dashed #ff6b6b;padding:10px;border-radius:5px; background-color: rgba(255, 107, 107, 0.1);`; securityWarning.innerHTML = `<strong><i class="fas fa-exclamation-triangle"></i> 보안 경고:</strong> 데모 환경이므로 API 키가 코드에 노출되어 있습니다. 실제 서비스에서는 <strong>반드시 서버 프록시를 구현</strong>해야 합니다.`; resultsContainer.appendChild(securityWarning); try { const response = await fetch(apiURL, { method: "GET", headers: { "X-Naver-Client-Id": clientId, "X-Naver-Client-Secret": clientSecret } }); if (!response.ok) { if (response.status === 0 || response.type === 'opaque' || response.type === 'cors') { throw new Error("네트워크 오류 또는 CORS 문제 발생. 서버 측 프록시 구현이 필요합니다."); } else { const errorData = await response.json().catch(() => ({})); throw new Error(`네이버 API 오류: ${response.status} ${response.statusText}. ${errorData.errorMessage || ''}`); } } const data = await response.json(); const loadingPara = resultsContainer.querySelector('p:not([style*="color: #ff6b6b"])'); if (loadingPara) resultsContainer.removeChild(loadingPara); if (data.items && data.items.length > 0) { data.items.forEach(item => { const div = document.createElement("div"); div.classList.add('list-item'); const title = item.title.replace(/<[^>]*>/g, ""); const description = item.description.replace(/<[^>]*>/g, ""); const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3'); div.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer"><h3><i class="fab fa-blogger-b"></i> ${title}</h3><p>${description}</p><small>${item.bloggername} (${postDate})</small></a>`; resultsContainer.appendChild(div); }); } else { resultsContainer.innerHTML += '<p>관련 블로그 글을 찾을 수 없습니다.</p>'; } } catch (error) { console.error("네이버 블로그 로딩 실패:", error); resultsContainer.innerHTML = `<p style="color: #ff6b6b;"><i class="fas fa-times-circle"></i> 블로그 글 로딩 중 오류 발생: ${error.message}</p>`; } }
+         async function fetchNaverBlogs() {
+             const query = "파주 맛집"; const displayCount = 5;
+             const apiURL = `https://openapi.naver.com/v1/search/blog?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`;
+             const container = document.getElementById("naver-blog-results");
+             if (!container) return;
+             container.innerHTML = `<div id="naver-blog-results-container"><h4 style="color: var(--accent-color); border-color: var(--accent-color);"><i class="fab fa-naver"></i> 네이버 '파주 맛집' 탐방</h4></div>`;
+             const resultsContainer = document.getElementById("naver-blog-results-container");
+             resultsContainer.innerHTML += `<p><i class="fas fa-spinner fa-spin"></i> 블로그 글 로딩 중...</p>`;
+             const securityWarning = document.createElement('p');
+             securityWarning.style.cssText = `color:#ff6b6b;font-size:0.9em;margin-top:15px;border:1px dashed #ff6b6b;padding:10px;border-radius:5px; background-color: rgba(255, 107, 107, 0.1);`;
+             securityWarning.innerHTML = `<strong><i class="fas fa-exclamation-triangle"></i> 보안 경고:</strong> 데모 환경이므로 API 키가 코드에 노출되어 있습니다. 실제 서비스에서는 <strong>반드시 서버 프록시를 구현</strong>해야 합니다.`;
+             resultsContainer.appendChild(securityWarning);
+             try {
+                 const response = await fetch(apiURL, { method: "GET", headers: { "X-Naver-Client-Id": clientId, "X-Naver-Client-Secret": clientSecret } });
+                 if (!response.ok) {
+                     // ▼▼▼ 오류 메시지 개선 ▼▼▼
+                     if (response.status === 0 || response.type === 'opaque' || response.type === 'cors') {
+                         throw new Error("블로그 정보를 불러올 수 없습니다. (네트워크 또는 CORS 오류)");
+                     } else {
+                         const errorData = await response.json().catch(() => ({errorMessage: '알 수 없는 오류'}));
+                         throw new Error(`네이버 API 오류 (${response.status}): ${errorData.errorMessage}`);
+                     }
+                 }
+                 const data = await response.json();
+                 const loadingPara = resultsContainer.querySelector('p:not([style*="color"])'); // 로딩 메시지 선택자 수정
+                 if (loadingPara) resultsContainer.removeChild(loadingPara);
+                 if (data.items && data.items.length > 0) {
+                     data.items.forEach(item => {
+                         const div = document.createElement("div"); div.classList.add('list-item');
+                         const title = item.title.replace(/<[^>]*>/g, ""); const description = item.description.replace(/<[^>]*>/g, ""); const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3');
+                         div.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer"><h3><i class="fab fa-blogger-b"></i> ${title}</h3><p>${description}</p><small>${item.bloggername} (${postDate})</small></a>`;
+                         resultsContainer.appendChild(div);
+                     });
+                 } else { resultsContainer.innerHTML += '<p>관련 블로그 글을 찾을 수 없습니다.</p>'; }
+             } catch (error) {
+                 console.error("네이버 블로그 로딩 실패:", error);
+                 // ▼▼▼ 사용자에게 보여줄 오류 메시지 개선 ▼▼▼
+                 resultsContainer.innerHTML = `<p style="color: #ff6b6b;"><i class="fas fa-times-circle"></i> 블로그 정보 로딩 실패: ${error.message}. 잠시 후 다시 시도해주세요.</p>`;
+             }
+         }
          document.addEventListener('DOMContentLoaded', () => { fetchWeather(); setInterval(fetchWeather, 3600000); fetchNaverBlogs(); });
     </script>
 </head>
 <body>
 
-    <!-- Header Section (Updated Logo/Title) -->
+    <!-- Header Section -->
     <header class="main-header">
         <h1 class="logo-title">
             <i class="fas fa-map-signs logo-icon"></i><span class="main-logo-text">로컬잇파주</span><span class="sub-logo-text">: 파주를 잇다</span>
@@ -229,14 +297,14 @@
         <p class="subtitle">우리동네 이야기, 정보, 즐거움이 가득한 곳</p>
     </header>
 
-    <!-- Navigation Bar (Updated Structure + Sinmungo Menu) -->
+    <!-- Navigation Bar (1줄 유지 시도) -->
     <nav>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i> 홈</a></li>
             <li> <!-- 동네소식 드롭다운 -->
                 <a href="#"><i class="fas fa-bullhorn"></i> 동네소식 <i class="fas fa-caret-down menu-arrow"></i></a>
                 <ul>
-                    <li><a href="#paju-now"><i class="fas fa-bolt"></i> 파주 NOW (실시간)</a></li>
+                    <li><a href="#paju-now"><i class="fas fa-bolt"></i> 파주 NOW</a></li>
                     <li><a href="#hot-issue"><i class="fas fa-building"></i> 핫이슈/개발</a></li>
                     <li><a href="#events"><i class="fas fa-calendar-alt"></i> 행사/축제</a></li>
                 </ul>
@@ -253,8 +321,8 @@
              <li> <!-- 파주 탐방 드롭다운 -->
                 <a href="#"><i class="fas fa-compass"></i> 파주 탐방 <i class="fas fa-caret-down menu-arrow"></i></a>
                 <ul>
-                    <li><a href="#cafe-restaurant"><i class="fas fa-utensils"></i> 맛집/카페 탐방</a></li>
-                    <li><a href="#attractions-travel"><i class="fas fa-mountain"></i> 명소/여행 후기</a></li>
+                    <li><a href="#cafe-restaurant"><i class="fas fa-utensils"></i> 맛집/카페</a></li>
+                    <li><a href="#attractions-travel"><i class="fas fa-mountain"></i> 명소/여행</a></li>
                 </ul>
             </li>
             <li> <!-- 커뮤니티 드롭다운 -->
@@ -265,32 +333,31 @@
                     <li>
                         <a href="#"><i class="fas fa-users"></i> 소모임 <i class="fas fa-caret-right menu-arrow" style="margin-left: auto;"></i></a>
                         <ul>
-                            <li><a href="#sports-groups"><i class="fas fa-futbol"></i> 스포츠 모임</a></li>
-                            <li><a href="#hobby-groups"><i class="fas fa-palette"></i> 취미 모임</a></li>
-                            <li><a href="#study-groups"><i class="fas fa-book"></i> 스터디 모임</a></li>
+                            <li><a href="#sports-groups"><i class="fas fa-futbol"></i> 스포츠</a></li>
+                            <li><a href="#hobby-groups"><i class="fas fa-palette"></i> 취미</a></li>
+                            <li><a href="#study-groups"><i class="fas fa-book"></i> 스터디</a></li>
                         </ul>
                     </li>
-                    <li><a href="#photo-gallery"><i class="fas fa-camera"></i> 우리동네 사진전</a></li>
-                    <li><a href="#praise-relay"><i class="fas fa-heart"></i> 칭찬/감사 릴레이</a></li>
-                    <li><a href="#volunteer"><i class="fas fa-hands-helping"></i> 자원봉사/재능기부</a></li>
+                    <li><a href="#photo-gallery"><i class="fas fa-camera"></i> 사진전</a></li>
+                    <li><a href="#praise-relay"><i class="fas fa-heart"></i> 칭찬해요</a></li>
+                    <li><a href="#volunteer"><i class="fas fa-hands-helping"></i> 봉사/기부</a></li>
                 </ul>
             </li>
             <li><a href="#alumni-network"><i class="fas fa-school"></i> 오마이스쿨</a></li>
-            <li> <!-- 파주장터 드롭다운 (무료나눔 추가) -->
+            <li> <!-- 파주장터 드롭다운 -->
                 <a href="#"><i class="fas fa-store"></i> 파주장터 <i class="fas fa-caret-down menu-arrow"></i></a>
                 <ul>
-                     <li><a href="#market"><i class="fas fa-exchange-alt"></i> 직거래 장터</a></li>
-                     <li><a href="#free-sharing"><i class="fas fa-gift"></i> 무료 나눔</a></li> <!-- 무료 나눔 추가 -->
+                     <li><a href="#market"><i class="fas fa-exchange-alt"></i> 직거래</a></li>
+                     <li><a href="#free-sharing"><i class="fas fa-gift"></i> 무료 나눔</a></li>
                      <li><a href="#job-list"><i class="fas fa-briefcase"></i> 구인/구직</a></li>
-                     <li><a href="#alba-urgent"><i class="fas fa-running"></i> 알바 급구!</a></li>
+                     <li><a href="#alba-urgent"><i class="fas fa-running"></i> 알바 급구</a></li>
                      <li><a href="#talent-market"><i class="fas fa-paint-brush"></i> 재능마켓</a></li>
                 </ul>
             </li>
-             <!-- ▼▼▼ 파주 신문고 메뉴 추가 ▼▼▼ -->
             <li><a href="#paju-sinmungo"><i class="fas fa-drum"></i> 파주 신문고</a></li>
             <li><a href="#anon-board"><i class="fas fa-user-secret"></i> 익명공간</a></li>
 
-            <!-- 날씨/로그인 (이제 일반 메뉴처럼 배치됨) -->
+            <!-- 날씨/로그인 -->
             <li><span class="nav-weather" id="weather-nav-display"><i class="fas fa-spinner fa-spin"></i> 날씨</span></li>
             <li class="nav-login">
                 <a onclick="toggleLogin()" role="button">
@@ -318,90 +385,53 @@
              </ol>
         </div>
 
-        <!-- (이하 다른 섹션들 - 내용은 이전과 동일, 가상 글 10개 이상 유지) -->
-        <section id="paju-now"> <h2 class="section-title"><i class="fas fa-bolt"></i> 파주 NOW (실시간 소식)</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="hot-issue"> <h2 class="section-title"><i class="fas fa-building"></i> 핫이슈 / 개발 소식</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="events"> <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 행사 / 축제</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="traffic-info"> <h2 class="section-title"><i class="fas fa-bus"></i> 교통 정보</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="smart-consume"> <h2 class="section-title"><i class="fas fa-shopping-cart"></i> 똑똑한 소비</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="parenting-edu"> <h2 class="section-title"><i class="fas fa-child"></i> 육아 / 교육</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="real-estate"> <h2 class="section-title"><i class="fas fa-house-user"></i> 부동산 이야기</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="cafe-restaurant"> <h2 class="section-title"><i class="fas fa-utensils"></i> 맛집 / 카페 탐방</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <div id="naver-blog-results"></div> <!-- 글 10개+ --> </div> </section>
-        <section id="attractions-travel"> <h2 class="section-title"><i class="fas fa-mountain"></i> 명소 / 여행 후기</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> </div> </section>
-        <section id="free-board"> <h2 class="section-title"><i class="fas fa-pencil-alt"></i> 자유 수다방</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> </div> </section>
-        <section id="qna-board"> <h2 class="section-title"><i class="fas fa-question-circle"></i> 궁금해요 Q&A</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="sports-groups"> <h2 class="section-title"><i class="fas fa-futbol"></i> 스포츠 소모임 모집</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="hobby-groups"> <h2 class="section-title"><i class="fas fa-palette"></i> 취미 소모임</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="study-groups"> <h2 class="section-title"><i class="fas fa-book"></i> 스터디 모임</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="photo-gallery"> <h2 class="section-title"><i class="fas fa-camera"></i> 우리동네 사진전</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> </div> </section>
-        <section id="praise-relay"> <h2 class="section-title"><i class="fas fa-heart"></i> 칭찬/감사 릴레이</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="volunteer"> <h2 class="section-title"><i class="fas fa-hands-helping"></i> 자원봉사 / 재능기부</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="alumni-network">
-            <h2 class="section-title"><i class="fas fa-school"></i> 오마이스쿨 (동문회)</h2>
+        <!-- ========================= -->
+        <!-- ==   메인 콘텐츠 영역    == -->
+        <!-- ========================= -->
+        <!-- 파주 NOW 섹션 (가상 글 10개 이상) -->
+        <section id="paju-now">
+            <h2 class="section-title"><i class="fas fa-bolt"></i> 파주 NOW (실시간 소식)</h2>
             <div class="list-container" style="max-width: 900px; margin: auto;">
-                <p style="text-align: center; color: var(--text-muted-on-dark); margin-bottom: 20px;"> 출신 학교 동문들과 소식을 나누고 교류해 보세요. </p>
-                 <div class="list-item"> <a href="#"> <h3><i class="fas fa-graduation-cap"></i> 문산고등학교 동문회</h3> <p>졸업생들의 소식, 학교 소식, 동문회 행사 안내 등</p> <small>최근 글: 제 O회 동문회 체육대회 결과 안내</small> </a> </div>
-                 <div class="list-item"> <a href="#"> <h3><i class="fas fa-graduation-cap"></i> 봉일천고등학교 동문회</h3> <p>동문 찾기, 추억 공유, 모임 공지</p> <small>최근 글: OO기 졸업 20주년 기념 모임 공지</small> </a> </div>
-                 <div class="list-item"> <a href="#"> <h3><i class="fas fa-graduation-cap"></i> 금촌고등학교 동문회</h3> <p>학교 발전 기금 모금 소식, 동문 기업 홍보 등</p> <small>최근 글: 신입생 환영회 후기</small> </a> </div>
-                 <div class="list-item"> <a href="#"> <h3><i class="fas fa-graduation-cap"></i> 교하고등학교 동문회</h3> <p>동문 네트워크 활성화, 졸업생 인터뷰</p> <small>최근 글: 스승의 날 행사 안내</small> </a> </div>
-                 <div class="list-item"> <a href="#"> <h3><i class="fas fa-graduation-cap"></i> 운정고등학교 동문회</h3> <p>학교 소식 업데이트, 동문 경조사 알림</p> <small>최근 글: 개교 기념 행사 참여 안내</small> </a> </div>
-                 <!-- (이하 생략 - 최소 10개 이상 추가) -->
-                 <div style="text-align: center; margin-top: 20px;"> <button class="filters button" style="width: auto;"><i class="fas fa-plus-circle"></i> 우리 학교 동문회 만들기</button> </div>
+                <div class="list-item"><h3><i class="fas fa-exclamation-triangle" style="color: #ff6b6b;"></i> [긴급] 금촌역 인근 도로 침수 발생</h3><p>폭우로 인해 금촌역 앞 도로가 침수되었습니다. 차량 우회 바랍니다. (14:30 기준)</p><small>파주시 재난안전과</small></div>
+                <div class="list-item"><h3><i class="fas fa-newspaper"></i> 파주시, 내년도 생활임금 시급 11,800원으로 결정</h3><p>경기도 생활임금 수준에 맞춰 내년도 생활임금을 인상하기로 결정했습니다.</p><small>파주타임즈</small></div>
+                <div class="list-item"><h3><i class="fas fa-traffic-light"></i> 문산읍 자유로 구간 정체 극심</h3><p>퇴근 시간과 맞물려 문산 IC 부근 정체가 심합니다. 대중교통 이용 권장. (18:10 기준)</p><small>교통정보센터</small></div>
+                <div class="list-item"><h3><i class="fas fa-water"></i> 교하동 일부 지역 수돗물 단수 안내 (내일 오전)</h3><p>수도관 교체 작업으로 내일 오전 9시부터 12시까지 단수 예정입니다.</p><small>파주수도사업소</small></div>
+                <div class="list-item"><h3><i class="fas fa-calendar-day"></i> 오늘 운정호수공원 음악분수 운영 시간 변경</h3><p>기상 악화로 인해 오늘 저녁 음악분수 운영은 취소되었습니다.</p><small>공원관리사무소</small></div>
+                <div class="list-item"><h3><i class="fas fa-store"></i> 파주 농특산물 온라인 특가 판매 시작!</h3><p>추석 맞이 파주 장단콩, 인삼 등 농특산물을 온라인 몰에서 할인 판매합니다.</p><small>파주시 농업기술센터</small></div>
+                <div class="list-item"><h3><i class="fas fa-tree"></i> 심학산 주변 산불 조심 당부</h3><p>건조한 날씨가 이어지고 있습니다. 등산객들의 각별한 주의가 필요합니다.</p><small>파주소방서</small></div>
+                <div class="list-item"><h3><i class="fas fa-users"></i> 파주시 청소년 문화의 집 프로그램 신청 시작</h3><p>하반기 청소년 대상 다양한 문화/예술 프로그램 신청을 받습니다. 홈페이지 참고.</p><small>청소년문화의집</small></div>
+                <div class="list-item"><h3><i class="fas fa-bus"></i> 2200번 광역버스 노선 파업 종료, 정상 운행</h3><p>금일 오전 중단되었던 2200번 버스 운행이 오후 2시부터 정상화되었습니다.</p><small>운수회사 공지</small></div>
+                <div class="list-item"><h3><i class="fas fa-lightbulb"></i> 파주시, 에너지 취약계층 냉방비 지원 신청 안내</h3><p>관내 에너지 취약계층을 대상으로 냉방비 지원 신청을 받고 있습니다. (~10/15)</p><small>파주시 복지정책과</small></div>
+                <div class="list-item"><h3><i class="fas fa-dog"></i> 운정 가람마을 부근 유기견 발견 (흰색 말티즈)</h3><p>주인을 애타게 찾고 있습니다. 발견하신 분은 OOO로 연락주세요.</p><small>동물보호센터</small></div>
             </div>
-        </section>
-        <section id="market"> <h2 class="section-title"><i class="fas fa-exchange-alt"></i> 직거래 장터</h2> <div class="filters"> <!-- ... --> </div> <div class="post-list"> <!-- 글 10개+ --> </div> </section>
-        <!-- ▼▼▼ 무료 나눔 섹션 추가 ▼▼▼ -->
-        <section id="free-sharing">
-            <h2 class="section-title"><i class="fas fa-gift"></i> 무료 나눔</h2>
-            <div class="post-list">
-                 <!-- 가상 게시글 10개 이상 (카드 형식) -->
-                <div class="post card"> <img alt="아기 옷" src="https://source.unsplash.com/400x300/?baby,clothes"/> <div class="post-content"> <h3>[나눔] 돌 전 아기 옷 드려요 (여아)</h3> <p><strong>무료</strong> · 운정</p> <p>깨끗하게 입혔어요. 필요하신 분 가져가세요~</p><p class="post-meta"><i class="far fa-clock"></i> 30분 전</p> </div> </div>
-                <div class="post card"> <img alt="책장" src="https://source.unsplash.com/400x300/?bookshelf"/> <div class="post-content"> <h3>[나눔] 5단 책장 무료로 드립니다</h3> <p><strong>무료</strong> · 금촌</p> <p>이사 가면서 처분합니다. 직접 가져가셔야 해요.</p><p class="post-meta"><i class="far fa-clock"></i> 1시간 전</p> </div> </div>
-                <div class="post card"> <img alt="화분" src="https://source.unsplash.com/400x300/?plant,pot"/> <div class="post-content"> <h3>[나눔] 다육이 화분 몇 개 나눔해요</h3> <p><strong>무료</strong> · 교하</p> <p>잘 키워주실 분 찾아요!</p><p class="post-meta"><i class="far fa-clock"></i> 2시간 전</p> </div> </div>
-                <div class="post card"> <img alt="텀블러" src="https://source.unsplash.com/400x300/?tumbler"/> <div class="post-content"> <h3>[나눔] 새 텀블러 나눔합니다</h3> <p><strong>무료</strong> · 문산</p> <p>선물 받았는데 사용 안 해서 드려요.</p><p class="post-meta"><i class="far fa-clock"></i> 4시간 전</p> </div> </div>
-                <div class="post card"> <img alt="유모차" src="https://source.unsplash.com/400x300/?stroller"/> <div class="post-content"> <h3>[나눔] 휴대용 유모차 드림</h3> <p><strong>무료</strong> · 운정3지구</p> <p>사용감 있지만 아직 쓸만해요.</p><p class="post-meta"><i class="far fa-clock"></i> 5시간 전</p> </div> </div>
-                <div class="post card"> <img alt="커피머신" src="https://source.unsplash.com/400x300/?coffee,machine"/> <div class="post-content"> <h3>[나눔] 캡슐 커피머신 나눔</h3> <p><strong>무료</strong> · 파주읍</p> <p>작동 잘 됩니다. 캡슐은 없어요.</p><p class="post-meta"><i class="far fa-clock"></i> 1일 전</p> </div> </div>
-                <div class="post card"> <img alt="고양이 사료" src="https://source.unsplash.com/400x300/?cat,food"/> <div class="post-content"> <h3>[나눔] 고양이 사료 샘플 드려요</h3> <p><strong>무료</strong> · 금촌</p> <p>기호성 테스트용으로 받은건데 안 먹어서요.</p><p class="post-meta"><i class="far fa-clock"></i> 1일 전</p> </div> </div>
-                <div class="post card"> <img alt="여성 의류" src="https://source.unsplash.com/400x300/?women,fashion"/> <div class="post-content"> <h3>[나눔] 여성 옷 몇 벌 나눔합니다 (55사이즈)</h3> <p><strong>무료</strong> · 교하</p> <p>거의 안 입은 옷들이에요.</p><p class="post-meta"><i class="far fa-clock"></i> 2일 전</p> </div> </div>
-                <div class="post card"> <img alt="액자" src="https://source.unsplash.com/400x300/?picture,frame"/> <div class="post-content"> <h3>[나눔] 인테리어 액자 드립니다</h3> <p><strong>무료</strong> · 운정</p> <p>벽에 걸기 좋은 사이즈입니다.</p><p class="post-meta"><i class="far fa-clock"></i> 2일 전</p> </div> </div>
-                <div class="post card"> <img alt="운동 기구" src="https://source.unsplash.com/400x300/?gym,equipment"/> <div class="post-content"> <h3>[나눔] 가정용 철봉 무료 나눔</h3> <p><strong>무료</strong> · 문산</p> <p>문틀 고정식 철봉입니다. 사용 안해서 드려요.</p><p class="post-meta"><i class="far fa-clock"></i> 3일 전</p> </div> </div>
-            </div>
-        </section>
-        <section id="job-list"> <h2 class="section-title"><i class="fas fa-briefcase"></i> 구인 / 구직</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="alba-urgent"> <h2 class="section-title"><i class="fas fa-running"></i> 알바 급구!</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-        <section id="talent-market"> <h2 class="section-title"><i class="fas fa-paint-brush"></i> 재능 마켓</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> </div> </section>
-
-        <!-- ▼▼▼ 파주 신문고 섹션 추가 ▼▼▼ -->
-        <section id="paju-sinmungo">
-            <h2 class="section-title"><i class="fas fa-drum"></i> 파주 신문고</h2>
-            <div class="list-container" style="max-width: 900px; margin: auto;">
-                 <p style="text-align: center; color: var(--text-muted-on-dark); margin-bottom: 20px;">
-                    파주시에 바라는 점, 불편 사항, 정책 제안 등을 자유롭게 남겨주세요.<br>
-                    <small>(단, 욕설, 비방, 광고 등 운영 원칙에 어긋나는 글은 삭제될 수 있습니다.)</small>
-                 </p>
-                 <!-- 가상 게시글 10개 이상 (리스트 형식) -->
-                <div class="list-item"><h3><i class="fas fa-bullhorn"></i> 운정 OOO 공원 가로등 설치 건의</h3><p>밤에 너무 어두워서 산책하기 위험합니다. 가로등 추가 설치 부탁드립니다.</p><small>작성자: 산책러</small></div>
-                <div class="list-item"><h3><i class="fas fa-bus-alt"></i> 마을버스 XX번 배차 간격 개선 요청</h3><p>출퇴근 시간에 배차 간격이 너무 길어서 불편합니다. 증차가 필요합니다.</p><small>작성자: 대중교통러</small></div>
-                <div class="list-item"><h3><i class="fas fa-recycle"></i> 아파트 단지 내 재활용 분리수거함 확충 건의</h3><p>분리수거함이 부족해서 넘칠 때가 많습니다. 추가 설치해주세요.</p><small>작성자: 분리수거달인</small></div>
-                <div class="list-item"><h3><i class="fas fa-exclamation-circle"></i> 금촌 OOO 도로 포트홀 보수 요청</h3><p>도로에 구멍이 크게 나서 운전하기 위험합니다. 빠른 보수 부탁드립니다.</p><small>작성자: 안전운전</small></div>
-                <div class="list-item"><h3><i class="fas fa-child"></i> 어린이 놀이터 시설 점검 및 보수 건의</h3><p>일부 놀이기구가 낡고 위험해 보입니다. 안전 점검 및 보수가 필요합니다.</p><small>작성자: 아이엄마</small></div>
-                <div class="list-item"><h3><i class="fas fa-tree"></i> 공원 내 금연 구역 흡연 단속 강화 요청</h3><p>금연 구역에서 담배 피우는 사람들이 많습니다. 단속을 강화해주세요.</p><small>작성자: 비흡연자</small></div>
-                <div class="list-item"><h3><i class="fas fa-dog"></i> 반려견 산책 시 목줄 착용 및 배변 처리 단속 건의</h3><p>공원에서 목줄 없이 다니거나 배변을 치우지 않는 경우가 많습니다. 계도가 필요합니다.</p><small>작성자: 펫티켓</small></div>
-                <div class="list-item"><h3><i class="fas fa-lightbulb"></i> 골목길 보안등(CCTV 포함) 설치 요청</h3><p>귀갓길이 너무 어둡고 불안합니다. 보안등과 CCTV 설치를 건의합니다.</p><small>작성자: 안심귀가</small></div>
-                <div class="list-item"><h3><i class="fas fa-parking"></i> 불법 주정차 단속 강화 요청 (OO초등학교 앞)</h3><p>아이들 등하굣길에 불법 주정차 차량 때문에 위험합니다. 강력 단속 바랍니다.</p><small>작성자: 학부모</small></div>
-                <div class="list-item"><h3><i class="fas fa-trash-alt"></i> 쓰레기 무단 투기 지역 집중 단속 및 과태료 부과 건의</h3><p>OO빌라 근처에 쓰레기 무단 투기가 심각합니다. CCTV 설치 및 단속 필요.</p><small>작성자: 깨끗한파주</small></div>
-                 <div class="list-item"><h3><i class="fas fa-bicycle"></i> 자전거 도로 정비 및 관리 강화 요청</h3><p>일부 자전거 도로 파손이 심하고 관리가 안 되고 있습니다.</p><small>작성자: 자전거러버</small></div>
-            </div>
+             <!-- <button class="more-button">더보기</button> --> <!-- 더보기 버튼 (JS 구현 필요) -->
         </section>
 
-        <section id="anon-board">
-            <h2 class="section-title"><i class="fas fa-user-secret"></i> 익명 공간</h2>
-            <div class="home-posts card-container">
-                <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명) 층간소음</h3><p>너무 힘든데 어떻게 대처하나요?</p></div>
-                <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명) 회사 스트레스</h3><p>동료 때문에 힘든데 참아야 할까요?</p></div>
-                <!-- ... 10개 이상 채우기 ... -->
-            </div>
-        </section>
+        <!-- (이하 다른 모든 섹션들도 동일한 구조로 가상 글 10개 이상 포함) -->
+        <section id="hot-issue"> <h2 class="section-title"><i class="fas fa-building"></i> 핫이슈 / 개발 소식</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="events"> <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 행사 / 축제</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="traffic-info"> <h2 class="section-title"><i class="fas fa-bus"></i> 교통 정보</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="smart-consume"> <h2 class="section-title"><i class="fas fa-shopping-cart"></i> 똑똑한 소비</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="parenting-edu"> <h2 class="section-title"><i class="fas fa-child"></i> 육아 / 교육</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="real-estate"> <h2 class="section-title"><i class="fas fa-house-user"></i> 부동산 이야기</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="cafe-restaurant"> <h2 class="section-title"><i class="fas fa-utensils"></i> 맛집 / 카페 탐방</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <div id="naver-blog-results"></div> <!-- 글 10개+ (네이버 포함) --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> </div> </section>
+        <section id="attractions-travel"> <h2 class="section-title"><i class="fas fa-mountain"></i> 명소 / 여행 후기</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
+        <section id="free-board"> <h2 class="section-title"><i class="fas fa-pencil-alt"></i> 자유 수다방</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
+        <section id="qna-board"> <h2 class="section-title"><i class="fas fa-question-circle"></i> 궁금해요 Q&A</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="sports-groups"> <h2 class="section-title"><i class="fas fa-futbol"></i> 스포츠 소모임 모집</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="hobby-groups"> <h2 class="section-title"><i class="fas fa-palette"></i> 취미 소모임</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="study-groups"> <h2 class="section-title"><i class="fas fa-book"></i> 스터디 모임</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="photo-gallery"> <h2 class="section-title"><i class="fas fa-camera"></i> 우리동네 사진전</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
+        <section id="praise-relay"> <h2 class="section-title"><i class="fas fa-heart"></i> 칭찬/감사 릴레이</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="volunteer"> <h2 class="section-title"><i class="fas fa-hands-helping"></i> 자원봉사 / 재능기부</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="alumni-network"> <h2 class="section-title"><i class="fas fa-school"></i> 오마이스쿨 (동문회)</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <p>...</p> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div style="text-align: center; margin-top: 20px;"> <button>...</button> </div> </div> </section>
+        <section id="market"> <h2 class="section-title"><i class="fas fa-exchange-alt"></i> 직거래 장터</h2> <div class="filters"> <!-- ... --> </div> <div class="post-list"> <!-- 글 10개+ --> <div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div> </div> </section>
+        <section id="free-sharing"> <h2 class="section-title"><i class="fas fa-gift"></i> 무료 나눔</h2> <div class="post-list"> <!-- 글 10개+ --> <div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div><div class="post card">...</div> </div> </section>
+        <section id="job-list"> <h2 class="section-title"><i class="fas fa-briefcase"></i> 구인 / 구직</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="alba-urgent"> <h2 class="section-title"><i class="fas fa-running"></i> 알바 급구!</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="talent-market"> <h2 class="section-title"><i class="fas fa-paint-brush"></i> 재능 마켓</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="paju-sinmungo"> <h2 class="section-title"><i class="fas fa-drum"></i> 파주 신문고</h2> <div class="list-container" style="max-width: 900px; margin: auto;"> <p>...</p> <!-- 글 10개+ --> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div> <div class="list-item">...</div></div> </section>
+        <section id="anon-board"> <h2 class="section-title"><i class="fas fa-user-secret"></i> 익명 공간</h2> <div class="home-posts card-container"> <!-- 글 10개+ --> <div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div><div class="card">...</div> </div> </section>
 
         <section id="login-section"> <!-- 로그인 섹션은 유지 -->
             <div class="form-box">
