@@ -2,29 +2,28 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8"/>
-    <title>로컬잇파주 - 우리동네 커뮤니티 허브</title> {/* 타이틀 간결화 */}
+    <title>로컬잇파주 - 커뮤니티 & 정보 허브</title> {/* 제목 약간 변경 */}
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    {/* Font Awesome CDN 추가 */}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS 변수 정의 (색상 및 그라데이션 관리) */
+        /* CSS 변수 정의 (색상 관리 용이) */
         :root {
-            --primary-color: #0d6efd; /* 부트스트랩 기본 파랑 */
-            --secondary-color: #6c757d; /* 부트스트랩 기본 회색 */
-            --accent-color: #198754; /* 부트스트랩 기본 녹색 */
+            --primary-color: #007bff;
+            --secondary-color: #343a40;
+            --accent-color: #28a745; /* 녹색 계열 추가 */
             --light-bg: #f8f9fa;
-            --text-dark: #212529;
+            --text-dark: #343a40;
             --text-light: #6c757d;
             --card-bg: white;
             --border-color: #dee2e6;
-            --gradient-primary: linear-gradient(135deg, #0d6efd, #074e9e); /* 파랑 계열 그라데이션 */
-            --gradient-accent: linear-gradient(135deg, #198754, #0f5132); /* 녹색 계열 그라데이션 */
-            --gradient-light: linear-gradient(135deg, #ffffff, #f1f3f5); /* 밝은 그라데이션 */
         }
 
         /* Basic Reset & Font */
         *, *::before, *::after {
-            box-sizing: border-box;
+            box-sizing: border-box; /* 레이아웃 계산 용이 */
         }
+
         body {
             font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
             margin: 0;
@@ -35,225 +34,144 @@
 
         /* Header */
         header.main-header {
-            background: var(--gradient-primary); /* 그라데이션 배경 적용 */
-            padding: 45px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #0056b3); /* 그라데이션 배경 */
+            padding: 40px 20px; /* 패딩 증가 */
             text-align: center;
             color: white;
-            border-bottom: 5px solid var(--accent-color);
+            border-bottom: 5px solid var(--accent-color); /* 하단 액센트 라인 */
         }
         header.main-header h1 {
             margin: 0;
-            font-size: 3em; /* 크기 증가 */
+            font-size: 2.8em; /* 크기 약간 증가 */
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* 텍스트 그림자 */
         }
         header.main-header .subtitle {
-             margin-top: 12px;
-             font-size: 1.3em;
-             opacity: 0.95;
+             margin-top: 10px;
+             font-size: 1.2em;
+             opacity: 0.9;
         }
 
-        /* ----- Navigation - 드롭다운 메뉴 ----- */
+        /* Navigation */
         nav {
-            background-color: #343a40; /* 어두운 배경 유지 */
-            padding: 0 20px; /* 상하 패딩 제거, 좌우 유지 */
+            background-color: var(--secondary-color);
+            padding: 12px 20px; /* 패딩 조절 */
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* 그림자 강화 */
         }
-        nav ul { /* 기본 메뉴 리스트 */
+        nav ul {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 5px; /* 메뉴 간 간격 줄임 */
+            gap: 15px 25px; /* 간격 조절 */
             margin: 0;
             padding: 0;
-            align-items: stretch; /* 메뉴 높이 동일하게 */
-            height: 55px; /* 네비게이션 바 높이 고정 */
-        }
-        nav ul li { /* 기본 메뉴 아이템 */
-            position: relative; /* 드롭다운 기준점 */
-            display: flex; /* 내부 요소 정렬 */
             align-items: center;
         }
-        nav ul li a { /* 기본 메뉴 링크 */
+        nav ul li a {
             color: #f8f9fa;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 500; /* 굵기 조절 */
             cursor: pointer;
-            font-size: 1em;
-            padding: 0 18px; /* 좌우 패딩 증가, 상하 패딩 제거 */
-            transition: background-color 0.2s ease, transform 0.2s ease; /* transform 추가 */
-            display: flex;
+            font-size: 1em; /* 폰트 크기 통일 */
+            padding: 8px 5px; /* 패딩 추가 */
+            transition: color 0.2s ease, background-color 0.2s ease; /* 배경색 전환 추가 */
+            display: flex; /* 아이콘과 텍스트 정렬 */
             align-items: center;
-            gap: 8px;
-            height: 100%; /* 부모 li 높이만큼 채움 */
+            gap: 6px; /* 아이콘과 텍스트 간격 */
             border-radius: 4px; /* 부드러운 모서리 */
         }
-        /* 메뉴 호버 애니메이션 & 스타일 */
-        nav ul li a:hover,
-        nav ul li:hover > a { /* li에 호버해도 a 스타일 변경 */
-            background-color: rgba(255, 255, 255, 0.1);
+        nav ul li a:hover, nav ul li a:focus {
             color: white;
-            transform: scale(1.05); /* 약간 확대 */
+            background-color: rgba(255, 255, 255, 0.1); /* 호버 시 배경 강조 */
         }
-
-        /* 드롭다운 메뉴 스타일 */
-        nav ul ul { /* 하위 메뉴 리스트 (숨김) */
-            display: none;
-            position: absolute;
-            top: 100%; /* 부모 li 바로 아래 */
-            left: 0;
-            background-color: #495057; /* 드롭다운 배경색 */
-            list-style: none;
-            padding: 5px 0;
-            margin: 0;
-            min-width: 200px; /* 최소 너비 */
-            border-radius: 0 0 5px 5px; /* 아래쪽 모서리 둥글게 */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            height: auto; /* 높이 자동 */
-            z-index: 1001; /* 다른 요소 위에 오도록 */
-        }
-        nav ul li:hover > ul { /* 상위 li 호버 시 하위 ul 보이기 */
-            display: block;
-        }
-        nav ul ul li { /* 하위 메뉴 아이템 */
-            width: 100%;
-            display: block; /* 세로 정렬 */
-        }
-        nav ul ul li a { /* 하위 메뉴 링크 */
-            padding: 10px 20px; /* 드롭다운 내부 패딩 */
-            width: 100%;
-            height: auto; /* 높이 자동 */
-            display: flex; /* 아이콘 정렬 */
-            align-items: center;
-            gap: 10px;
-            color: #f8f9fa;
-            font-size: 0.95em;
-            border-radius: 0; /* 모서리 각지게 */
-        }
-        nav ul ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            transform: scale(1); /* 하위 메뉴는 확대 안 함 (선택사항) */
-            color: white;
-        }
-        /* 드롭다운 화살표 아이콘 */
-        .menu-arrow {
-            font-size: 0.7em;
-            margin-left: 4px;
-            transition: transform 0.2s ease;
-        }
-        nav ul li:hover .menu-arrow {
-             transform: rotate(180deg); /* 호버 시 회전 */
-        }
-
-        /* 네비게이션 우측 요소 (날씨, 로그인) */
-        .nav-right {
-            margin-left: auto; /* 오른쪽으로 밀기 */
-            display: flex;
-            align-items: stretch; /* 높이 맞춤 */
-            gap: 15px;
-            padding-left: 20px; /* 왼쪽 메뉴와 간격 */
+        /* 활성 메뉴 (예시 - JS로 실제 구현 필요) */
+        nav ul li.active a {
+            color: var(--accent-color);
+            font-weight: bold;
         }
         .nav-weather, .nav-login {
-            display: flex;
-            align-items: center;
+            margin-left: auto;
             color: #adb5bd;
             font-size: 0.9em;
-            height: 100%; /* 네비게이션 높이만큼 */
+            display: flex;
+            align-items: center; /* 수직 정렬 */
+            gap: 15px;
         }
         .nav-login a {
-             padding: 8px 15px;
-             background: var(--gradient-accent); /* 로그인 버튼 그라데이션 */
-             color: white;
+             color: #f8f9fa;
              font-weight: bold;
              cursor: pointer;
+             padding: 6px 12px; /* 버튼 느낌 패딩 */
+             background-color: var(--accent-color); /* 로그인 버튼 강조 */
              border-radius: 5px;
-             transition: filter 0.2s ease, transform 0.2s ease;
-             display: flex;
-             align-items: center;
-             gap: 6px;
-             height: auto; /* 내부 콘텐츠 크기에 맞춤 */
+             transition: background-color 0.2s ease;
         }
          .nav-login a:hover {
-             filter: brightness(1.1); /* 살짝 밝게 */
-             transform: scale(1.05); /* 살짝 확대 */
-             background: var(--gradient-accent); /* 호버 시에도 그라데이션 유지 */
+             background-color: #218838; /* 호버 시 약간 어둡게 */
              color: white;
         }
 
         /* Section Titles */
         .section-title {
-            font-size: 2.5em;
+            font-size: 2.4em; /* 크기 증가 */
             text-align: center;
-            margin: 80px 0 50px;
-            color: var(--text-dark); /* 기본 텍스트 색상으로 */
+            margin: 80px 0 50px; /* 여백 증가 */
+            color: var(--primary-color); /* 색상 변경 */
             font-weight: 600;
-            display: flex;
+            display: flex; /* 아이콘과 정렬 */
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            position: relative; /* 밑줄 효과 기준 */
-            padding-bottom: 15px; /* 밑줄 공간 */
+            gap: 15px; /* 아이콘과 제목 간격 */
         }
-        /* 섹션 제목 밑줄 그라데이션 효과 */
-        .section-title::after {
-             content: '';
-             position: absolute;
-             bottom: 0;
-             left: 50%;
-             transform: translateX(-50%);
-             width: 80px; /* 밑줄 너비 */
-             height: 4px; /* 밑줄 두께 */
-             background: var(--gradient-primary); /* 그라데이션 적용 */
-             border-radius: 2px;
-        }
-        .section-title i {
+        .section-title i { /* 섹션 제목 아이콘 스타일 */
             font-size: 0.9em;
-            color: var(--primary-color); /* 아이콘 색상 */
+            color: var(--accent-color); /* 아이콘 색상 */
         }
 
         /* Cards (General) */
         .card, .form-box, .comment-box, .post {
             background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07); /* 그림자 조정 */
+            border-radius: 10px; /* 약간 줄임 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06); /* 그림자 미세 조정 */
             padding: 25px;
-            margin-bottom: 30px; /* 간격 증가 */
+            margin-bottom: 25px; /* 간격 증가 */
             overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+            border: 1px solid var(--border-color); /* 얇은 테두리 추가 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* 호버 애니메이션 */
         }
-        .card:hover, .post:hover {
-             transform: translateY(-6px);
-             box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        .card:hover, .post:hover { /* 카드 호버 효과 */
+             transform: translateY(-5px); /* 살짝 위로 이동 */
+             box-shadow: 0 10px 20px rgba(0,0,0,0.08); /* 그림자 강조 */
         }
         .card h3, .form-box h3 {
             margin-top: 0;
             margin-bottom: 15px;
             color: var(--primary-color);
-            font-size: 1.4em;
+            font-size: 1.4em; /* 제목 크기 증가 */
             font-weight: 600;
         }
         .card p {
-            margin-bottom: 8px;
-            color: var(--text-dark);
+            margin-bottom: 8px; /* 간격 조절 */
+            color: var(--text-dark); /* 기본 텍스트 색상 */
         }
 
-        /* Containers */
-        .card-container, .home-posts, .post-list {
-            display: grid; /* Grid 레이아웃 사용 */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 반응형 그리드 */
-            gap: 30px;
-            padding: 0 25px;
-        }
-        /* list-container는 기존 flex 유지 또는 grid로 변경 가능 */
-        .list-container {
+        /* Containers for Cards/Posts */
+        .card-container, .home-posts {
             display: flex;
-            flex-direction: column; /* 세로 정렬 */
-            gap: 15px; /* 아이템 간 간격 */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 25px; /* 패딩 증가 */
+        }
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 30px 25px;
         }
 
         /* Marketplace Specific */
@@ -262,72 +180,70 @@
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            padding: 30px 25px;
-            background: var(--gradient-light); /* 필터 배경 그라데이션 */
+            padding: 30px 25px; /* 패딩 증가 */
+            background: #e9ecef;
             border-radius: 8px;
-            margin: 0 25px 40px;
-            border-top: 4px solid var(--primary-color); /* 상단 색상 변경 */
+            margin: 0 25px 40px; /* 여백 조정 */
+            border-top: 3px solid var(--accent-color); /* 상단 액센트 */
         }
         .filters select, .filters input[type='text'], .filters button {
             padding: 12px 15px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 6px; /* 약간 각지게 */
             font-size: 1em;
-            height: 45px;
+            height: 45px; /* 높이 통일 */
         }
-        .filters button {
-            background: var(--gradient-accent); /* 검색 버튼 그라데이션 */
+        .filters button { /* 검색 버튼 스타일 */
+            background-color: var(--accent-color);
             color: white;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: filter 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease;
         }
         .filters button:hover {
-            filter: brightness(1.1);
-            transform: scale(1.03);
+            background-color: #218838;
         }
         .post img {
             width: 100%;
-            height: 220px;
+            height: 220px; /* 이미지 높이 증가 */
             object-fit: cover;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 0; /* 콘텐츠와 간격 제거 */
-            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px 8px 0 0; /* 위쪽만 둥글게 */
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color); /* 이미지 하단 라인 */
         }
-        .post .post-content { /* 이미지 아래 콘텐츠 영역 */
-             padding: 20px; /* 내부 패딩 증가 */
-        }
+        .post-content { padding: 0 5px; } /* 내부 여백 약간 */
         .post-content h3 {
-            margin: 0 0 12px;
-            font-size: 1.25em;
+            margin: 0 0 10px;
+            font-size: 1.25em; /* 약간 키움 */
         }
         .post-content p {
-            margin: 6px 0;
+            margin: 5px 0;
             font-size: 1em;
+            color: var(--text-dark);
         }
-        .post-content p strong {
+        .post-content p strong { /* 가격 강조 */
              color: var(--primary-color);
-             font-size: 1.15em; /* 가격 더 강조 */
+             font-size: 1.1em;
         }
         .post-meta {
-            font-size: 0.9em;
+            font-size: 0.9em; /* 약간 키움 */
             color: var(--text-light);
-            margin-top: 15px;
+            margin-top: 15px; /* 간격 증가 */
             display: block;
-            text-align: right;
+            text-align: right; /* 오른쪽 정렬 */
         }
 
-        /* Comments Box */
+        /* Comments */
         .comment-box {
             margin-top: 25px;
             padding: 20px;
-            background-color: #f1f3f5;
+            background-color: #f1f3f5; /* 배경색 약간 변경 */
             border-radius: 6px;
             border-top: 1px solid var(--border-color);
         }
         .comment-box textarea {
-            width: 100%;
+            width: 100%; /* box-sizing 적용 */
             height: 80px;
             padding: 12px;
             margin-bottom: 10px;
@@ -337,49 +253,51 @@
             font-size: 1em;
         }
         .comment-box button {
-            background-color: var(--secondary-color);
+            background-color: var(--secondary-color); /* 버튼 색상 변경 */
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 20px; /* 버튼 크기 증가 */
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.2s ease;
-            float: right;
+            float: right; /* 오른쪽 정렬 */
         }
         .comment-box button:hover {
             background-color: #5a6268;
         }
-        .comment-box::after {
+        .comment-box::after { /* float 해제 */
              content: "";
              display: table;
              clear: both;
         }
 
+
         /* Login/Signup Form */
         #login-section {
             display: none;
-            padding: 70px 20px;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2); /* 하늘색 계열 그라데이션 */
+            padding: 60px 20px;
+            background-color: #e0e9f5; /* 배경색 변경 (파랑 계열 연하게) */
         }
         .form-box {
-            max-width: 480px;
+            max-width: 480px; /* 너비 증가 */
             margin: auto;
             text-align: center;
-            border-top: 5px solid var(--primary-color);
-            background: white; /* 폼 박스 배경 흰색 */
+            border-top: 5px solid var(--primary-color); /* 상단 강조 */
         }
-        .form-box h3 { color: var(--text-dark); }
+        .form-box h3 {
+             color: var(--secondary-color);
+        }
         .form-box input[type="email"],
         .form-box input[type="password"],
         .form-box input[type="text"] {
             width: 100%;
-            padding: 14px;
+            padding: 14px; /* 패딩 증가 */
             margin-top: 12px;
             margin-bottom: 22px;
             border: 1px solid #ced4da;
             border-radius: 6px;
-            font-size: 1.05em;
+            font-size: 1.05em; /* 폰트 크기 증가 */
         }
         .form-box .gender-options {
              margin-bottom: 30px;
@@ -389,97 +307,100 @@
         }
          .form-box .gender-options strong { display: block; margin-bottom: 10px; }
         .form-box label { margin-right: 20px; cursor: pointer; }
-        .form-box button {
-            background: var(--gradient-accent);
+        .form-box button { /* 가입 버튼 스타일 */
+            background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 30px; /* 버튼 크기 증가 */
             border-radius: 6px;
             cursor: pointer;
-            font-size: 1.2em;
+            font-size: 1.2em; /* 폰트 크기 증가 */
             font-weight: bold;
-            transition: filter 0.2s ease, transform 0.1s ease;
-            width: 100%;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: 100%; /* 버튼 너비 100% */
         }
         .form-box button:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
+            background-color: #218838;
+            transform: scale(1.02); /* 호버 시 살짝 커짐 */
         }
 
-        /* User Badges */
+        /* User Badges/Levels */
          .badge {
-            font-size: 0.8em;
+            font-size: 0.8em; /* 약간 작게 */
             padding: 5px 12px;
             border-radius: 15px;
             font-weight: 600;
             margin-left: 8px;
             vertical-align: middle;
-            display: inline-flex;
+            display: inline-flex; /* 아이콘 정렬 */
             align-items: center;
             gap: 4px;
         }
-        .badge i { font-size: 0.9em; }
-        .badge.lv1 { background: #e9ecef; color: #495057; }
-        .badge.lv3 { background: #d1ecf1; color: #0c5460; }
-        .badge.lv7 { background: #fff3cd; color: #856404; }
+        .badge i { font-size: 0.9em; } /* 뱃지 내 아이콘 */
+        .badge.lv1 { background: #e9ecef; color: #495057; } /* Level 1 */
+        .badge.lv3 { background: #d1ecf1; color: #0c5460; } /* Level 3 */
+        .badge.lv7 { background: #fff3cd; color: #856404; } /* Level 7 */
 
         /* Weather Section */
         #weather-section {
-            padding: 60px 20px;
-            background: url('https://source.unsplash.com/1600x500/?paju,landscape') no-repeat center center; /* 파주 관련 이미지 */
+            padding: 50px 20px;
+            background: url('https://source.unsplash.com/1600x400/?sky,cloud') no-repeat center center; /* 배경 이미지 추가 */
             background-size: cover;
             text-align: center;
-            color: white;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            position: relative;
+            color: white; /* 텍스트 흰색 */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* 텍스트 가독성 */
+            position: relative; /* 가상 요소용 */
         }
-        #weather-section::before {
+        #weather-section::before { /* 어두운 오버레이 */
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)); /* 그라데이션 오버레이 */
+            background-color: rgba(0, 0, 0, 0.4); /* 투명도 조절 */
             z-index: 1;
         }
         #weather-section h2, #weather-section div {
-             position: relative;
+             position: relative; /* 내용이 오버레이 위에 오도록 */
              z-index: 2;
         }
         #weather-section h2 {
              margin-top: 0;
-             margin-bottom: 30px;
-             color: white;
-             font-size: 2.8em;
-             font-weight: 700;
+             margin-bottom: 25px;
+             color: white; /* 제목 흰색 */
+             font-size: 2.6em;
         }
         #weather-now-detail, #weather-tomorrow-detail {
-             font-size: 1.3em; /* 날씨 정보 크기 증가 */
+             font-size: 1.2em;
              margin-bottom: 15px;
         }
 
-        /* List Item Styles */
+        /* Blog/News/Cafe/Job Lists */
+        #naver-blog-results, #news-list, #cafe-list, #job-list,
+        #events-list, #life-tips-list, #groups-list { /* 새 메뉴 섹션 ID 추가 */
+            padding: 30px 25px;
+            background-color: #ffffff; /* 흰색 배경으로 변경 */
+        }
         .list-item {
-            padding: 20px;
+            padding: 20px; /* 패딩 증가 */
             border-bottom: 1px solid var(--border-color);
             background: var(--card-bg);
             border-radius: 8px;
-            margin-bottom: 0; /* list-container의 gap으로 간격 조절 */
+            margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: border-left 0.3s ease, background-color 0.2s ease;
-            border-left: 5px solid transparent;
+            transition: border-left 0.3s ease; /* 호버 효과용 */
+            border-left: 4px solid transparent; /* 호버 시 색상 변경될 부분 */
         }
-        .list-item:last-child { border-bottom: 1px solid var(--border-color); } /* 마지막 요소도 구분선 유지 */
+        .list-item:last-child { border-bottom: none; }
         .list-item:hover {
-             border-left-color: var(--accent-color);
-             background-color: #f8f9fa; /* 호버 시 배경색 살짝 변경 */
+             border-left-color: var(--accent-color); /* 호버 시 왼쪽 테두리 강조 */
         }
         .list-item h3 {
              margin: 0 0 10px 0;
-             font-size: 1.2em;
+             font-size: 1.2em; /* 크기 증가 */
              color: var(--primary-color);
              font-weight: 600;
         }
         .list-item p {
-             margin: 0 0 8px 0;
+             margin: 0 0 8px 0; /* 간격 추가 */
              color: var(--text-dark);
              font-size: 1em;
         }
@@ -494,29 +415,17 @@
 
         /* Footer */
         footer {
-            background: #343a40;
+            background-color: var(--secondary-color);
             color: #adb5bd;
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 80px;
-            font-size: 0.95em;
-            border-top: 5px solid var(--primary-color);
+            padding: 40px 20px; /* 패딩 증가 */
+            margin-top: 80px; /* 여백 증가 */
+            font-size: 0.95em; /* 폰트 크기 증가 */
+            border-top: 5px solid var(--primary-color); /* 상단 테두리 */
         }
         footer p { margin: 5px 0; }
-        footer a {
-             color: #adb5bd;
-             text-decoration: none;
-             margin: 0 10px;
-             transition: color 0.2s ease;
-        }
-        footer a:hover { color: white; }
-
-
-        /* --- JavaScript 관련 스타일 (예: 날씨 로딩) --- */
-        #weather-nav-display .fa-spinner { margin-right: 5px; }
 
     </style>
-    {/* JavaScript 코드는 이전과 동일 (API 키 경고 등 포함) */}
     <script>
         // Function to toggle the login/signup section visibility
         function toggleLogin() {
@@ -524,9 +433,9 @@
             const isHidden = loginSection.style.display === "none" || loginSection.style.display === "";
             loginSection.style.display = isHidden ? "block" : "none";
             if (isHidden) {
-                const navHeight = document.querySelector('nav')?.offsetHeight || 55; // 네비 높이 반영
+                const navHeight = document.querySelector('nav')?.offsetHeight || 60;
                 window.scrollTo({
-                    top: loginSection.offsetTop - navHeight - 30, // 여유 공간 추가
+                    top: loginSection.offsetTop - navHeight - 20,
                     behavior: 'smooth'
                 });
             }
@@ -534,9 +443,20 @@
 
         // Function to translate English weather descriptions to Korean
         function translateWeather(desc) {
-          const dict = { "Overcast": "흐림", "Partly Cloudy": "구름 조금", "Cloudy": "흐림", "Sunny": "맑음", "Clear": "맑음", "Rain": "비", "Light rain": "약한 비", "Heavy rain": "강한 비", "Showers": "소나기", "Light rain shower": "약한 소나기", "Thunderstorm": "천둥번개", "Snow": "눈", "Light snow": "약한 눈", "Heavy snow": "강한 눈", "Sleet": "진눈깨비", "Mist": "옅은 안개", "Fog": "안개", "Haze": "연무",};
-          for (const key in dict) { if (desc.toLowerCase().startsWith(key.toLowerCase()) || desc.toLowerCase() === key.toLowerCase()) { return dict[key]; } }
-          for (const key in dict) { if (desc.toLowerCase().includes(key.toLowerCase())) { return dict[key]; } }
+          const dict = {
+            "Overcast": "흐림", "Partly Cloudy": "구름 조금", "Cloudy": "흐림",
+            "Sunny": "맑음", "Clear": "맑음", "Rain": "비", "Light rain": "약한 비",
+            "Heavy rain": "강한 비", "Showers": "소나기", "Light rain shower": "약한 소나기",
+            "Thunderstorm": "천둥번개", "Snow": "눈", "Light snow": "약한 눈",
+            "Heavy snow": "강한 눈", "Sleet": "진눈깨비", "Mist": "옅은 안개",
+            "Fog": "안개", "Haze": "연무",
+          };
+          for (const key in dict) {
+              if (desc.toLowerCase().startsWith(key.toLowerCase()) || desc.toLowerCase() === key.toLowerCase()) { return dict[key]; }
+          }
+           for (const key in dict) {
+              if (desc.toLowerCase().includes(key.toLowerCase())) { return dict[key]; }
+           }
           return desc;
         }
 
@@ -545,152 +465,188 @@
           const weatherNavElement = document.getElementById("weather-nav-display");
           const weatherNowElement = document.getElementById("weather-now-detail");
           const weatherTomorrowElement = document.getElementById("weather-tomorrow-detail");
-          if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-spinner fa-spin"></i> 날씨`;
+
+          if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-spinner fa-spin"></i> 날씨 로딩중`; // 로딩 아이콘 추가
           if (weatherNowElement) weatherNowElement.innerText = "현재 날씨: 로딩 중...";
           if (weatherTomorrowElement) weatherTomorrowElement.innerText = "내일 날씨: 로딩 중...";
+
           try {
             const res = await fetch('https://wttr.in/파주?format=j1');
             if (!res.ok) throw new Error(`API 오류: ${res.status}`);
             const data = await res.json();
+
             const now = data.current_condition[0];
             const currentTemp = now.temp_C;
             const currentDesc = translateWeather(now.weatherDesc[0].value);
             const feelsLike = now.FeelsLikeC;
-            let weatherIcon = 'fa-question-circle';
+            // 날씨 아이콘 매핑 (간단 예시)
+            let weatherIcon = 'fa-question-circle'; // 기본 아이콘
             if (currentDesc.includes('맑음')) weatherIcon = 'fa-sun';
             else if (currentDesc.includes('구름') || currentDesc.includes('흐림')) weatherIcon = 'fa-cloud';
             else if (currentDesc.includes('비') || currentDesc.includes('소나기')) weatherIcon = 'fa-cloud-showers-heavy';
             else if (currentDesc.includes('눈')) weatherIcon = 'fa-snowflake';
             else if (currentDesc.includes('안개')) weatherIcon = 'fa-smog';
-            const weatherNavText = `<i class="fas ${weatherIcon}"></i> ${currentTemp}°C`; // 네비에는 온도만 표시 (간결하게)
+
+            const weatherNavText = `<i class="fas ${weatherIcon}"></i> 파주: ${currentTemp}°C, ${currentDesc}`;
+
             const tomorrow = data.weather[1];
             const tomorrowDesc = translateWeather(tomorrow.hourly.find(h => h.time === "1200")?.weatherDesc[0].value || tomorrow.hourly[4].weatherDesc[0].value);
             const tomorrowMin = tomorrow.mintempC;
             const tomorrowMax = tomorrow.maxtempC;
             const weatherTomorrowText = `내일: 최저 ${tomorrowMin}°C / 최고 ${tomorrowMax}°C (${tomorrowDesc})`;
+
             if (weatherNavElement) weatherNavElement.innerHTML = weatherNavText;
             if (weatherNowElement) weatherNowElement.innerText = `현재 날씨: ${currentTemp}°C (${currentDesc}), 체감온도: ${feelsLike}°C`;
             if (weatherTomorrowElement) weatherTomorrowElement.innerText = weatherTomorrowText;
+
           } catch (e) {
-            console.error("날씨 정보 로딩 실패:", e); const errorMsg = "날씨 로딩 실패";
-            if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> 실패`;
+            console.error("날씨 정보 로딩 실패:", e);
+            const errorMsg = "날씨 로딩 실패";
+            if (weatherNavElement) weatherNavElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> 날씨 실패`;
             if (weatherNowElement) weatherNowElement.innerText = `현재 날씨: ${errorMsg}`;
             if (weatherTomorrowElement) weatherTomorrowElement.innerText = `내일 날씨: ${errorMsg}`;
           }
         }
 
-        // --- Naver Blog API (Demo - Security Risk!) ---
-        const clientId = "sRWrVGzhjlf_XQin0piV"; const clientSecret = "dzYflaHzKM";
+        // --- Naver Blog API ---
+        // =======================================================================
+        // 경고!!! 보안 위험!!! 서버 프록시 구현이 반드시 필요합니다!
+        // 이 코드는 데모 목적이며 실제 서비스에서는 절대 사용하면 안됩니다.
+        // =======================================================================
+        const clientId = "sRWrVGzhjlf_XQin0piV"; // !!! 보안 위험 !!!
+        const clientSecret = "dzYflaHzKM"; // !!! 보안 위험 !!!
+
         async function fetchNaverBlogs() {
-          const query = "파주 맛집"; const displayCount = 5; // 블로그는 5개만 표시
-          const apiURL = `https://openapi.naver.com/v1/search/blog?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`;
+          const query = "파주 맛집";
+          const displayCount = 10;
+          const apiURL = `https://openapi.naver.com/v1/search/blog?query=${encodeURIComponent(query)}&display=${displayCount}&sort=sim`; // 직접 호출 (위험!)
+
           const container = document.getElementById("naver-blog-results");
           if (!container) return;
-          container.innerHTML = `<p><i class="fas fa-spinner fa-spin"></i> 네이버 블로그 로딩 중...</p>`;
-          const securityWarning = document.createElement('p');
-          securityWarning.style.cssText = `color:#dc3545;font-size:0.9em;margin-top:15px;border:1px dashed #dc3545;padding:10px;border-radius:5px;`;
-          securityWarning.innerHTML = `<strong><i class="fas fa-exclamation-triangle"></i> 보안 경고:</strong> 데모 환경이므로 API 키가 코드에 노출되어 있습니다. 실제 서비스에서는 <strong>반드시 서버 프록시를 구현</strong>해야 하며, 이 방식은 CORS 오류로 인해 작동하지 않을 수 있습니다.`;
-          container.appendChild(securityWarning);
+          container.innerHTML = `<p><i class="fas fa-spinner fa-spin"></i> 네이버 블로그 '파주 맛집' 검색 결과 로딩 중...</p>`;
+
+          // 데모용 보안 경고 메시지 추가
+           const securityWarning = document.createElement('p');
+           securityWarning.style.color = '#dc3545';
+           securityWarning.style.fontSize = '0.9em';
+           securityWarning.style.marginTop = '15px';
+           securityWarning.style.border = '1px dashed #dc3545';
+           securityWarning.style.padding = '10px';
+           securityWarning.style.borderRadius = '5px';
+           securityWarning.innerHTML = `<strong><i class="fas fa-exclamation-triangle"></i> 보안 경고:</strong> 데모 환경이므로 API 키가 코드에 노출되어 있습니다. 실제 서비스에서는 <strong>반드시 서버 프록시를 구현</strong>해야 하며, 이 방식은 CORS 오류로 인해 작동하지 않을 수 있습니다.`;
+           container.appendChild(securityWarning);
+
+
           try {
-            const response = await fetch(apiURL, { method: "GET", headers: { "X-Naver-Client-Id": clientId, "X-Naver-Client-Secret": clientSecret } });
-            if (!response.ok) {
-              if (response.status === 0 || response.type === 'opaque' || response.type === 'cors') { throw new Error("네트워크 오류 또는 CORS 문제 발생. 서버 측 프록시 구현이 필요합니다."); }
-              else { const errorData = await response.json().catch(() => ({})); throw new Error(`네이버 API 오류: ${response.status} ${response.statusText}. ${errorData.errorMessage || ''}`); }
-            }
-            const data = await response.json();
-            const loadingPara = container.querySelector('p:not([style*="color: #dc3545"])');
-            if (loadingPara) container.removeChild(loadingPara);
-            if (data.items && data.items.length > 0) {
-              data.items.forEach(item => {
-                const div = document.createElement("div"); div.classList.add('list-item');
-                const title = item.title.replace(/<[^>]*>/g, ""); const description = item.description.replace(/<[^>]*>/g, ""); const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3');
-                div.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer"><h3><i class="fab fa-blogger-b"></i> ${title}</h3><p>${description}</p><small>${item.bloggername} (${postDate})</small></a>`;
-                container.appendChild(div);
-              });
-            } else { container.innerHTML += '<p>관련 블로그 글을 찾을 수 없습니다.</p>'; }
-          } catch (error) { console.error("네이버 블로그 로딩 실패:", error); container.innerHTML = `<p style="color: red;"><i class="fas fa-times-circle"></i> 블로그 글 로딩 중 오류 발생: ${error.message}</p>`; }
+                // **주의:** 이 방식은 브라우저에서 CORS 오류를 발생시킬 가능성이 매우 높습니다.
+                const response = await fetch(apiURL, {
+                    method: "GET",
+                    headers: {
+                        "X-Naver-Client-Id": clientId, // 보안 위험!
+                        "X-Naver-Client-Secret": clientSecret, // 보안 위험!
+                    }
+                 });
+
+                if (!response.ok) {
+                    if (response.status === 0 || response.type === 'opaque' || response.type === 'cors') {
+                         throw new Error("네트워크 오류 또는 CORS 문제 발생. 서버 측 프록시 구현이 필요합니다.");
+                    } else {
+                         const errorData = await response.json().catch(() => ({}));
+                         throw new Error(`네이버 API 오류: ${response.status} ${response.statusText}. ${errorData.errorMessage || ''}`);
+                    }
+                }
+                const data = await response.json();
+
+                // 성공 시 로딩 메시지 제거 (경고는 남겨둘 수 있음)
+                const loadingPara = container.querySelector('p:not([style*="color: #dc3545"])');
+                if (loadingPara) container.removeChild(loadingPara);
+
+                if (data.items && data.items.length > 0) {
+                    data.items.forEach(item => {
+                        const div = document.createElement("div");
+                        div.classList.add('list-item');
+                        const title = item.title.replace(/<[^>]*>/g, "");
+                        const description = item.description.replace(/<[^>]*>/g, "");
+                        const postDate = item.postdate.replace(/(\d{4})(\d{2})(\d{2})/, '$1.$2.$3');
+                        div.innerHTML = `
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer">
+                                <h3><i class="fab fa-blogger-b"></i> ${title}</h3>
+                                <p>${description}</p>
+                                <small>${item.bloggername} (${postDate})</small>
+                            </a>
+                        `;
+                        container.appendChild(div);
+                    });
+                } else {
+                     container.innerHTML += '<p>관련 블로그 글을 찾을 수 없습니다.</p>'; // 기존 내용에 추가
+                }
+          } catch (error) {
+              console.error("네이버 블로그 로딩 실패:", error);
+              container.innerHTML = `<p style="color: red;"><i class="fas fa-times-circle"></i> 블로그 글 로딩 중 오류 발생: ${error.message}</p>`;
+          }
         }
 
-        // Init
+        // --- 페이지 콘텐츠 로드 시 함수 실행 ---
         document.addEventListener('DOMContentLoaded', () => {
-            fetchWeather(); setInterval(fetchWeather, 3600000);
+            fetchWeather();
+            setInterval(fetchWeather, 60 * 60 * 1000);
             fetchNaverBlogs();
         });
+
     </script>
 </head>
 <body>
 
     <!-- Header Section -->
     <header class="main-header">
-        <h1><i class="fas fa-map-signs"></i> 로컬잇파주</h1> {/* 아이콘 변경 */}
-        <p class="subtitle">우리동네 이야기, 정보, 즐거움이 가득한 곳</p>
+        <h1><i class="fas fa-map-marker-alt"></i> 로컬잇파주 <span style="font-size:0.6em; vertical-align: middle;">: 파주를 잇다</span></h1>
+        <p class="subtitle">파주시민을 위한 활기찬 커뮤니티 & 정보 허브</p>
     </header>
 
-    <!-- Navigation Bar (Dropdown Menus) -->
+    <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i> 홈</a></li> {/* 홈 메뉴 추가 */}
-            <li>
-                <a href="#"><i class="fas fa-comments"></i> 커뮤니티 <i class="fas fa-caret-down menu-arrow"></i></a>
-                <ul>
-                    <li><a href="#latest-posts"><i class="fas fa-newspaper"></i> 최신글</a></li>
-                    <li><a href="#popular-posts"><i class="fas fa-fire"></i> 인기글</a></li>
-                    <li><a href="#anon-board"><i class="fas fa-user-secret"></i> 익명 게시판</a></li>
-                     <li><a href="#groups"><i class="fas fa-users"></i> 동호회/소모임</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fas fa-info-circle"></i> 정보광장 <i class="fas fa-caret-down menu-arrow"></i></a>
-                <ul>
-                    <li><a href="#events"><i class="fas fa-calendar-alt"></i> 지역 행사</a></li>
-                    <li><a href="#life-tips"><i class="fas fa-lightbulb"></i> 생활정보/꿀팁</a></li>
-                    <li><a href="#news-list"><i class="fas fa-bullhorn"></i> 파주 소식</a></li> {/* 뉴스/블로그 통합 */}
-                </ul>
-            </li>
-             <li>
-                <a href="#"><i class="fas fa-store"></i> 장터/구인 <i class="fas fa-caret-down menu-arrow"></i></a>
-                <ul>
-                     <li><a href="#market"><i class="fas fa-exchange-alt"></i> 직거래 장터</a></li>
-                     <li><a href="#job-list"><i class="fas fa-briefcase"></i> 채용 정보</a></li>
-                </ul>
-            </li>
-             <li><a href="#cafe-list"><i class="fas fa-coffee"></i> 카페/맛집</a></li> {/* 단일 메뉴 유지 */}
-
-            {/* --- Right Aligned Items --- */}
-            <li class="nav-right">
-                <span class="nav-weather" id="weather-nav-display"><i class="fas fa-spinner fa-spin"></i> 날씨</span>
-            </li>
-            <li class="nav-login">
-                <a onclick="toggleLogin()" role="button"><i class="fas fa-sign-in-alt"></i> 로그인/가입</a>
-            </li>
+            <li><a href="#latest-posts"><i class="fas fa-newspaper"></i> 최신글</a></li>
+            <li><a href="#popular-posts"><i class="fas fa-fire"></i> 인기글</a></li>
+            <li><a href="#market"><i class="fas fa-store"></i> 직거래 장터</a></li>
+            <li><a href="#events"><i class="fas fa-calendar-alt"></i> 지역 행사</a></li> {/* NEW */}
+            <li><a href="#cafe-list"><i class="fas fa-coffee"></i> 카페/맛집</a></li>
+            <li><a href="#life-tips"><i class="fas fa-lightbulb"></i> 생활정보/꿀팁</a></li> {/* NEW */}
+            <li><a href="#job-list"><i class="fas fa-briefcase"></i> 채용 정보</a></li>
+            <li><a href="#groups"><i class="fas fa-users"></i> 동호회/소모임</a></li> {/* NEW */}
+            <li><a href="#anon-board"><i class="fas fa-user-secret"></i> 익명 게시판</a></li>
+            {/* Weather and Login moved to the right */}
+            <li class="nav-weather"><span id="weather-nav-display"><i class="fas fa-spinner fa-spin"></i> 날씨 로딩중</span></li>
+            <li class="nav-login"><a onclick="toggleLogin()" role="button"><i class="fas fa-sign-in-alt"></i> 로그인/가입</a></li>
         </ul>
     </nav>
 
     <main>
-        {/* ----- 섹션 구조는 이전과 유사하게 유지 ----- */}
-        {/* 섹션 제목 아이콘 등은 유지 또는 필요시 변경 */}
-
-        {/* Latest Posts Section */}
+        <!-- Latest Posts Section -->
         <section id="latest-posts">
-            <h2 class="section-title"><i class="fas fa-clock"></i> 최신글</h2>
-            <div class="home-posts"> {/* grid layout 적용됨 */}
+            <h2 class="section-title"><i class="fas fa-clock"></i> 최신 게시물</h2>
+            <div class="home-posts card-container"> {/* card-container 클래스 추가 */}
                 <div class="card"><h3><i class="fas fa-leaf"></i> 운정호수공원 산책 후기</h3><p>날씨가 좋아서 다녀왔는데 꽃이 예쁘게 피었네요! 🌸</p></div>
                 <div class="card"><h3><i class="fas fa-question-circle"></i> 금촌 로타리 근처 질문</h3><p>혹시 이 근처에 24시간 하는 약국 있을까요?</p></div>
                 <div class="card"><h3><i class="fas fa-utensils"></i> 파주 맛집 추천 받아요!</h3><p>주말에 가족 외식 하려는데 괜찮은 곳 있으면 알려주세요~</p></div>
+                <div class="card"><h3><i class="fas fa-shopping-basket"></i> 문산 자유시장 장날 정보</h3><p>이번 주 장날 가시는 분 계신가요? 같이 가실 분~</p></div>
+                 <div class="card"><h3><i class="fas fa-child"></i> 아이랑 갈만한 곳</h3><p>주말에 5살 아이 데리고 갈만한 키즈카페나 체험 장소 추천 부탁드립니다.</p></div>
+                <div class="card"><h3><i class="fas fa-home"></i> 이사왔어요!</h3><p>최근에 파주로 이사왔는데 잘 부탁드려요!</p></div>
             </div>
         </section>
 
-        {/* Popular Posts Section */}
+        <!-- Popular Posts Section -->
         <section id="popular-posts">
-            <h2 class="section-title"><i class="fas fa-fire-alt"></i> 인기글</h2>
-            <div class="home-posts">
+            <h2 class="section-title"><i class="fas fa-fire-alt"></i> 인기 게시물</h2>
+            <div class="home-posts card-container">
                 <div class="card"><h3><i class="fas fa-star"></i> [HOT] 파주페이 사용처 꿀팁 공유</h3><p>이런 곳에서도 파주페이가 되더라구요! 정보 공유합니다.</p></div>
                 <div class="card"><h3><i class="fas fa-hiking"></i> 심학산 둘레길 코스 추천</h3><p>등산 초보도 가기 좋은 코스 알려드릴게요!</p></div>
                 <div class="card"><h3><i class="fas fa-parking"></i> 헤이리마을 주말 주차 팁</h3><p>주말에 헤이리 갔다가 주차 때문에 고생했는데... 다음엔 여기 세우세요!</p></div>
+                <div class="card"><h3><i class="fas fa-info-circle"></i> [정보] 파주시 육아지원 정책 변경 안내</h3><p>최근에 바뀐 내용이 있어서 공유해요. 확인해보세요!</p></div>
             </div>
         </section>
 
-        {/* Marketplace Section */}
+        <!-- Marketplace Section -->
         <section id="market">
             <h2 class="section-title"><i class="fas fa-exchange-alt"></i> 직거래 장터</h2>
             <div class="filters">
@@ -708,7 +664,7 @@
                         <p class="post-meta"><i class="far fa-clock"></i> 방금 전 | <i class="far fa-eye"></i> 조회수 12</p>
                         <div class="comment-box">
                             <textarea placeholder="댓글을 남겨주세요..."></textarea>
-                            <button><i class="fas fa-comment"></i> 댓글</button>
+                            <button><i class="fas fa-comment"></i> 댓글 달기</button>
                         </div>
                     </div>
                 </div>
@@ -720,7 +676,7 @@
                         <p class="post-meta"><i class="far fa-clock"></i> 1시간 전 | <i class="far fa-eye"></i> 조회수 35</p>
                          <div class="comment-box">
                             <textarea placeholder="댓글을 남겨주세요..."></textarea>
-                            <button><i class="fas fa-comment"></i> 댓글</button>
+                            <button><i class="fas fa-comment"></i> 댓글 달기</button>
                         </div>
                     </div>
                 </div>
@@ -732,92 +688,129 @@
                         <p class="post-meta"><i class="far fa-clock"></i> 3시간 전 | <i class="far fa-eye"></i> 조회수 58</p>
                          <div class="comment-box">
                             <textarea placeholder="댓글을 남겨주세요..."></textarea>
-                            <button><i class="fas fa-comment"></i> 댓글</button>
+                            <button><i class="fas fa-comment"></i> 댓글 달기</button>
+                        </div>
+                    </div>
+                </div>
+                 {/* 추가 마켓 게시물 예시 */}
+                 <div class="post card">
+                    <img alt="책" src="https://source.unsplash.com/400x300/?books"/>
+                    <div class="post-content">
+                        <h3>거의 새 책 몇 권 팝니다 (자기계발)</h3>
+                        <p><strong>각 5,000원</strong> · 문산읍</p>
+                        <p class="post-meta"><i class="far fa-clock"></i> 5시간 전 | <i class="far fa-eye"></i> 조회수 21</p>
+                         <div class="comment-box">
+                            <textarea placeholder="댓글을 남겨주세요..."></textarea>
+                            <button><i class="fas fa-comment"></i> 댓글 달기</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        {/* ----- Other Sections (Content similar to before, using list-container)----- */}
-         <section id="events">
-            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 지역 행사</h2>
-            <div class="list-container" style="max-width: 900px; margin: auto;">
+        {/* ----- NEW SECTIONS ----- */}
+        <section id="events">
+            <h2 class="section-title"><i class="fas fa-bullhorn"></i> 지역 행사/이벤트</h2>
+            <div id="events-list" class="list-container" style="max-width: 900px; margin: auto;">
                 <div class="list-item"><h3><i class="fas fa-calendar-check"></i> 2024 파주 포크 페스티벌 안내</h3><p>일시: 2024.09.XX / 장소: 임진각 평화누리 공원 / 자세한 라인업은 홈페이지 참조</p><small>주최: 파주시</small></div>
                 <div class="list-item"><h3><i class="fas fa-store"></i> 운정 플리마켓 '소소마켓' 개최</h3><p>다양한 수공예품과 먹거리가 준비됩니다. 주말 나들이 오세요!</p><small>매월 마지막 주 토요일</small></div>
+                <div class="list-item"><h3><i class="fas fa-paint-brush"></i> 헤이리 예술마을 주말 공연</h3><p>이번 주말, OOO 작가의 전시 오프닝 및 미니 콘서트가 열립니다.</p><small>참가비: 무료</small></div>
             </div>
         </section>
 
         <section id="cafe-list">
-            <h2 class="section-title"><i class="fas fa-mug-hot"></i> 카페 & 맛집</h2>
-             <div class="list-container" style="max-width: 900px; margin: auto;">
+            <h2 class="section-title"><i class="fas fa-mug-hot"></i> 카페 & 맛집 탐방</h2>
+             <div id="cafe-list-items" class="list-container" style="max-width: 900px; margin: auto;">
                  <div class="list-item"><h3><i class="fas fa-bread-slice"></i> [운정] 분위기 좋은 브런치 카페 '카페 델 솔'</h3><p>주말 오전에 가기 딱 좋은 곳! 파스타랑 샐러드 맛있어요. 주차 가능.</p></div>
                  <div class="list-item"><h3><i class="fas fa-drumstick-bite"></i> [금촌] 숨겨진 로컬 맛집 '할매 순대국'</h3><p>진한 국물이 일품! 점심 시간에 가면 항상 사람이 많아요. 포장 추천.</p></div>
                  <div class="list-item"><h3><i class="fas fa-cookie-bite"></i> [헤이리] '프로방스 베이커리' 빵 추천</h3><p>마늘빵은 꼭 드셔보세요! 종류도 다양하고 맛있습니다. 선물용으로도 좋아요.</p></div>
-                 {/* Naver Blog results will be loaded here */}
-                 <div id="naver-blog-results">
-                      <p><i class="fas fa-spinner fa-spin"></i> 네이버 블로그 로딩 중...</p>
-                 </div>
             </div>
         </section>
 
-         <section id="life-tips">
-            <h2 class="section-title"><i class="fas fa-lightbulb"></i> 생활정보/꿀팁</h2>
-            <div class="list-container" style="max-width: 900px; margin: auto;">
+        <section id="life-tips">
+            <h2 class="section-title"><i class="fas fa-info"></i> 생활정보/꿀팁</h2>
+            <div id="life-tips-list" class="list-container" style="max-width: 900px; margin: auto;">
                 <div class="list-item"><h3><i class="fas fa-bus"></i> 파주 시내버스 노선 변경 안내 (2024년 하반기)</h3><p>XX번, OO번 버스 노선이 일부 변경되었습니다. 자세한 내용은 파주시청 교통정보 확인하세요.</p></div>
                 <div class="list-item"><h3><i class="fas fa-recycle"></i> 재활용 쓰레기 분리수거 제대로 하는 법</h3><p>헷갈리는 플라스틱, 비닐류 분리배출 방법 총정리!</p></div>
+                <div class="list-item"><h3><i class="fas fa-landmark"></i> 파주시 주요 공공시설 이용 시간 및 요금 정보</h3><p>도서관, 체육시설 등 운영 시간 및 예약 방법을 확인하세요.</p></div>
             </div>
         </section>
 
         <section id="job-list">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> 채용 정보</h2>
-            <div class="list-container" style="max-width: 900px; margin: auto;">
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> 채용 정보</h2>
+            <div id="job-list-items" class="list-container" style="max-width: 900px; margin: auto;">
                 <div class="list-item"><h3><i class="fas fa-store-alt"></i> [운정] 카페 주말 아르바이트 모집 (오후)</h3><p>성실하고 밝은 분 찾습니다. 시급 협의 가능. 경력자 우대.</p><small>문의: 010-xxxx-xxxx</small></div>
                 <div class="list-item"><h3><i class="fas fa-truck"></i> [문산] 물류센터 단기 알바 구함 (주간/야간)</h3><p>초보 가능, 동반 지원 환영. 통근 버스 운행. 일급 당일 지급 가능.</p><small>지원 방법: 온라인 지원</small></div>
+                <div class="list-item"><h3><i class="fas fa-chalkboard-teacher"></i> [금촌] 초등학교 방과 후 강사 모집 (영어)</h3><p>관련 자격증 소지자 우대. 주 2회 출근. 아이들을 사랑하는 분 지원해주세요.</p><small>이메일 지원: paju_school@example.com</small></div>
             </div>
         </section>
 
-         <section id="groups">
-            <h2 class="section-title"><i class="fas fa-users"></i> 동호회/소모임</h2>
-            <div class="list-container" style="max-width: 900px; margin: auto;">
+        <section id="groups">
+            <h2 class="section-title"><i class="fas fa-comments"></i> 동호회/소모임</h2>
+            <div id="groups-list" class="list-container" style="max-width: 900px; margin: auto;">
                 <div class="list-item"><h3><i class="fas fa-hiking"></i> 파주 등산 동호회 '산울림' 회원 모집</h3><p>매주 주말 파주 및 근교 산행. 초보 환영! 함께 건강 챙겨요.</p><small>문의: 댓글 또는 쪽지</small></div>
                 <div class="list-item"><h3><i class="fas fa-camera-retro"></i> 사진 동호회 '파주 셔터스' 출사 안내</h3><p>이번 달 출사지는 벽초지 수목원입니다. 사진에 관심 있는 분 누구나 참여 가능!</p></div>
+                <div class="list-item"><h3><i class="fas fa-book-reader"></i> 독서 모임 '책 읽는 파주' 9월의 책</h3><p>O월의 책은 'XXX'입니다. 함께 읽고 이야기 나눌 분들을 기다립니다.</p><small>매월 셋째 주 수요일 저녁</small></div>
             </div>
         </section>
+        {/* ----- END NEW SECTIONS ----- */}
 
-         <section id="news-list">
-            <h2 class="section-title"><i class="fas fa-bullhorn"></i> 파주 소식</h2>
+        <!-- Paju News / Blog Section -->
+        <section id="news-list"> {/* ID 통일 */}
+            <h2 class="section-title"><i class="fas fa-rss-square"></i> 파주 소식 & 블로그</h2>
+            {/* Naver Blog results will be loaded here by JS */}
+            <div id="naver-blog-results" class="list-container" style="max-width: 900px; margin: auto; padding-bottom: 40px;">
+                 {/* Content generated by JavaScript */}
+                 <p><i class="fas fa-spinner fa-spin"></i> 네이버 블로그 '파주 맛집' 검색 결과 로딩 중...</p>
+                 {/* JS will add security warning here */}
+            </div>
+            <hr style="margin: 40px auto; width: 80%; border: 0; height: 1px; background: #ccc;">
+             {/* Placeholder for other news */}
             <div class="list-container" style="max-width: 900px; margin: auto;">
-                 <div class="list-item"><h3><i class="fas fa-theater-masks"></i> 파주시, 2024년 하반기 문화 행사 일정 발표</h3><p>다양한 공연과 전시가 준비되어 있으니 많은 참여 바랍니다. 홈페이지 참조.</p></div>
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--secondary-color);"><i class="fas fa-broadcast-tower"></i> 기타 파주 소식</h3>
+                <div class="list-item"><h3><i class="fas fa-theater-masks"></i> 파주시, 2024년 하반기 문화 행사 일정 발표</h3><p>다양한 공연과 전시가 준비되어 있으니 많은 참여 바랍니다. 홈페이지 참조.</p></div>
                  <div class="list-item"><h3><i class="fas fa-train"></i> 경의중앙선 운행 시간 일부 조정 안내</h3><p>자세한 시간표는 코레일 홈페이지 또는 앱을 참고하세요. 출퇴근 시간 유의.</p></div>
             </div>
         </section>
 
+        <!-- Anonymous Board Section -->
         <section id="anon-board">
-            <h2 class="section-title"><i class="fas fa-user-secret"></i> 익명 게시판</h2>
-            <div class="home-posts">
+            <h2 class="section-title"><i class="fas fa-mask"></i> 익명 게시판</h2>
+            <div class="home-posts card-container">
                 <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명)</h3><p>요즘 층간 소음 때문에 너무 힘든데 어떻게 대처하는게 좋을까요? 경험 공유 부탁드려요.</p></div>
                 <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명)</h3><p>회사 동료 때문에 스트레스 받는데... 그냥 참아야겠죠? ㅠㅠ 조언 좀 해주세요.</p></div>
                 <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명)</h3><p>파주에 괜찮은 병원 추천 좀 해주세요. (내과, 이비인후과)</p></div>
+                 <div class="card"><h3><i class="fas fa-comment-slash"></i> (익명)</h3><p>이사 온 지 얼마 안 됐는데, 동네 친구 사귀고 싶어요. 어떻게 시작해야 할까요?</p></div>
             </div>
         </section>
 
-        {/* ----- Other Sections (Weather, Badge, Login) ----- */}
+         <!-- Weather Details Section -->
         <section id="weather-section">
-            <h2 class="section-title" style="color:white; padding-bottom: 15px;"><i class="fas fa-cloud-sun-rain"></i> 오늘의 파주 날씨</h2>
+            <h2 class="section-title"><i class="fas fa-cloud-sun-rain"></i> 오늘의 파주 날씨</h2>
             <div id="weather-now-detail" style="font-weight: bold;">현재 날씨: 로딩 중...</div>
             <div id="weather-tomorrow-detail">내일 날씨: 로딩 중...</div>
         </section>
 
+        <!-- User Badge Examples Section -->
         <section id="badge-preview">
-            <h2 class="section-title"><i class="fas fa-medal"></i> 유저 레벨</h2>
-            <div class="home-posts">
-                <div class="card"><h3>홍길동 <span class="badge lv1"><i class="fas fa-seedling"></i> Lv.1</span></h3><p>새싹 주민</p></div>
-                <div class="card"><h3>🔵 김반장 <span class="badge lv3"><i class="fas fa-microphone-alt"></i> Lv.3</span></h3><p>동네 이장</p></div>
-                <div class="card"><h3>🔴 박파주 <span class="badge lv7"><i class="fas fa-landmark"></i> Lv.7</span></h3><p>파주 지킴이</p></div>
+            <h2 class="section-title"><i class="fas fa-medal"></i> 유저 레벨 칭호</h2>
+            <div class="home-posts card-container">
+                <div class="card">
+                    <h3>홍길동 <span class="badge lv1"><i class="fas fa-seedling"></i> Lv.1 새싹 주민</span></h3>
+                    <p>가입한 지 얼마 안 된 풋풋한 새싹이에요.</p>
+                </div>
+                <div class="card">
+                    <h3>🔵 김반장 <span class="badge lv3"><i class="fas fa-microphone-alt"></i> Lv.3 동네 이장</span></h3>
+                    <p>자주 활동하며 동네 정보를 나눠요.</p>
+                </div>
+                <div class="card">
+                    <h3>🔴 박파주 <span class="badge lv7"><i class="fas fa-landmark"></i> Lv.7 파주 지킴이</span></h3>
+                    <p>로컬잇파주의 터줏대감! 모르는 게 없어요.</p>
+                </div>
             </div>
         </section>
 
+        <!-- Login/Signup Section (Initially Hidden) -->
         <section id="login-section">
             <div class="form-box">
                 <h3><i class="fas fa-user-circle"></i> 로그인 또는 회원가입</h3>
@@ -833,7 +826,6 @@
                 <button type="submit"><i class="fas fa-check-circle"></i> 로그인 또는 가입 완료</button>
             </div>
         </section>
-
     </main>
 
     <!-- Footer -->
@@ -841,9 +833,8 @@
         <p><i class="far fa-copyright"></i> 2024 로컬잇파주 (Localit Paju). All Rights Reserved.</p>
         <p>파주 시민들의 즐겁고 유익한 소통 공간입니다.</p>
         <p style="margin-top: 15px;">
-            <a href="#">이용약관</a> |
-            <a href="#">개인정보처리방침</a> |
-            <a href="#">문의하기</a> {/* 문의하기 추가 */}
+            <a href="#" style="color: #adb5bd; margin: 0 10px;">이용약관</a> |
+            <a href="#" style="color: #adb5bd; margin: 0 10px;">개인정보처리방침</a>
         </p>
     </footer>
 
